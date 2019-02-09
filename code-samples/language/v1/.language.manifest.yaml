@@ -1,0 +1,31 @@
+---
+version: 1
+sets:
+- language: php
+  bin: php
+  path: language/v1/
+  __items__:
+  - region_tag: language_entity_sentiment_text
+    path: php/AnalyzeEntitySentimentRequestLanguageEntitySentimentText.php
+  - region_tag: language_syntax_text
+    path: php/AnalyzeSyntaxRequestLanguageSyntaxText.php
+  - region_tag: language_syntax_gcs
+    path: php/AnalyzeSyntaxRequestLanguageSyntaxGcs.php
+  - region_tag: language_sentiment_text
+    path: php/AnalyzeSentimentRequestLanguageSentimentText.php
+  - region_tag: language_sentiment_gcs
+    path: php/AnalyzeSentimentRequestLanguageSentimentGcs.php
+- language: go
+  bin: go run
+  path: language/v1/
+  __items__:
+  - region_tag: language_syntax_gcs
+    path: go/google.cloud.language.v1.LanguageService_AnalyzeSyntax_language_syntax_gcs.go
+  - region_tag: language_sentiment_text
+    path: go/google.cloud.language.v1.LanguageService_AnalyzeSentiment_language_sentiment_text.go
+  - region_tag: language_syntax_text
+    path: go/google.cloud.language.v1.LanguageService_AnalyzeSyntax_language_syntax_text.go
+  - region_tag: language_entity_sentiment_text
+    path: go/google.cloud.language.v1.LanguageService_AnalyzeEntitySentiment_language_entity_sentiment_text.go
+  - region_tag: language_sentiment_gcs
+    path: go/google.cloud.language.v1.LanguageService_AnalyzeSentiment_language_sentiment_gcs.go

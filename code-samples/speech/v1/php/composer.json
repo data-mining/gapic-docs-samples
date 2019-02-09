@@ -1,5 +1,5 @@
 {
     "require": {
-        "google/cloud-speech": "~0.17"
+        "google/cloud-speech": ">0.0.1"
     }
 }

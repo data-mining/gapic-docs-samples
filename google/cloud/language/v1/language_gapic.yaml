@@ -122,6 +122,48 @@ interfaces:
     retry_codes_name: idempotent
     retry_params_name: default
     timeout_millis: 30000
+    samples:
+       standalone:
+       - calling_forms: ".*"
+         value_sets: [language_entity_sentiment_text]
+         region_tag: language_entity_sentiment_text
+    sample_value_sets:
+    - id: language_entity_sentiment_text
+      description: "Analyze Entity Sentiment"
+      parameters:
+        defaults:
+        - document.type=PLAIN_TEXT
+        - document.content="California is a state."
+        attributes:
+        - parameter: document.content
+          sample_argument_name: content
+      on_success:
+      - loop:
+          collection: $resp.entities
+          variable: entity
+          body:
+          - print:
+            - "Entity name: %s"
+            - entity.name
+          - print:
+            - "Entity sentiment: %s"
+            - entity.sentiment.score
+          - loop:
+              collection: entity.mentions
+              variable: mention
+              body:
+              - print:
+                - "Content: %s"
+                - mention.text.content
+              - print:
+                - "Sentiment score: %s"
+                - mention.sentiment.score
+              - print:
+                - "Sentiment magnitude: %s"
+                - mention.sentiment.magnitude
+              - print:
+                - "Mention type: %s"
+                - mention.type
   - name: AnalyzeSyntax
     flattening:
       groups:

@@ -1,0 +1,17 @@
+---
+version: 1
+sets:
+- language: php
+  bin: php
+  path: dialogflow/v2/
+  __items__:
+  - region_tag: dialogflow_create_entity_type
+    path: php/CreateEntityTypeRequestDialogflowCreateEntityType.php
+  - region_tag: dialogflow_list_entity_types
+    path: php/ListEntityTypesRequestPagedAllDialogflowListEntityTypes.php
+  - region_tag: dialogflow_delete_entity_type
+    path: php/DeleteEntityTypeRequestDialogflowDeleteEntityType.php
+- language: go
+  bin: go run
+  path: dialogflow/v2/
+  __items__: []

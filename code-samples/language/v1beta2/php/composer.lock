@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb0897366fe47103834373d91c895748",
+    "content-hash": "3ddd5bf3437ff2a64dc91f519d44abb5",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -160,17 +160,17 @@
             "time": "2019-02-06T21:40:58+00:00"
         },
         {
-            "name": "google/cloud-speech",
-            "version": "v0.21.0",
+            "name": "google/cloud-language",
+            "version": "v0.16.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/googleapis/google-cloud-php-speech.git",
-                "reference": "4e1ee72323631d0ef70ab923f65ba2cb59a1902e"
+                "url": "https://github.com/googleapis/google-cloud-php-language.git",
+                "reference": "02c49eb14cdfc2e85d454a451205459aded1dfe8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-speech/zipball/4e1ee72323631d0ef70ab923f65ba2cb59a1902e",
-                "reference": "4e1ee72323631d0ef70ab923f65ba2cb59a1902e",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-language/zipball/02c49eb14cdfc2e85d454a451205459aded1dfe8",
+                "reference": "02c49eb14cdfc2e85d454a451205459aded1dfe8",
                 "shasum": ""
             },
             "require": {
@@ -186,28 +186,29 @@
             },
             "suggest": {
                 "ext-grpc": "The gRPC extension enables use of the performant gRPC transport",
-                "ext-protobuf": "Provides a significant increase in throughput over the pure PHP protobuf implementation. See https://cloud.google.com/php/grpc for installation instructions."
+                "ext-protobuf": "Provides a significant increase in throughput over the pure PHP protobuf implementation. See https://cloud.google.com/php/grpc for installation instructions.",
+                "google/cloud-storage": "Analyze documents stored in Google Cloud Storage"
             },
             "type": "library",
             "extra": {
                 "component": {
-                    "id": "cloud-speech",
-                    "target": "googleapis/google-cloud-php-speech.git",
-                    "path": "Speech",
-                    "entry": "src/SpeechClient.php"
+                    "id": "cloud-language",
+                    "target": "googleapis/google-cloud-php-language.git",
+                    "path": "Language",
+                    "entry": "src/LanguageClient.php"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Google\\Cloud\\Speech\\": "src",
-                    "GPBMetadata\\Google\\Cloud\\Speech\\": "metadata"
+                    "Google\\Cloud\\Language\\": "src",
+                    "GPBMetadata\\Google\\Cloud\\Language\\": "metadata"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
             ],
-            "description": "Cloud Speech Client for PHP",
+            "description": "Cloud Natural Language Client for PHP",
             "time": "2019-02-06T21:40:58+00:00"
         },
         {

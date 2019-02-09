@@ -26,9 +26,6 @@ use Google\Cloud\Dialogflow\V2\EntityTypesClient;
 
 function sampleDeleteEntityType($projectId, $entityTypeId)
 {
-    printf('ENTITY TYPE ID BELOW');
-    printf($entityTypeId);
-    printf('ENTITY TYPE ID ABOVE');
     // [START dialogflow_delete_entity_type_core]
 
     $entityTypesClient = new EntityTypesClient();

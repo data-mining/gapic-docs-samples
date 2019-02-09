@@ -32,7 +32,7 @@ function sampleAnalyzeSyntax($content)
 
     $languageServiceClient = new LanguageServiceClient();
 
-    // $content = 'Your text to analyze, e.g. Hello, world!';
+    // $content = 'California is a state.';
     $type = Document_Type::PLAIN_TEXT;
     $document = new Document();
     $document->setType($type);
@@ -43,7 +43,7 @@ function sampleAnalyzeSyntax($content)
         $tokens = $response->getTokens();
         foreach ($tokens as $token) {
             printf('Part of speech: %s'.PHP_EOL, $token->getPartOfSpeech()->getTag());
-            printf('Text:'.PHP_EOL, print_r($token->getText(), true));
+            printf('Text: %s'.PHP_EOL, $token->getText()->getContent());
         }
     } finally {
         $languageServiceClient->close();
@@ -58,7 +58,7 @@ $opts = [
 ];
 
 $defaultOptions = [
-    'content' => 'Your text to analyze, e.g. Hello, world!',
+    'content' => 'California is a state.',
 ];
 
 $options = getopt('', $opts);

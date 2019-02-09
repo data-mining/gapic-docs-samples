@@ -16,52 +16,56 @@
  */
 
 /*
- * DO NOT EDIT! This is a generated sample ("Request",  "language_sentiment_text")
+ * DO NOT EDIT! This is a generated sample ("Request",  "language_analyze_sentiment_v1beta2")
  */
 
-// [START language_sentiment_text]
+// [START language_analyze_sentiment_v1beta2]
 require __DIR__ . '/vendor/autoload.php';
 
-use Google\Cloud\Language\V1\LanguageServiceClient;
-use Google\Cloud\Language\V1\Document;
-use Google\Cloud\Language\V1\Document_Type;
+use Google\Cloud\Language\V1beta2\LanguageServiceClient;
+use Google\Cloud\Language\V1beta2\Document;
+use Google\Cloud\Language\V1beta2\Document_Type;
 
-function sampleAnalyzeSentiment($content)
+function sampleAnalyzeSentiment($textContent)
 {
-    // [START language_sentiment_text_core]
+    // [START language_analyze_sentiment_v1beta2_core]
 
     $languageServiceClient = new LanguageServiceClient();
 
-    // $content = 'Your text to analyze, e.g. Hello, world!';
+    // $textContent = 'Example text for sentiment analysis';
     $type = Document_Type::PLAIN_TEXT;
     $document = new Document();
+    $document->setContent($textContent);
     $document->setType($type);
-    $document->setContent($content);
 
     try {
         $response = $languageServiceClient->analyzeSentiment($document);
         $sentiment = $response->getDocumentSentiment();
-        printf('score: %s'.PHP_EOL, $sentiment->getScore());
-        printf('magnitude: %s'.PHP_EOL, $sentiment->getMagnitude());
+        printf('Overall sentiment: %s'.PHP_EOL, $sentiment->getScore());
+        printf('Sentiment for each sentence:'.PHP_EOL);
+        foreach ($response->getSentences() as $sentence) {
+            printf('Sentence: %s'.PHP_EOL, $sentence->getText()->getContent());
+            printf('=> %s'.PHP_EOL, $sentence->getSentiment()->getScore());
+        }
     } finally {
         $languageServiceClient->close();
     }
 
-    // [END language_sentiment_text_core]
+    // [END language_analyze_sentiment_v1beta2_core]
 }
-// [END language_sentiment_text]
+// [END language_analyze_sentiment_v1beta2]
 
 $opts = [
-    'content::',
+    'textContent::',
 ];
 
 $defaultOptions = [
-    'content' => 'Your text to analyze, e.g. Hello, world!',
+    'textContent' => 'Example text for sentiment analysis',
 ];
 
 $options = getopt('', $opts);
 $options += $defaultOptions;
 
-$content = $options['content'];
+$textContent = $options['textContent'];
 
-sampleAnalyzeSentiment($content);
+sampleAnalyzeSentiment($textContent);

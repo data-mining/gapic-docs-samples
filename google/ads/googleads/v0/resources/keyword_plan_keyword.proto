@@ -27,9 +27,11 @@ option java_outer_classname = "KeywordPlanKeywordProto";
 option java_package = "com.google.ads.googleads.v0.resources";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Resources";
+option ruby_package = "Google::Ads::GoogleAds::V0::Resources";
 // Proto file describing the keyword plan keyword resource.
 
 // A Keyword Plan ad group keyword.
+// Max number of keyword plan keywords per plan: 2500.
 message KeywordPlanKeyword {
   // The resource name of the Keyword Plan ad group keyword.
   // KeywordPlanKeyword resource names have the form:

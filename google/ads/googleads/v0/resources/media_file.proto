@@ -28,6 +28,7 @@ option java_outer_classname = "MediaFileProto";
 option java_package = "com.google.ads.googleads.v0.resources";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Resources";
+option ruby_package = "Google::Ads::GoogleAds::V0::Resources";
 // Proto file describing the media file resource.
 
 // A media file.
@@ -65,6 +66,12 @@ message MediaFile {
 
     // A ZIP archive media the content of which contains HTML5 assets.
     MediaBundle media_bundle = 4;
+
+    // Encapsulates an Audio.
+    MediaAudio audio = 10;
+
+    // Encapsulates a Video.
+    MediaVideo video = 11;
   }
 }
 
@@ -78,4 +85,28 @@ message MediaImage {
 message MediaBundle {
   // Raw zipped data.
   google.protobuf.BytesValue data = 1;
+}
+
+// Encapsulates an Audio.
+message MediaAudio {
+  // The duration of the Audio in milliseconds.
+  google.protobuf.Int64Value ad_duration_millis = 1;
+}
+
+// Encapsulates a Video.
+message MediaVideo {
+  // The duration of the Video in milliseconds.
+  google.protobuf.Int64Value ad_duration_millis = 1;
+
+  // The YouTube video ID (as seen in YouTube URLs).
+  google.protobuf.StringValue youtube_video_id = 2;
+
+  // The Advertising Digital Identification code for this video, as defined by
+  // the American Association of Advertising Agencies, used mainly for
+  // television commercials.
+  google.protobuf.StringValue advertising_id_code = 3;
+
+  // The Industry Standard Commercial Identifier code for this video, used
+  // mainly for television commercials.
+  google.protobuf.StringValue isci_code = 4;
 }

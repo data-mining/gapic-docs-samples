@@ -19,9 +19,11 @@ package google.ads.googleads.v0.resources;
 
 import "google/ads/googleads/v0/common/custom_parameter.proto";
 import "google/ads/googleads/v0/common/explorer_auto_optimizer_setting.proto";
+import "google/ads/googleads/v0/common/targeting_setting.proto";
 import "google/ads/googleads/v0/enums/ad_group_ad_rotation_mode.proto";
 import "google/ads/googleads/v0/enums/ad_group_status.proto";
 import "google/ads/googleads/v0/enums/ad_group_type.proto";
+import "google/ads/googleads/v0/enums/bidding_source.proto";
 import "google/ads/googleads/v0/enums/targeting_dimension.proto";
 import "google/protobuf/wrappers.proto";
 
@@ -32,6 +34,7 @@ option java_outer_classname = "AdGroupProto";
 option java_package = "com.google.ads.googleads.v0.resources";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Resources";
+option ruby_package = "Google::Ads::GoogleAds::V0::Resources";
 // Proto file describing the ad group resource.
 
 // An ad group.
@@ -81,17 +84,21 @@ message AdGroup {
   // The maximum CPM (cost-per-thousand viewable impressions) bid.
   google.protobuf.Int64Value cpm_bid_micros = 15;
 
-  // The target cost-per-acquisition (conversion) bid.
-  google.protobuf.Int64Value cpa_bid_micros = 16;
+  // The target CPA (cost-per-acquisition).
+  google.protobuf.Int64Value target_cpa_micros = 27;
 
   // The CPV (cost-per-view) bid.
   google.protobuf.Int64Value cpv_bid_micros = 17;
 
-  // The target return on ad spend (ROAS) override. If the ad group's campaign
+  // Average amount in micros that the advertiser is willing to pay for every
+  // thousand times the ad is shown.
+  google.protobuf.Int64Value target_cpm_micros = 26;
+
+  // The target ROAS (return-on-ad-spend) override. If the ad group's campaign
   // bidding strategy is a standard Target ROAS strategy, then this field
   // overrides the target ROAS specified in the campaign's bidding strategy.
   // Otherwise, this value is ignored.
-  google.protobuf.DoubleValue target_roas_override = 19;
+  google.protobuf.DoubleValue target_roas = 30;
 
   // The percent cpc bid amount, expressed as a fraction of the advertised price
   // for some good or service. The valid range for the fraction is [0,1) and the
@@ -108,4 +115,23 @@ message AdGroup {
 
   // URL template for appending params to Final URL.
   google.protobuf.StringValue final_url_suffix = 24;
+
+  // Setting for targeting related features.
+  google.ads.googleads.v0.common.TargetingSetting targeting_setting = 25;
+
+  // The effective target CPA (cost-per-acquisition).
+  // This field is read-only.
+  google.protobuf.Int64Value effective_target_cpa_micros = 28;
+
+  // Source of the effective target CPA.
+  // This field is read-only.
+  google.ads.googleads.v0.enums.BiddingSourceEnum.BiddingSource effective_target_cpa_source = 29;
+
+  // The effective target ROAS (return-on-ad-spend).
+  // This field is read-only.
+  google.protobuf.DoubleValue effective_target_roas = 31;
+
+  // Source of the effective target ROAS.
+  // This field is read-only.
+  google.ads.googleads.v0.enums.BiddingSourceEnum.BiddingSource effective_target_roas_source = 32;
 }

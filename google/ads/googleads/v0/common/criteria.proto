@@ -18,6 +18,7 @@ syntax = "proto3";
 package google.ads.googleads.v0.common;
 
 import "google/ads/googleads/v0/enums/age_range_type.proto";
+import "google/ads/googleads/v0/enums/app_payment_model_type.proto";
 import "google/ads/googleads/v0/enums/content_label_type.proto";
 import "google/ads/googleads/v0/enums/day_of_week.proto";
 import "google/ads/googleads/v0/enums/device.proto";
@@ -36,6 +37,8 @@ import "google/ads/googleads/v0/enums/product_channel_exclusivity.proto";
 import "google/ads/googleads/v0/enums/product_condition.proto";
 import "google/ads/googleads/v0/enums/product_type_level.proto";
 import "google/ads/googleads/v0/enums/proximity_radius_units.proto";
+import "google/ads/googleads/v0/enums/webpage_condition_operand.proto";
+import "google/ads/googleads/v0/enums/webpage_condition_operator.proto";
 import "google/protobuf/wrappers.proto";
 
 option csharp_namespace = "Google.Ads.GoogleAds.V0.Common";
@@ -45,6 +48,7 @@ option java_outer_classname = "CriteriaProto";
 option java_package = "com.google.ads.googleads.v0.common";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Common";
+option ruby_package = "Google::Ads::GoogleAds::V0::Common";
 // Proto file describing criteria types.
 
 // A keyword criterion.
@@ -63,6 +67,12 @@ message PlacementInfo {
   //
   // For example, "http://www.domain.com".
   google.protobuf.StringValue url = 1;
+}
+
+// A mobile app category criterion.
+message MobileAppCategoryInfo {
+  // The mobile app category constant resource name.
+  google.protobuf.StringValue mobile_app_category_constant = 1;
 }
 
 // A location criterion.
@@ -446,4 +456,47 @@ message CarrierInfo {
 message UserInterestInfo {
   // The UserInterest resource name.
   google.protobuf.StringValue user_interest_category = 1;
+}
+
+// Represents a criterion for targeting webpages of an advertiser's website.
+message WebpageInfo {
+  // The name of the criterion that is defined by this parameter. The name value
+  // will be used for identifying, sorting and filtering criteria with this type
+  // of parameters.
+  //
+  // This field is required for CREATE operations and is prohibited on UPDATE
+  // operations.
+  google.protobuf.StringValue criterion_name = 1;
+
+  // Conditions, or logical expressions, for webpage targeting. The list of
+  // webpage targeting conditions are and-ed together when evaluated
+  // for targeting.
+  //
+  // This field is required for CREATE operations and is prohibited on UPDATE
+  // operations.
+  repeated WebpageConditionInfo conditions = 2;
+}
+
+// Logical expression for targeting webpages of an advertiser's website.
+message WebpageConditionInfo {
+  // Operand of webpage targeting condition.
+  google.ads.googleads.v0.enums.WebpageConditionOperandEnum.WebpageConditionOperand operand = 1;
+
+  // Operator of webpage targeting condition.
+  google.ads.googleads.v0.enums.WebpageConditionOperatorEnum.WebpageConditionOperator operator = 2;
+
+  // Argument of webpage targeting condition.
+  google.protobuf.StringValue argument = 3;
+}
+
+// Represents an operating system version to be targeted.
+message OperatingSystemVersionInfo {
+  // The operating system version constant resource name.
+  google.protobuf.StringValue operating_system_version_constant = 1;
+}
+
+// An app payment model criterion.
+message AppPaymentModelInfo {
+  // Type of the app payment model.
+  google.ads.googleads.v0.enums.AppPaymentModelTypeEnum.AppPaymentModelType type = 1;
 }

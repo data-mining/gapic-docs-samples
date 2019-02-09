@@ -29,6 +29,7 @@ option java_outer_classname = "CustomerServiceProto";
 option java_package = "com.google.ads.googleads.v0.services";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Services";
+option ruby_package = "Google::Ads::GoogleAds::V0::Services";
 // Proto file describing the Customer service.
 
 // Service to manage customers.
@@ -78,6 +79,10 @@ message MutateCustomerRequest {
 
   // The operation to perform on the customer
   CustomerOperation operation = 4;
+
+  // If true, the request is validated but not executed. Only errors are
+  // returned, not results.
+  bool validate_only = 5;
 }
 
 // Request message for [CustomerService.CreateCustomerClient][google.ads.googleads.v0.services.CustomerService.CreateCustomerClient].

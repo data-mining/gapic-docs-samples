@@ -30,6 +30,7 @@ option java_outer_classname = "AccountBudgetProto";
 option java_package = "com.google.ads.googleads.v0.resources";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Resources";
+option ruby_package = "Google::Ads::GoogleAds::V0::Resources";
 // Proto file describing the AccountBudget resource.
 
 // An account-level budget. It contains information about the budget itself,

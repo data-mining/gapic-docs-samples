@@ -20,31 +20,25 @@ package google.ads.googleads.v0.errors;
 option csharp_namespace = "Google.Ads.GoogleAds.V0.Errors";
 option go_package = "google.golang.org/genproto/googleapis/ads/googleads/v0/errors;errors";
 option java_multiple_files = true;
-option java_outer_classname = "CampaignGroupErrorProto";
+option java_outer_classname = "PolicyViolationErrorProto";
 option java_package = "com.google.ads.googleads.v0.errors";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Errors";
-// Proto file describing campaign group errors.
+option ruby_package = "Google::Ads::GoogleAds::V0::Errors";
+// Proto file describing policy violation errors.
 
-// Container for enum describing possible campaign group errors.
-message CampaignGroupErrorEnum {
-  // Enum describing possible campaign group errors.
-  enum CampaignGroupError {
+// Container for enum describing possible policy violation errors.
+message PolicyViolationErrorEnum {
+  // Enum describing possible policy violation errors.
+  enum PolicyViolationError {
     // Enum unspecified.
     UNSPECIFIED = 0;
 
     // The received error code is not known in this version.
     UNKNOWN = 1;
 
-    // CampaignGroup was removed with ENABLED or PAUSED Campaigns associated
-    // with it.
-    CANNOT_REMOVE_CAMPAIGN_GROUP_WITH_ENABLED_OR_PAUSED_CAMPAIGNS = 2;
-
-    // CampaignGroup with the given name already exists.
-    DUPLICATE_NAME = 3;
-
-    // Cannot modify a removed campaign group.
-    CANNOT_MODIFY_REMOVED_CAMPAIGN_GROUP = 4;
+    // A policy was violated. See PolicyViolationDetails for more detail.
+    POLICY_ERROR = 2;
   }
 
 

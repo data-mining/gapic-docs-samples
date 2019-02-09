@@ -27,9 +27,11 @@ option java_outer_classname = "KeywordPlanCampaignProto";
 option java_package = "com.google.ads.googleads.v0.resources";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Resources";
+option ruby_package = "Google::Ads::GoogleAds::V0::Resources";
 // Proto file describing the keyword plan campaign resource.
 
 // A Keyword Plan campaign.
+// Max number of keyword plan campaigns per plan allowed: 1.
 message KeywordPlanCampaign {
   // The resource name of the Keyword Plan campaign.
   // KeywordPlanCampaign resource names have the form:
@@ -50,6 +52,7 @@ message KeywordPlanCampaign {
   google.protobuf.StringValue name = 4;
 
   // The languages targeted for the Keyword Plan campaign.
+  // Max allowed: 1.
   repeated google.protobuf.StringValue language_constants = 5;
 
   // Targeting network.
@@ -66,6 +69,7 @@ message KeywordPlanCampaign {
   google.protobuf.Int64Value cpc_bid_micros = 7;
 
   // The geo targets.
+  // Max number allowed: 20.
   repeated KeywordPlanGeoTarget geo_targets = 8;
 }
 

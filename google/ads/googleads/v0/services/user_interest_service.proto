@@ -27,6 +27,7 @@ option java_outer_classname = "UserInterestServiceProto";
 option java_package = "com.google.ads.googleads.v0.services";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Services";
+option ruby_package = "Google::Ads::GoogleAds::V0::Services";
 // Proto file describing the user interest service
 
 // Service to fetch Google Ads User Interest.

@@ -27,6 +27,7 @@ option java_outer_classname = "BiddingProto";
 option java_package = "com.google.ads.googleads.v0.common";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Common";
+option ruby_package = "Google::Ads::GoogleAds::V0::Common";
 // Proto file describing bidding schemes.
 
 // An automated bidding strategy that raises bids for clicks
@@ -115,6 +116,12 @@ message TargetCpa {
   // Minimum bid limit that can be set by the bid strategy.
   // The limit applies to all keywords managed by the strategy.
   google.protobuf.Int64Value cpc_bid_floor_micros = 3;
+}
+
+// Target CPM (cost per thousand impressions) is an automated bidding strategy
+// that sets bids to optimize performance given the target CPM you set.
+message TargetCpm {
+
 }
 
 // An automated bidding strategy that sets bids based on the target fraction of

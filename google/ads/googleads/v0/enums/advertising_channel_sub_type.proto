@@ -24,6 +24,7 @@ option java_outer_classname = "AdvertisingChannelSubTypeProto";
 option java_package = "com.google.ads.googleads.v0.enums";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Enums";
+option ruby_package = "Google::Ads::GoogleAds::V0::Enums";
 // Proto file describing advertising channel subtypes.
 
 // An immutable specialization of an Advertising Channel.
@@ -59,6 +60,9 @@ message AdvertisingChannelSubTypeEnum {
 
     // Video Outstream campaigns.
     VIDEO_OUTSTREAM = 9;
+
+    // Video TrueView for Action campaigns.
+    VIDEO_ACTION = 10;
   }
 
 

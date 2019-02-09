@@ -21,12 +21,16 @@ import "google/ads/googleads/v0/common/bidding.proto";
 import "google/ads/googleads/v0/common/custom_parameter.proto";
 import "google/ads/googleads/v0/common/frequency_cap.proto";
 import "google/ads/googleads/v0/common/real_time_bidding_setting.proto";
+import "google/ads/googleads/v0/common/targeting_setting.proto";
 import "google/ads/googleads/v0/enums/ad_serving_optimization_status.proto";
 import "google/ads/googleads/v0/enums/advertising_channel_sub_type.proto";
 import "google/ads/googleads/v0/enums/advertising_channel_type.proto";
 import "google/ads/googleads/v0/enums/bidding_strategy_type.proto";
+import "google/ads/googleads/v0/enums/brand_safety_suitability.proto";
 import "google/ads/googleads/v0/enums/campaign_serving_status.proto";
 import "google/ads/googleads/v0/enums/campaign_status.proto";
+import "google/ads/googleads/v0/enums/vanity_pharma_display_url_mode.proto";
+import "google/ads/googleads/v0/enums/vanity_pharma_text.proto";
 import "google/protobuf/wrappers.proto";
 
 option csharp_namespace = "Google.Ads.GoogleAds.V0.Resources";
@@ -36,6 +40,7 @@ option java_outer_classname = "CampaignProto";
 option java_package = "com.google.ads.googleads.v0.resources";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Resources";
+option ruby_package = "Google::Ads::GoogleAds::V0::Resources";
 // Proto file describing the Campaign resource.
 
 // A campaign.
@@ -108,6 +113,29 @@ message Campaign {
     google.protobuf.BoolValue enable_local = 4;
   }
 
+  // Campaign level settings for tracking information.
+  message TrackingSetting {
+    // The url used for dynamic tracking.
+    google.protobuf.StringValue tracking_url = 1;
+  }
+
+  // Describes how unbranded pharma ads will be displayed.
+  message VanityPharma {
+    // The display mode for vanity pharma URLs.
+    google.ads.googleads.v0.enums.VanityPharmaDisplayUrlModeEnum.VanityPharmaDisplayUrlMode vanity_pharma_display_url_mode = 1;
+
+    // The text that will be displayed in display URL of the text ad when
+    // website description is the selected display mode for vanity pharma URLs.
+    google.ads.googleads.v0.enums.VanityPharmaTextEnum.VanityPharmaText vanity_pharma_text = 2;
+  }
+
+  // Selective optimization setting for this campaign, which includes a set of
+  // conversion actions to optimize this campaign towards.
+  message SelectiveOptimization {
+    // The selected set of conversion actions for optimizing this campaign.
+    repeated google.protobuf.StringValue conversion_actions = 1;
+  }
+
   // The resource name of the campaign.
   // Campaign resource names have the form:
   //
@@ -177,6 +205,9 @@ message Campaign {
   // The setting for controlling Shopping campaigns.
   ShoppingSetting shopping_setting = 36;
 
+  // Setting for targeting related features.
+  google.ads.googleads.v0.common.TargetingSetting targeting_setting = 43;
+
   // The budget of the campaign.
   google.protobuf.StringValue campaign_budget = 6;
 
@@ -194,9 +225,6 @@ message Campaign {
   // This field must not be used in WHERE clauses.
   google.protobuf.StringValue start_date = 19;
 
-  // The campaign group this campaign belongs to.
-  google.protobuf.StringValue campaign_group = 35;
-
   // The date when campaign ended.
   //
   // This field must not be used in WHERE clauses.
@@ -208,6 +236,19 @@ message Campaign {
 
   // A list that limits how often each user will see this campaign's ads.
   repeated google.ads.googleads.v0.common.FrequencyCapEntry frequency_caps = 40;
+
+  // 3-Tier Brand Safety setting for the campaign.
+  google.ads.googleads.v0.enums.BrandSafetySuitabilityEnum.BrandSafetySuitability video_brand_safety_suitability = 42;
+
+  // Describes how unbranded pharma ads will be displayed.
+  VanityPharma vanity_pharma = 44;
+
+  // Selective optimization setting for this campaign, which includes a set of
+  // conversion actions to optimize this campaign towards.
+  SelectiveOptimization selective_optimization = 45;
+
+  // Campaign level settings for tracking information.
+  TrackingSetting tracking_setting = 46;
 
   // The bidding strategy for the campaign.
   //
@@ -253,5 +294,9 @@ message Campaign {
     // Standard Percent Cpc bidding strategy where bids are a fraction of the
     // advertised price for some good or service.
     google.ads.googleads.v0.common.PercentCpc percent_cpc = 34;
+
+    // A bidding strategy that automatically optimizes cost per thousand
+    // impressions.
+    google.ads.googleads.v0.common.TargetCpm target_cpm = 41;
   }
 }

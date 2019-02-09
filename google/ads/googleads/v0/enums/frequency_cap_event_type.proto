@@ -24,6 +24,7 @@ option java_outer_classname = "FrequencyCapEventTypeProto";
 option java_package = "com.google.ads.googleads.v0.enums";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Enums";
+option ruby_package = "Google::Ads::GoogleAds::V0::Enums";
 // Proto file describing frequency caps.
 
 // Container for enum describing the type of event that the cap applies to.

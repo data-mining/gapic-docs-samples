@@ -27,6 +27,7 @@ import "google/ads/googleads/v0/errors/ad_group_bid_modifier_error.proto";
 import "google/ads/googleads/v0/errors/ad_group_criterion_error.proto";
 import "google/ads/googleads/v0/errors/ad_group_error.proto";
 import "google/ads/googleads/v0/errors/ad_group_feed_error.proto";
+import "google/ads/googleads/v0/errors/ad_parameter_error.proto";
 import "google/ads/googleads/v0/errors/ad_sharing_error.proto";
 import "google/ads/googleads/v0/errors/adx_error.proto";
 import "google/ads/googleads/v0/errors/authentication_error.proto";
@@ -38,7 +39,6 @@ import "google/ads/googleads/v0/errors/campaign_budget_error.proto";
 import "google/ads/googleads/v0/errors/campaign_criterion_error.proto";
 import "google/ads/googleads/v0/errors/campaign_error.proto";
 import "google/ads/googleads/v0/errors/campaign_feed_error.proto";
-import "google/ads/googleads/v0/errors/campaign_group_error.proto";
 import "google/ads/googleads/v0/errors/campaign_shared_set_error.proto";
 import "google/ads/googleads/v0/errors/change_status_error.proto";
 import "google/ads/googleads/v0/errors/collection_size_error.proto";
@@ -54,9 +54,11 @@ import "google/ads/googleads/v0/errors/date_error.proto";
 import "google/ads/googleads/v0/errors/date_range_error.proto";
 import "google/ads/googleads/v0/errors/distinct_error.proto";
 import "google/ads/googleads/v0/errors/enum_error.proto";
+import "google/ads/googleads/v0/errors/extension_setting_error.proto";
 import "google/ads/googleads/v0/errors/feed_attribute_reference_error.proto";
 import "google/ads/googleads/v0/errors/feed_error.proto";
 import "google/ads/googleads/v0/errors/feed_item_error.proto";
+import "google/ads/googleads/v0/errors/feed_item_validation_error.proto";
 import "google/ads/googleads/v0/errors/feed_mapping_error.proto";
 import "google/ads/googleads/v0/errors/field_error.proto";
 import "google/ads/googleads/v0/errors/field_mask_error.proto";
@@ -84,6 +86,7 @@ import "google/ads/googleads/v0/errors/null_error.proto";
 import "google/ads/googleads/v0/errors/operation_access_denied_error.proto";
 import "google/ads/googleads/v0/errors/operator_error.proto";
 import "google/ads/googleads/v0/errors/policy_finding_error.proto";
+import "google/ads/googleads/v0/errors/policy_violation_error.proto";
 import "google/ads/googleads/v0/errors/query_error.proto";
 import "google/ads/googleads/v0/errors/quota_error.proto";
 import "google/ads/googleads/v0/errors/range_error.proto";
@@ -108,6 +111,7 @@ option java_outer_classname = "ErrorsProto";
 option java_package = "com.google.ads.googleads.v0.errors";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Errors";
+option ruby_package = "Google::Ads::GoogleAds::V0::Errors";
 // Proto file describing the common error protos
 
 // Describes how a GoogleAds API call failed. It's returned inside
@@ -317,9 +321,6 @@ message ErrorCode {
     // The reasons for the policy finding error.
     PolicyFindingErrorEnum.PolicyFindingError policy_finding_error = 68;
 
-    // The reasons for campaign group error.
-    CampaignGroupErrorEnum.CampaignGroupError campaign_group_error = 69;
-
     // The reason for enum error.
     EnumErrorEnum.EnumError enum_error = 70;
 
@@ -379,6 +380,18 @@ message ErrorCode {
 
     // The reasons for the campaign feed error
     CampaignFeedErrorEnum.CampaignFeedError campaign_feed_error = 96;
+
+    // The reasons for the ad parameter error
+    AdParameterErrorEnum.AdParameterError ad_parameter_error = 101;
+
+    // The reasons for the feed item validation error
+    FeedItemValidationErrorEnum.FeedItemValidationError feed_item_validation_error = 102;
+
+    // The reasons for the extension setting error
+    ExtensionSettingErrorEnum.ExtensionSettingError extension_setting_error = 103;
+
+    // The reasons for the policy violation error
+    PolicyViolationErrorEnum.PolicyViolationError policy_violation_error = 105;
   }
 }
 
@@ -392,9 +405,6 @@ message ErrorLocation {
     // If field_name is a repeated field, this is the element that failed
     google.protobuf.Int64Value index = 2;
   }
-
-  // The mutate operation that failed
-  google.protobuf.Int64Value operation_index = 1;
 
   // A field path that indicates which field was invalid in the request.
   repeated FieldPathElement field_path_elements = 2;

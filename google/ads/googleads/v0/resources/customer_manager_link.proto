@@ -27,6 +27,7 @@ option java_outer_classname = "CustomerManagerLinkProto";
 option java_package = "com.google.ads.googleads.v0.resources";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Resources";
+option ruby_package = "Google::Ads::GoogleAds::V0::Resources";
 // Proto file describing the CustomerManagerLink resource.
 
 // Represents customer-manager link relationship.
@@ -37,7 +38,7 @@ message CustomerManagerLink {
   // `customers/{customer_id}/customerManagerLinks/{manager_customer_id}_{manager_link_id}`
   string resource_name = 1;
 
-  // The manager customer linked to the customer. This field is read only.
+  // The manager customer linked to the customer.
   google.protobuf.StringValue manager_customer = 3;
 
   // ID of the customer-manager link. This field is read only.

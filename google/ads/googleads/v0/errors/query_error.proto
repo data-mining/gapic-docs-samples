@@ -24,6 +24,7 @@ option java_outer_classname = "QueryErrorProto";
 option java_package = "com.google.ads.googleads.v0.errors";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Errors";
+option ruby_package = "Google::Ads::GoogleAds::V0::Errors";
 // Proto file describing query errors.
 
 // Container for enum describing possible query errors.
@@ -194,6 +195,11 @@ message QueryErrorEnum {
 
     // Query has an unexpected extra part.
     UNEXPECTED_INPUT = 11;
+
+    // Metrics cannot be requested for a manager account. To retrieve metrics,
+    // issue separate requests against each client account under the manager
+    // account.
+    REQUESTED_METRICS_FOR_MANAGER = 59;
   }
 
 

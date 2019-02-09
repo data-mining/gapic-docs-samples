@@ -30,6 +30,7 @@ option java_outer_classname = "AdProto";
 option java_package = "com.google.ads.googleads.v0.resources";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Resources";
+option ruby_package = "Google::Ads::GoogleAds::V0::Resources";
 // Proto file describing the ad type.
 
 // An ad.
@@ -115,5 +116,8 @@ message Ad {
 
     // Details pertaining to an Image ad.
     google.ads.googleads.v0.common.ImageAdInfo image_ad = 22;
+
+    // Details pertaining to a Video ad.
+    google.ads.googleads.v0.common.VideoAdInfo video_ad = 24;
   }
 }

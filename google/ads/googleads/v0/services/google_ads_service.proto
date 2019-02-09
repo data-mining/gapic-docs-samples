@@ -18,14 +18,7 @@ syntax = "proto3";
 package google.ads.googleads.v0.services;
 
 import "google/ads/googleads/v0/common/metrics.proto";
-import "google/ads/googleads/v0/enums/ad_network_type.proto";
-import "google/ads/googleads/v0/enums/day_of_week.proto";
-import "google/ads/googleads/v0/enums/device.proto";
-import "google/ads/googleads/v0/enums/hotel_date_selection_type.proto";
-import "google/ads/googleads/v0/enums/month_of_year.proto";
-import "google/ads/googleads/v0/enums/placeholder_type.proto";
-import "google/ads/googleads/v0/enums/search_term_match_type.proto";
-import "google/ads/googleads/v0/enums/slot.proto";
+import "google/ads/googleads/v0/common/segments.proto";
 import "google/ads/googleads/v0/resources/account_budget.proto";
 import "google/ads/googleads/v0/resources/account_budget_proposal.proto";
 import "google/ads/googleads/v0/resources/ad_group.proto";
@@ -34,6 +27,7 @@ import "google/ads/googleads/v0/resources/ad_group_audience_view.proto";
 import "google/ads/googleads/v0/resources/ad_group_bid_modifier.proto";
 import "google/ads/googleads/v0/resources/ad_group_criterion.proto";
 import "google/ads/googleads/v0/resources/ad_group_feed.proto";
+import "google/ads/googleads/v0/resources/ad_schedule_view.proto";
 import "google/ads/googleads/v0/resources/age_range_view.proto";
 import "google/ads/googleads/v0/resources/bidding_strategy.proto";
 import "google/ads/googleads/v0/resources/billing_setup.proto";
@@ -43,10 +37,10 @@ import "google/ads/googleads/v0/resources/campaign_bid_modifier.proto";
 import "google/ads/googleads/v0/resources/campaign_budget.proto";
 import "google/ads/googleads/v0/resources/campaign_criterion.proto";
 import "google/ads/googleads/v0/resources/campaign_feed.proto";
-import "google/ads/googleads/v0/resources/campaign_group.proto";
 import "google/ads/googleads/v0/resources/campaign_shared_set.proto";
 import "google/ads/googleads/v0/resources/carrier_constant.proto";
 import "google/ads/googleads/v0/resources/change_status.proto";
+import "google/ads/googleads/v0/resources/conversion_action.proto";
 import "google/ads/googleads/v0/resources/customer.proto";
 import "google/ads/googleads/v0/resources/customer_client.proto";
 import "google/ads/googleads/v0/resources/customer_client_link.proto";
@@ -68,9 +62,14 @@ import "google/ads/googleads/v0/resources/keyword_plan_negative_keyword.proto";
 import "google/ads/googleads/v0/resources/keyword_view.proto";
 import "google/ads/googleads/v0/resources/language_constant.proto";
 import "google/ads/googleads/v0/resources/managed_placement_view.proto";
+import "google/ads/googleads/v0/resources/media_file.proto";
+import "google/ads/googleads/v0/resources/mobile_app_category_constant.proto";
+import "google/ads/googleads/v0/resources/mobile_device_constant.proto";
+import "google/ads/googleads/v0/resources/operating_system_version_constant.proto";
 import "google/ads/googleads/v0/resources/parental_status_view.proto";
 import "google/ads/googleads/v0/resources/product_group_view.proto";
 import "google/ads/googleads/v0/resources/recommendation.proto";
+import "google/ads/googleads/v0/resources/remarketing_action.proto";
 import "google/ads/googleads/v0/resources/search_term_view.proto";
 import "google/ads/googleads/v0/resources/shared_criterion.proto";
 import "google/ads/googleads/v0/resources/shared_set.proto";
@@ -87,7 +86,6 @@ import "google/ads/googleads/v0/services/bidding_strategy_service.proto";
 import "google/ads/googleads/v0/services/campaign_bid_modifier_service.proto";
 import "google/ads/googleads/v0/services/campaign_budget_service.proto";
 import "google/ads/googleads/v0/services/campaign_criterion_service.proto";
-import "google/ads/googleads/v0/services/campaign_group_service.proto";
 import "google/ads/googleads/v0/services/campaign_service.proto";
 import "google/ads/googleads/v0/services/campaign_shared_set_service.proto";
 import "google/ads/googleads/v0/services/conversion_action_service.proto";
@@ -96,7 +94,7 @@ import "google/ads/googleads/v0/services/shared_set_service.proto";
 import "google/ads/googleads/v0/services/user_list_service.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/field_mask.proto";
-import "google/protobuf/wrappers.proto";
+import "google/rpc/status.proto";
 
 option csharp_namespace = "Google.Ads.GoogleAds.V0.Services";
 option go_package = "google.golang.org/genproto/googleapis/ads/googleads/v0/services;services";
@@ -105,6 +103,7 @@ option java_outer_classname = "GoogleAdsServiceProto";
 option java_package = "com.google.ads.googleads.v0.services";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Services";
+option ruby_package = "Google::Ads::GoogleAds::V0::Services";
 // Proto file describing the GoogleAdsService.
 
 // Service to fetch data and metrics across resources.
@@ -144,6 +143,9 @@ message SearchGoogleAdsRequest {
   // When too large a page is requested, the server may decide to
   // further limit the number of returned resources.
   int32 page_size = 4;
+
+  // If true, the request is validated but not executed.
+  bool validate_only = 5;
 }
 
 // Response message for [GoogleAdsService.Search][google.ads.googleads.v0.services.GoogleAdsService.Search].
@@ -194,6 +196,9 @@ message GoogleAdsRow {
   // The age range view referenced in the query.
   google.ads.googleads.v0.resources.AgeRangeView age_range_view = 48;
 
+  // The ad schedule view referenced in the query.
+  google.ads.googleads.v0.resources.AdScheduleView ad_schedule_view = 89;
+
   // The bidding strategy referenced in the query.
   google.ads.googleads.v0.resources.BiddingStrategy bidding_strategy = 18;
 
@@ -218,9 +223,6 @@ message GoogleAdsRow {
   // The campaign feed referenced in the query.
   google.ads.googleads.v0.resources.CampaignFeed campaign_feed = 63;
 
-  // Campaign Group referenced in AWQL query.
-  google.ads.googleads.v0.resources.CampaignGroup campaign_group = 25;
-
   // Campaign Shared Set referenced in AWQL query.
   google.ads.googleads.v0.resources.CampaignSharedSet campaign_shared_set = 30;
 
@@ -229,6 +231,9 @@ message GoogleAdsRow {
 
   // The ChangeStatus referenced in the query.
   google.ads.googleads.v0.resources.ChangeStatus change_status = 37;
+
+  // The conversion action referenced in the query.
+  google.ads.googleads.v0.resources.ConversionAction conversion_action = 103;
 
   // The customer referenced in the query.
   google.ads.googleads.v0.resources.Customer customer = 1;
@@ -293,6 +298,18 @@ message GoogleAdsRow {
   // The managed placement view referenced in the query.
   google.ads.googleads.v0.resources.ManagedPlacementView managed_placement_view = 53;
 
+  // The media file referenced in the query.
+  google.ads.googleads.v0.resources.MediaFile media_file = 90;
+
+  // The mobile app category constant referenced in the query.
+  google.ads.googleads.v0.resources.MobileAppCategoryConstant mobile_app_category_constant = 87;
+
+  // The mobile device constant referenced in the query.
+  google.ads.googleads.v0.resources.MobileDeviceConstant mobile_device_constant = 98;
+
+  // The operating system version constant referenced in the query.
+  google.ads.googleads.v0.resources.OperatingSystemVersionConstant operating_system_version_constant = 86;
+
   // The parental status view referenced in the query.
   google.ads.googleads.v0.resources.ParentalStatusView parental_status_view = 45;
 
@@ -320,6 +337,9 @@ message GoogleAdsRow {
   // The user list referenced in the query.
   google.ads.googleads.v0.resources.UserList user_list = 38;
 
+  // The remarketing action referenced in the query.
+  google.ads.googleads.v0.resources.RemarketingAction remarketing_action = 60;
+
   // The topic constant referenced in the query.
   google.ads.googleads.v0.resources.TopicConstant topic_constant = 31;
 
@@ -329,82 +349,8 @@ message GoogleAdsRow {
   // The metrics.
   google.ads.googleads.v0.common.Metrics metrics = 4;
 
-  // Ad network type.
-  google.ads.googleads.v0.enums.AdNetworkTypeEnum.AdNetworkType ad_network_type = 5;
-
-  // Date to which metrics apply.
-  // yyyy-MM-dd format, e.g., 2018-04-17.
-  google.protobuf.StringValue date = 6;
-
-  // Day of the week, e.g., MONDAY.
-  google.ads.googleads.v0.enums.DayOfWeekEnum.DayOfWeek day_of_week = 7;
-
-  // Device to which metrics apply.
-  google.ads.googleads.v0.enums.DeviceEnum.Device device = 8;
-
-  // Hotel booking window in days.
-  google.protobuf.Int64Value hotel_booking_window_days = 83;
-
-  // Hotel center ID.
-  google.protobuf.Int64Value hotel_center_id = 72;
-
-  // Hotel check-in date. Formatted as yyyy-MM-dd.
-  google.protobuf.StringValue hotel_check_in_date = 73;
-
-  // Hotel check-in day of week.
-  google.ads.googleads.v0.enums.DayOfWeekEnum.DayOfWeek hotel_check_in_day_of_week = 74;
-
-  // Hotel city.
-  google.protobuf.StringValue hotel_city = 75;
-
-  // Hotel class.
-  google.protobuf.Int32Value hotel_class = 76;
-
-  // Hotel country.
-  google.protobuf.StringValue hotel_country = 77;
-
-  // Hotel date selection type.
-  google.ads.googleads.v0.enums.HotelDateSelectionTypeEnum.HotelDateSelectionType hotel_date_selection_type = 78;
-
-  // Hotel length of stay.
-  google.protobuf.Int32Value hotel_length_of_stay = 79;
-
-  // Hotel state.
-  google.protobuf.StringValue hotel_state = 81;
-
-  // Hour of day as a number between 0 and 23, inclusive.
-  google.protobuf.Int32Value hour = 9;
-
-  // Month as represented by the date of the first day of a month. Formatted as
-  // yyyy-MM-dd.
-  google.protobuf.StringValue month = 10;
-
-  // Month of the year, e.g., January.
-  google.ads.googleads.v0.enums.MonthOfYearEnum.MonthOfYear month_of_year = 28;
-
-  // Partner hotel ID.
-  google.protobuf.StringValue partner_hotel_id = 82;
-
-  // Placeholder type. This is only used with feed item metrics.
-  google.ads.googleads.v0.enums.PlaceholderTypeEnum.PlaceholderType placeholder_type = 65;
-
-  // Quarter as represented by the date of the first day of a quarter.
-  // Uses the calendar year for quarters, e.g., the second quarter of 2018
-  // starts on 2018-04-01. Formatted as yyyy-MM-dd.
-  google.protobuf.StringValue quarter = 12;
-
-  // Match type of the keyword that triggered the ad, including variants.
-  google.ads.googleads.v0.enums.SearchTermMatchTypeEnum.SearchTermMatchType search_term_match_type = 56;
-
-  // Position of the ad.
-  google.ads.googleads.v0.enums.SlotEnum.Slot slot = 13;
-
-  // Week as defined as Monday through Sunday, and represented by the date of
-  // Monday. Formatted as yyyy-MM-dd.
-  google.protobuf.StringValue week = 14;
-
-  // Year, formatted as yyyy.
-  google.protobuf.Int32Value year = 15;
+  // The segments.
+  google.ads.googleads.v0.common.Segments segments = 102;
 }
 
 // Request message for [GoogleAdsService.Mutate][google.ads.googleads.v0.services.GoogleAdsService.Mutate].
@@ -414,10 +360,26 @@ message MutateGoogleAdsRequest {
 
   // The list of operations to perform on individual resources.
   repeated MutateOperation mutate_operations = 2;
+
+  // If true, successful operations will be carried out and invalid
+  // operations will return errors. If false, all operations will be carried
+  // out in one transaction if and only if they are all valid.
+  // Default is false.
+  bool partial_failure = 3;
+
+  // If true, the request is validated but not executed. Only errors are
+  // returned, not results.
+  bool validate_only = 4;
 }
 
 // Response message for [GoogleAdsService.Mutate][google.ads.googleads.v0.services.GoogleAdsService.Mutate].
 message MutateGoogleAdsResponse {
+  // Errors that pertain to operation failures in the partial failure mode.
+  // Returned only when partial_failure = true and all errors occur inside the
+  // operations. If any errors occur outside the operations (e.g. auth errors),
+  // we return an RPC level error.
+  google.rpc.Status partial_failure_error = 3;
+
   // All responses for the mutate.
   repeated MutateOperationResponse mutate_operation_responses = 1;
 }
@@ -446,9 +408,6 @@ message MutateOperation {
 
     // A campaign budget mutate operation.
     CampaignBudgetOperation campaign_budget_operation = 8;
-
-    // A campaign group mutate operation.
-    CampaignGroupOperation campaign_group_operation = 9;
 
     // A campaign mutate operation.
     CampaignOperation campaign_operation = 10;
@@ -497,9 +456,6 @@ message MutateOperationResponse {
 
     // The result for the campaign budget mutate.
     MutateCampaignBudgetResult campaign_budget_result = 8;
-
-    // The result for the campaign group mutate.
-    MutateCampaignGroupResult campaign_group_result = 9;
 
     // The result for the campaign mutate.
     MutateCampaignResult campaign_result = 10;

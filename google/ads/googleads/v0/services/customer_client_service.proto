@@ -27,11 +27,12 @@ option java_outer_classname = "CustomerClientServiceProto";
 option java_package = "com.google.ads.googleads.v0.services";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Services";
+option ruby_package = "Google::Ads::GoogleAds::V0::Services";
 // Proto file describing the Customer Client service.
 
-// Service to manage customer clients in a manager hierarchy.
+// Service to get clients in a customer's hierarchy.
 service CustomerClientService {
-  // Returns the requested customer client in full detail.
+  // Returns the requested client in full detail.
   rpc GetCustomerClient(GetCustomerClientRequest) returns (google.ads.googleads.v0.resources.CustomerClient) {
     option (google.api.http) = {
       get: "/v0/{resource_name=customers/*/customerClients/*}"
@@ -41,6 +42,6 @@ service CustomerClientService {
 
 // Request message for [CustomerClientService.GetCustomerClient][google.ads.googleads.v0.services.CustomerClientService.GetCustomerClient].
 message GetCustomerClientRequest {
-  // The resource name of the customer client to fetch.
+  // The resource name of the client to fetch.
   string resource_name = 1;
 }

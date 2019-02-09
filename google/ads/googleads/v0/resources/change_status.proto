@@ -28,6 +28,7 @@ option java_outer_classname = "ChangeStatusProto";
 option java_package = "com.google.ads.googleads.v0.resources";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Resources";
+option ruby_package = "Google::Ads::GoogleAds::V0::Resources";
 // Proto file describing the Change Status resource.
 
 // Describes the status of returned resource.
@@ -63,4 +64,10 @@ message ChangeStatus {
 
   // The CampaignCriterion affected by this change.
   google.protobuf.StringValue campaign_criterion = 11;
+
+  // The Feed affected by this change.
+  google.protobuf.StringValue feed = 12;
+
+  // The FeedItem affected by this change.
+  google.protobuf.StringValue feed_item = 13;
 }

@@ -28,6 +28,7 @@ option java_outer_classname = "PolicyProto";
 option java_package = "com.google.ads.googleads.v0.common";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Common";
+option ruby_package = "Google::Ads::GoogleAds::V0::Common";
 // Proto file describing policy information.
 
 // Key of the violation. The key is used for referring to a violation

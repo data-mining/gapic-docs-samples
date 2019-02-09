@@ -24,6 +24,7 @@ option java_outer_classname = "UserListErrorProto";
 option java_package = "com.google.ads.googleads.v0.errors";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Errors";
+option ruby_package = "Google::Ads::GoogleAds::V0::Errors";
 // Proto file describing user list errors.
 
 // Container for enum describing possible user list errors.
@@ -79,7 +80,8 @@ message UserListErrorEnum {
     // Only an owner account may edit a user list.
     OWNERSHIP_REQUIRED_FOR_SET = 15;
 
-    // The user list of the type is not mutable.
+    // Creating user list without setting type in oneof user_list field, or
+    // creating/updating read-only user list types is not allowed.
     USER_LIST_MUTATE_NOT_SUPPORTED = 16;
 
     // Rule is invalid.
@@ -109,6 +111,16 @@ message UserListErrorEnum {
     // Advertiser needs to be whitelisted to use remarketing lists created from
     // advertiser uploaded data (e.g., Customer Match lists).
     ADVERTISER_NOT_WHITELISTED_FOR_USING_UPLOADED_DATA = 33;
+
+    // The provided rule_type is not supported for the user list.
+    RULE_TYPE_IS_NOT_SUPPORTED = 34;
+
+    // Similar user list cannot be used as a logical user list operand.
+    CAN_NOT_ADD_A_SIMILAR_USERLIST_AS_LOGICAL_LIST_OPERAND = 35;
+
+    // Logical user list should not have a mix of CRM based user list and other
+    // types of lists in its rules.
+    CAN_NOT_MIX_CRM_BASED_IN_LOGICAL_LIST_WITH_OTHER_LISTS = 36;
   }
 
 

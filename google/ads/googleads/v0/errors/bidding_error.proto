@@ -24,6 +24,7 @@ option java_outer_classname = "BiddingErrorProto";
 option java_package = "com.google.ads.googleads.v0.errors";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Errors";
+option ruby_package = "Google::Ads::GoogleAds::V0::Errors";
 // Proto file describing bidding errors.
 
 // Container for enum describing possible bidding errors.
@@ -100,6 +101,9 @@ message BiddingErrorEnum {
 
     // Invalid domain name specified.
     INVALID_DOMAIN_NAME = 33;
+
+    // The field is not compatible with payment mode.
+    NOT_COMPATIBLE_WITH_PAYMENT_MODE = 34;
   }
 
 

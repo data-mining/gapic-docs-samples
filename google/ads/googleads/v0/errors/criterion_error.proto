@@ -24,6 +24,7 @@ option java_outer_classname = "CriterionErrorProto";
 option java_package = "com.google.ads.googleads.v0.errors";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Errors";
+option ruby_package = "Google::Ads::GoogleAds::V0::Errors";
 // Proto file describing criterion errors.
 
 // Container for enum describing possible criterion errors.
@@ -316,6 +317,41 @@ message CriterionErrorEnum {
     // The field is not allowed to be set when the negative field is set to
     // true, e.g. we don't allow bids in negative ad group or campaign criteria.
     FIELD_INCOMPATIBLE_WITH_NEGATIVE_TARGETING = 84;
+
+    // The combination of operand and operator in webpage condition is invalid.
+    INVALID_WEBPAGE_CONDITION = 85;
+
+    // The URL of webpage condition is invalid.
+    INVALID_WEBPAGE_CONDITION_URL = 86;
+
+    // The URL of webpage condition cannot be empty or contain white space.
+    WEBPAGE_CONDITION_URL_CANNOT_BE_EMPTY = 87;
+
+    // The URL of webpage condition contains an unsupported protocol.
+    WEBPAGE_CONDITION_URL_UNSUPPORTED_PROTOCOL = 88;
+
+    // The URL of webpage condition cannot be an IP address.
+    WEBPAGE_CONDITION_URL_CANNOT_BE_IP_ADDRESS = 89;
+
+    // The domain of the URL is not consistent with the domain in campaign
+    // setting.
+    WEBPAGE_CONDITION_URL_DOMAIN_NOT_CONSISTENT_WITH_CAMPAIGN_SETTING = 90;
+
+    // The URL of webpage condition cannot be a public suffix itself.
+    WEBPAGE_CONDITION_URL_CANNOT_BE_PUBLIC_SUFFIX = 91;
+
+    // The URL of webpage condition has an invalid public suffix.
+    WEBPAGE_CONDITION_URL_INVALID_PUBLIC_SUFFIX = 92;
+
+    // Value track parameter is not supported in webpage condition URL.
+    WEBPAGE_CONDITION_URL_VALUE_TRACK_VALUE_NOT_SUPPORTED = 93;
+
+    // Only one URL-EQUALS webpage condition is allowed in a webpage
+    // criterion and it cannot be combined with other conditions.
+    WEBPAGE_CRITERION_URL_EQUALS_CAN_HAVE_ONLY_ONE_CONDITION = 94;
+
+    // A webpage criterion cannot be added to a non-DSA ad group.
+    WEBPAGE_CRITERION_NOT_SUPPORTED_ON_NON_DSA_AD_GROUP = 95;
   }
 
 

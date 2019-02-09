@@ -27,9 +27,11 @@ option java_outer_classname = "KeywordPlanNegativeKeywordProto";
 option java_package = "com.google.ads.googleads.v0.resources";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Resources";
+option ruby_package = "Google::Ads::GoogleAds::V0::Resources";
 // Proto file describing the keyword plan negative keyword resource.
 
 // A Keyword Plan negative keyword.
+// Max number of keyword plan negative keywords per plan: 1000.
 message KeywordPlanNegativeKeyword {
   // The resource name of the Keyword Plan negative keyword.
   // KeywordPlanNegativeKeyword resource names have the form:

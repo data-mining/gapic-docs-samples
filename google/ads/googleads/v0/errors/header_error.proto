@@ -24,6 +24,7 @@ option java_outer_classname = "HeaderErrorProto";
 option java_package = "com.google.ads.googleads.v0.errors";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Errors";
+option ruby_package = "Google::Ads::GoogleAds::V0::Errors";
 // Proto file describing header errors.
 
 // Container for enum describing possible header errors.
@@ -38,9 +39,6 @@ message HeaderErrorEnum {
 
     // The login customer id could not be validated.
     INVALID_LOGIN_CUSTOMER_ID = 3;
-
-    // One or more task headers could not be parsed.
-    MALFORMED_TASK_INFO = 4;
   }
 
 

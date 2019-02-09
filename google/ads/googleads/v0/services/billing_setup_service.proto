@@ -27,6 +27,7 @@ option java_outer_classname = "BillingSetupServiceProto";
 option java_package = "com.google.ads.googleads.v0.services";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Services";
+option ruby_package = "Google::Ads::GoogleAds::V0::Services";
 // Proto file describing the BillingSetup service.
 
 // A service for designating the business entity responsible for accrued costs.

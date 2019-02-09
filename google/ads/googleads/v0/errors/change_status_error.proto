@@ -24,6 +24,7 @@ option java_outer_classname = "ChangeStatusErrorProto";
 option java_package = "com.google.ads.googleads.v0.errors";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Errors";
+option ruby_package = "Google::Ads::GoogleAds::V0::Errors";
 // Proto file describing change status errors.
 
 // Container for enum describing possible change status errors.

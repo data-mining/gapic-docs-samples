@@ -31,6 +31,7 @@ option java_outer_classname = "RecommendationServiceProto";
 option java_package = "com.google.ads.googleads.v0.services";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Services";
+option ruby_package = "Google::Ads::GoogleAds::V0::Services";
 // Proto file describing the Recommendation service.
 
 // Service to manage recommendations.
@@ -70,16 +71,16 @@ message ApplyRecommendationRequest {
   // The ID of the customer with the recommendation.
   string customer_id = 1;
 
+  // The list of operations to apply recommendations.
+  // If partial_failure=false all recommendations should be of the same type
+  // There is a limit of 100 operations per request.
+  repeated ApplyRecommendationOperation operations = 2;
+
   // If true, successful operations will be carried out and invalid
   // operations will return errors. If false, operations will be carried
   // out as a transaction if and only if they are all valid.
   // Default is false.
   bool partial_failure = 3;
-
-  // The list of operations to apply recommendations.
-  // If partial_failure=false all recommendations should be of the same type
-  // There is a limit of 100 operations per request.
-  repeated ApplyRecommendationOperation operations = 2;
 }
 
 // Information about the operation to apply a recommendation and any parameters
@@ -173,16 +174,16 @@ message DismissRecommendationRequest {
   // The ID of the customer with the recommendation.
   string customer_id = 1;
 
+  // The list of operations to dismiss recommendations.
+  // If partial_failure=false all recommendations should be of the same type
+  // There is a limit of 100 operations per request.
+  repeated DismissRecommendationOperation operations = 3;
+
   // If true, successful operations will be carried out and invalid
   // operations will return errors. If false, operations will be carried in a
   // single transaction if and only if they are all valid.
   // Default is false.
   bool partial_failure = 2;
-
-  // The list of operations to dismiss recommendations.
-  // If partial_failure=false all recommendations should be of the same type
-  // There is a limit of 100 operations per request.
-  repeated DismissRecommendationOperation operations = 3;
 }
 
 // Response message for [RecommendationService.DismissRecommendation][google.ads.googleads.v0.services.RecommendationService.DismissRecommendation].

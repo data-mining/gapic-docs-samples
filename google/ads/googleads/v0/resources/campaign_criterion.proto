@@ -28,6 +28,7 @@ option java_outer_classname = "CampaignCriterionProto";
 option java_package = "com.google.ads.googleads.v0.resources";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Resources";
+option ruby_package = "Google::Ads::GoogleAds::V0::Resources";
 // Proto file describing the Campaign Criterion resource.
 
 // A campaign criterion.
@@ -66,6 +67,9 @@ message CampaignCriterion {
 
     // Placement.
     google.ads.googleads.v0.common.PlacementInfo placement = 9;
+
+    // Mobile app category.
+    google.ads.googleads.v0.common.MobileAppCategoryInfo mobile_app_category = 10;
 
     // Location.
     google.ads.googleads.v0.common.LocationInfo location = 12;
@@ -120,5 +124,11 @@ message CampaignCriterion {
 
     // User Interest.
     google.ads.googleads.v0.common.UserInterestInfo user_interest = 30;
+
+    // Webpage.
+    google.ads.googleads.v0.common.WebpageInfo webpage = 31;
+
+    // Operating system version.
+    google.ads.googleads.v0.common.OperatingSystemVersionInfo operating_system_version = 32;
   }
 }

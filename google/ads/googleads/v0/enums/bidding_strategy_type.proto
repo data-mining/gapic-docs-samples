@@ -24,6 +24,7 @@ option java_outer_classname = "BiddingStrategyTypeProto";
 option java_package = "com.google.ads.googleads.v0.enums";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Enums";
+option ruby_package = "Google::Ads::GoogleAds::V0::Enums";
 // Proto file describing bidding schemes.
 
 // Container for enum describing possible bidding strategy types.
@@ -71,6 +72,11 @@ message BiddingStrategyTypeEnum {
     // to help get as many conversions as possible
     // at the target cost-per-acquisition (CPA) you set.
     TARGET_CPA = 6;
+
+    // Target CPM is an automated bid strategy that sets bids to help get
+    // as many impressions as possible at the target cost per one thousand
+    // impressions (CPM) you set.
+    TARGET_CPM = 14;
 
     // Target Outrank Share is an automated bidding strategy that sets bids
     // based on the target fraction of auctions where the advertiser

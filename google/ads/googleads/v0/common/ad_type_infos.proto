@@ -29,6 +29,7 @@ option java_outer_classname = "AdTypeInfosProto";
 option java_package = "com.google.ads.googleads.v0.common";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Common";
+option ruby_package = "Google::Ads::GoogleAds::V0::Common";
 // Proto file containing info messages for specific ad types.
 
 // A text ad.
@@ -287,5 +288,31 @@ message ImageAdInfo {
 
     // Raw image data as bytes.
     google.protobuf.BytesValue data = 2;
+  }
+}
+
+// Representation of video TrueView in-stream ad format (ad shown during video
+// playback, often at beginning, which displays a skip button a few seconds into
+// the video).
+message VideoTrueViewInStreamAdInfo {
+  // Label on the CTA (call-to-action) button taking the user to the video ad's
+  // final URL.
+  // Required for TrueView for action campaigns, optional otherwise.
+  google.protobuf.StringValue action_button_label = 1;
+
+  // Additional text displayed with the CTA (call-to-action) button to give
+  // context and encourage clicking on the button.
+  google.protobuf.StringValue action_headline = 2;
+}
+
+// A video ad.
+message VideoAdInfo {
+  // The MediaFile resource to use for the video.
+  google.protobuf.StringValue media_file = 1;
+
+  // Format-specific schema for the different video formats.
+  oneof format {
+    // Video TrueView in-stream format.
+    VideoTrueViewInStreamAdInfo in_stream = 2;
   }
 }

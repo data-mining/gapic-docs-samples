@@ -32,6 +32,7 @@ option java_outer_classname = "AdGroupCriterionProto";
 option java_package = "com.google.ads.googleads.v0.resources";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Resources";
+option ruby_package = "Google::Ads::GoogleAds::V0::Resources";
 // Proto file describing the ad group criterion resource.
 
 // An ad group criterion.
@@ -67,6 +68,14 @@ message AdGroupCriterion {
     // The estimate of the CPC bid required for ad to be displayed at the top
     // of the first page of search results.
     google.protobuf.Int64Value top_of_page_cpc_micros = 3;
+
+    // Estimate of how many clicks per week you might get by changing your
+    // keyword bid to the value in first_position_cpc_micros.
+    google.protobuf.Int64Value estimated_add_clicks_at_first_position_cpc = 4;
+
+    // Estimate of how your cost per week might change when changing your
+    // keyword bid to the value in first_position_cpc_micros.
+    google.protobuf.Int64Value estimated_add_cost_at_first_position_cpc = 5;
   }
 
   // The resource name of the ad group criterion.
@@ -164,6 +173,9 @@ message AdGroupCriterion {
     // Placement.
     google.ads.googleads.v0.common.PlacementInfo placement = 28;
 
+    // Mobile app category.
+    google.ads.googleads.v0.common.MobileAppCategoryInfo mobile_app_category = 29;
+
     // Listing group.
     google.ads.googleads.v0.common.ListingGroupInfo listing_group = 32;
 
@@ -193,5 +205,11 @@ message AdGroupCriterion {
 
     // User Interest.
     google.ads.googleads.v0.common.UserInterestInfo user_interest = 45;
+
+    // Webpage
+    google.ads.googleads.v0.common.WebpageInfo webpage = 46;
+
+    // App Payment Model.
+    google.ads.googleads.v0.common.AppPaymentModelInfo app_payment_model = 47;
   }
 }

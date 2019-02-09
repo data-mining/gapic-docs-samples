@@ -20,6 +20,8 @@ package google.ads.googleads.v0.services;
 import "google/ads/googleads/v0/resources/campaign_budget.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/field_mask.proto";
+import "google/protobuf/wrappers.proto";
+import "google/rpc/status.proto";
 
 option csharp_namespace = "Google.Ads.GoogleAds.V0.Services";
 option go_package = "google.golang.org/genproto/googleapis/ads/googleads/v0/services;services";
@@ -28,6 +30,7 @@ option java_outer_classname = "CampaignBudgetServiceProto";
 option java_package = "com.google.ads.googleads.v0.services";
 option objc_class_prefix = "GAA";
 option php_namespace = "Google\\Ads\\GoogleAds\\V0\\Services";
+option ruby_package = "Google::Ads::GoogleAds::V0::Services";
 // Proto file describing the Campaign Budget service.
 
 // Service to manage campaign budgets.
@@ -62,6 +65,16 @@ message MutateCampaignBudgetsRequest {
 
   // The list of operations to perform on individual campaign budgets.
   repeated CampaignBudgetOperation operations = 2;
+
+  // If true, successful operations will be carried out and invalid
+  // operations will return errors. If false, all operations will be carried
+  // out in one transaction if and only if they are all valid.
+  // Default is false.
+  bool partial_failure = 3;
+
+  // If true, the request is validated but not executed. Only errors are
+  // returned, not results.
+  bool validate_only = 4;
 }
 
 // A single operation (create, update, remove) on a campaign budget.
@@ -88,6 +101,12 @@ message CampaignBudgetOperation {
 
 // Response message for campaign budget mutate.
 message MutateCampaignBudgetsResponse {
+  // Errors that pertain to operation failures in the partial failure mode.
+  // Returned only when partial_failure = true and all errors occur inside the
+  // operations. If any errors occur outside the operations (e.g. auth errors),
+  // we return an RPC level error.
+  google.rpc.Status partial_failure_error = 3;
+
   // All results for the mutate.
   repeated MutateCampaignBudgetResult results = 2;
 }

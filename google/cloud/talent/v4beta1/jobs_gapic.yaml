@@ -115,6 +115,31 @@ interfaces:
   #   the call is retrying, refer to retry_params_name instead.
   methods:
   - name: CreateCompany
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [talent_create_company]
+        region_tag: talent_create_company
+    sample_value_sets:
+    - id: talent_create_company
+      description: Create Company
+      parameters:
+        defaults:
+        - parent%project="Your Google Cloud Project ID"
+        - company.display_name="My Company Name"
+        - company.external_id="Identifier of this company in my system"
+        attributes:
+        - parameter: parent%project
+          sample_argument_name: project_id
+        - parameter: company.display_name
+          sample_argument_name: display_name
+      on_success:
+      - print:
+        - "Created company: %s"
+        - $resp.display_name
+      - print:
+        - "Company name: %s"
+        - $resp.name
     flattening:
       groups:
       - parameters:
@@ -153,6 +178,26 @@ interfaces:
       company.name: company
     timeout_millis: 30000
   - name: DeleteCompany
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [talent_delete_company]
+        region_tag: talent_delete_company
+    sample_value_sets:
+    - id: talent_delete_company
+      description: Delete Company
+      parameters:
+        defaults:
+        - name%project="Your Google Cloud Project ID"
+        - name%company="ID of the company to delete"
+        attributes:
+        - parameter: name%project
+          sample_argument_name: project_id
+        - parameter: name%company
+          sample_argument_name: company_id
+      on_success:
+      - print:
+        - "Deleted company"
     flattening:
       groups:
       - parameters:
@@ -165,6 +210,27 @@ interfaces:
       name: company
     timeout_millis: 30000
   - name: ListCompanies
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [talent_list_companies]
+        region_tag: talent_list_companies
+    sample_value_sets:
+    - id: talent_list_companies
+      description: List Companies
+      parameters:
+        defaults:
+        - parent%project="Your Google Cloud Project ID"
+        attributes:
+        - parameter: parent%project
+          sample_argument_name: project_id
+      on_success:
+      - print:
+        - "Company: %s"
+        - $resp.name
+      - print:
+        - "Display name: %s"
+        - $resp.display_name
     flattening:
       groups:
       - parameters:
@@ -524,6 +590,36 @@ interfaces:
       name: job
     timeout_millis: 30000
   - name: ListJobs
+      # samples:
+      #   standalone:
+      #   - calling_forms: ".*"
+      #     value_sets: [talent_list_jobs]
+      #     region_tag: talent_list_jobs
+      # sample_value_sets:
+      # - id: talent_list_jobs
+      #   description: List Jobs
+      #   parameters:
+      #     defaults:
+      #     - document.type=PLAIN_TEXT
+      #     - document.content="Your text to analyze, e.g. Hello, world!"
+      #     - parent%project="Your Google Cloud Project ID"
+      #     attributes:
+      #     - parameter: entity_type.display_name
+      #       sample_argument_name: display_name
+      #     - parameter: document.content
+      #       sample_argument_name: content
+      #   on_success:
+      #   - define: sentiment=$resp.document_sentiment
+      #   - print:
+      #     - "Foo: %s"
+      #     - sentiment.foo
+      #   - loop:
+      #       collection: $resp.some_items
+      #       variable: item
+      #       body:
+      #       - print:
+      #         - "Item name: %s"
+      #         - item.name
     flattening:
       groups:
       - parameters:

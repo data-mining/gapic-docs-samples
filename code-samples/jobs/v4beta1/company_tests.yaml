@@ -1,0 +1,68 @@
+test:
+  suites:
+  - name: Company Service
+
+    setup:
+      - code: |
+          import os
+          import re
+          project_id = os.environ['GOOGLE_PROJECT_ID']
+
+    cases:
+    - name: Creating, Listing, and Deleting Companies
+      spec:
+      - uuid: company_display_name
+
+      # Verify clean state
+      - call:
+          target: talent_list_companies
+          params:
+            projectId:
+              variable: project_id
+      - assert_not_contains:
+        - variable: company_display_name
+
+      # Create company
+      ### - call:
+      ###   target: talent_create_company
+      ###   params:
+      ###     params:
+      ###       projectId:
+      ###         varable: project_id
+      ###       displayName:
+      ###         variable: company_display_name
+      - code: last_call_output = call('talent_create_company', projectId=project_id, displayName=company_display_name)
+      - assert_contains:
+        - literal: "Created company"
+        - variable: company_display_name
+
+      - code: company_id = re.search('([^\/]+)$', last_call_output).group(1).rstrip()
+
+      # Verify Created
+      - call:
+          target: talent_list_companies
+          params:
+            projectId:
+              variable: project_id
+      - assert_contains:
+        - variable: company_display_name
+
+      # Delete company
+      - call:
+        target: talent_delete_company
+        params:
+          projectId:
+            variable: project_id
+          displayName:
+            variable: company_id
+      - assert_contains:
+        - literal: "Deleted company"
+
+      # Verify Deleted
+      - call:
+          target: talent_list_companies
+          params:
+            projectId:
+              variable: project_id
+      - assert_not_contains:
+        - variable: company_display_name

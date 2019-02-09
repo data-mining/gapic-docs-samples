@@ -1,0 +1,17 @@
+---
+version: 1
+sets:
+- language: php
+  bin: php
+  path: jobs/v4beta1/
+  __items__:
+  - region_tag: talent_list_companies
+    path: php/ListCompaniesRequestPagedAllTalentListCompanies.php
+  - region_tag: talent_delete_company
+    path: php/DeleteCompanyRequestTalentDeleteCompany.php
+  - region_tag: talent_create_company
+    path: php/CreateCompanyRequestTalentCreateCompany.php
+- language: go
+  bin: go run
+  path: jobs/v4beta1/
+  __items__: []

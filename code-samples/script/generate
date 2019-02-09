@@ -31,20 +31,14 @@ case "$LANGUAGE" in
 esac
 
 ## Lookup artman configuration file (used for generation) in googleapis dir
-ARTMAN_FILE="$GOOGLEAPIS_DIR/google/$API_NAME/artman_${API_NAME}_${API_VERSION}.yaml"
-CLOUD_ARTMAN_FILE="$GOOGLEAPIS_DIR/google/cloud/$API_NAME/artman_${API_NAME}_${API_VERSION}.yaml"
+# RELATIVE_ARTMAN_FILE="/googleapis/google/$API_NAME/artman_${API_NAME}_${API_VERSION}.yaml"
+ARTMAN_FILE="$(find "$GOOGLEAPIS_DIR" -type f -name "artman_${API_NAME}_${API_VERSION}.yaml")"
 
-if [ -f "$ARTMAN_FILE" ]; then
-  RELATIVE_ARTMAN_FILE="/googleapis/google/$API_NAME/artman_${API_NAME}_${API_VERSION}.yaml"
-elif [ -f "$CLOUD_ARTMAN_FILE" ]; then
-  RELATIVE_ARTMAN_FILE="/googleapis/google/cloud/$API_NAME/artman_${API_NAME}_${API_VERSION}.yaml"
-else
-  echo "Artman file not found for $API_NAME $API_VERSION"
-  echo
-  echo "Search paths:"
-  echo "  $ARTMAN_FILE"
-  echo "  $CLOUD_ARTMAN_FILE"
+if [ -z "$ARTMAN_FILE" ]; then
+  echo "Artman file not found: $API_VERSION/artman_${API_NAME}_${API_VERSION}.yaml"
   exit 1
+else
+  RELATIVE_ARTMAN_FILE="$( echo "$ARTMAN_FILE" | sed "s|$GOOGLEAPIS_DIR/||" )"
 fi
 
 ## Run generator via artman docker image
@@ -127,7 +121,9 @@ done
 $SCRIPT_DIR/generate-manifest $API_NAME/$API_VERSION > "$API_VERSION_DIRECTORY/.$API_NAME.manifest.yaml"
 echo "Wrote sample manifest: $API_NAME/$API_VERSION/.$API_NAME.manifest.yaml"
 
-if [ ! -f "$API_VERSION_DIRECTORY/tests.yaml" ]; then
+TEST_FILES="$( ls $API_VERSION_DIRECTORY/*test*.yaml )"
+
+if [ -z "$TEST_FILES" ]; then
   cat > "$API_VERSION_DIRECTORY/tests.yaml" <<EOL
 test:
   suites:
@@ -179,7 +175,7 @@ case "$LANGUAGE" in
           echo "$pip_package_name==$pip_package_version" > requirements.txt
           echo "Saved requirements.txt"
           pip install -r requirements.txt
-        fi  
+        fi
       else
         echo "pip not installed, can not search for pip package for $API_NAME"
         echo "please create requirements.txt by hand"
@@ -204,7 +200,7 @@ EOL
     ;;
   *)
     echo "Unsure how to install dependencies for $LANGUAGE"
-    ;; 
+    ;;
 esac
 cd "$CURRENT_DIR"
 
@@ -246,5 +242,5 @@ case "$LANGUAGE" in
     ;;
   *)
     echo "Unsure how to run samples for $LANGUAGE"
-    ;; 
+    ;;
 esac

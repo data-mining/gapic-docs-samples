@@ -2,6 +2,8 @@
 
 # ⚠️  This makes a LOT of assumptions. It will probably break for you.
 
+# (beccasaurus) Refactor language bits out / etc / make it all pretty!
+
 if [ "$#" -ne 3 ]; then
   echo "Usage: ./script/generate [api_name] [api_version] [language]"
 fi
@@ -111,6 +113,14 @@ for paged_all_sample in `find "$API_SAMPLES_DIRECTORY" -type f \( -name "*PagedA
   if [ -f "$paged_sample" ]; then
     echo "Removing unwanted calling form: $paged_sample"
     rm $paged_sample
+  fi
+done
+
+for lro_async_unwanted_sample in `find "$API_SAMPLES_DIRECTORY" -type f -name "*LongRunningRequestAsync*.$LANGUAGE_EXTENSION"`; do
+  lro_async_ok_sample="$(echo "$lro_async_unwanted_sample" | sed 's/LongRunningRecognizeLongRunningRequestAsync/LongRunningRecognizeLongRunningRequest/' )"
+  if [ -f "$lro_async_ok_sample" ]; then
+    echo "Removing unwanted calling form: $lro_async_unwanted_sample"
+    rm $lro_async_unwanted_sample
   fi
 done
 

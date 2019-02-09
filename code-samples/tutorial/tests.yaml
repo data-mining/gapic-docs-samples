@@ -1,0 +1,24 @@
+test:
+  suites:
+  - name:  Language v1beta2
+    cases:
+
+    - name: Positive Sentiment
+      spec:
+      - call:
+          target: language_analyze_sentiment_v1beta2
+          params:
+            textContent:
+              literal: "I am happy. So so happy."
+      - assert_contains:
+        - literal: "Overall sentiment: 0."
+
+    - name: Negative Sentiment
+      spec:
+      - call:
+          target: language_analyze_sentiment_v1beta2
+          params:
+            textContent:
+              literal: "I am sad. So so sad."
+      - assert_contains:
+        - literal: "Overall sentiment: -0."

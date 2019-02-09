@@ -6,7 +6,7 @@
 
 Please checkout the [Code Sample Generation Tutorial](TUTORIAL.md)
 
-In this tutorial, you  author a new code sample which calls the [Cloud Natural Language API][Natural Language].
+In the tutorial, you  author a new code sample which calls the [Cloud Natural Language API][Natural Language].
 
  - You update an existing configuration file to add a **new code sample**.
  - You generate the new code sample in **multiple programming languages**.

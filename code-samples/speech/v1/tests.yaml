@@ -1,6 +1,6 @@
 test:
   suites:
-  - name:  "Dialogflow samples test"
+  - name:  "Speech-to-Text V1"
     cases:
 
     - name: speech_transcribe_sync

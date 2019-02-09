@@ -1,12 +1,12 @@
 test:
   suites:
-  - name:  "Language samples test"
+  - name: Natural Language V1
 
     cases:
     - name: Analyze Syntax from text
       spec:
       - call:
-          target: "language_syntax_text"
+          target: language_syntax_text
           params:
             content:
               literal: "California is a state."

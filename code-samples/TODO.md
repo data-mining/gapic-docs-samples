@@ -36,7 +36,7 @@ _If there are blocking issues, we can use this document to note them down._
 #### 📜 Natural Language API
 
  - [Analyzing Syntax][]
-   - [ ] `language_syntax_text` 
+   - [X] `language_syntax_text` 
    - [ ] `language_syntax_gcs`
  - [Analyzing Sentiment][]
    - [ ] `language_sentiment_text` 
@@ -60,10 +60,10 @@ _If there are blocking issues, we can use this document to note them down._
 #### 👂 Speech-to-Text API
 
  - [Transcribing short audio files][]
-   - [ ] `speech_transcribe_sync`
-   - [ ] `speech_transcribe_sync_gcs`
+   - [X] `speech_transcribe_sync`
+   - [X] `speech_transcribe_sync_gcs`
  - [Transcribing long audio files][]
-   - [ ] `speech_transcribe_async`
+   - [X] `speech_transcribe_async`
    - [ ] `speech_transcribe_async_gcs`
  - [Getting word timestamps][]
    - [ ] `speech_transcribe_async_word_time_offsets_gcs`

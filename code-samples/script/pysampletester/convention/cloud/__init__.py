@@ -11,3 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+from .cloud import CloudRepos
+
+def test_environments(files):
+    return CloudRepos(files).test_environments()

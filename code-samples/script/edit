@@ -21,6 +21,11 @@ GOOGLE_DIR="$GOOGLEAPIS_DIR/google"
 GAPIC_CONFIG="$( find "$GOOGLE_DIR" -type f -name "${API_NAME}_gapic.yaml" | grep "/$API_VERSION/" )"
 
 if [ -n "$GAPIC_CONFIG" ]; then
+	if [ -z "$EDITOR" ]; then
+		echo "EDITOR environment variable not set"
+		echo "Using Default Editor (vi)"
+		EDITOR=vi
+	fi
   $EDITOR "$GAPIC_CONFIG"
 else
   echo "No GAPIC configuration file found for $API_NAME $API_VERSION"

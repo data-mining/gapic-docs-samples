@@ -8,7 +8,7 @@ test:
       - call:
           target: speech_transcribe_sync
           params:
-            localFilePath:
+            local_file_path:
               literal: "speech/resources/brooklyn_bridge.raw"
       - assert_contains:
         - literal: "how old is the Brooklyn Bridge"
@@ -25,7 +25,7 @@ test:
       - call:
           target: speech_transcribe_async
           params:
-            localFilePath:
+            local_file_path:
               literal: "speech/resources/brooklyn_bridge.raw"
       - assert_contains:
         - literal: "how old is the Brooklyn Bridge"

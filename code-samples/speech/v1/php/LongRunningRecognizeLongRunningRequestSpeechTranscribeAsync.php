@@ -66,19 +66,19 @@ function sampleLongRunningRecognize($languageCode, $localFilePath)
 // [END speech_transcribe_async]
 
 $opts = [
-    'languageCode::',
-    'localFilePath::',
+    'language_code::',
+    'local_file_path::',
 ];
 
 $defaultOptions = [
-    'languageCode' => 'en-US',
-    'localFilePath' => 'Path to local audio file, e.g. /path/audio.wav',
+    'language_code' => 'en-US',
+    'local_file_path' => 'Path to local audio file, e.g. /path/audio.wav',
 ];
 
 $options = getopt('', $opts);
 $options += $defaultOptions;
 
-$languageCode = $options['languageCode'];
-$localFilePath = $options['localFilePath'];
+$languageCode = $options['language_code'];
+$localFilePath = $options['local_file_path'];
 
 sampleLongRunningRecognize($languageCode, $localFilePath);

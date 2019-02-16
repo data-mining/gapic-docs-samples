@@ -118,8 +118,8 @@ for lro_async_unwanted_sample in `find "$API_SAMPLES_DIRECTORY" -type f -name "*
   fi
 done
 
-$SCRIPT_DIR/generate-manifest $API_NAME/$API_VERSION > "$API_VERSION_DIRECTORY/.$API_NAME.manifest.yaml"
-echo "Wrote sample manifest: $API_NAME/$API_VERSION/.$API_NAME.manifest.yaml"
+$SCRIPT_DIR/generate-manifest $API_NAME/$API_VERSION > "$API_VERSION_DIRECTORY/$API_NAME.manifest.yaml"
+echo "Wrote sample manifest: $API_NAME/$API_VERSION/$API_NAME.manifest.yaml"
 
 TEST_FILES="$( ls $API_VERSION_DIRECTORY/*test*.yaml )"
 

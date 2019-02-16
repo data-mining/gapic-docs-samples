@@ -1,0 +1,17 @@
+---
+version: 1
+sets:
+- language: python
+  bin: python
+  path: language/v1/
+  __items__:
+  - region_tag: language_sentiment_gcs
+    path: python/analyze_sentiment_request_language_sentiment_gcs.py
+  - region_tag: language_syntax_text
+    path: python/analyze_syntax_request_language_syntax_text.py
+  - region_tag: language_sentiment_text
+    path: python/analyze_sentiment_request_language_sentiment_text.py
+  - region_tag: language_entity_sentiment_text
+    path: python/analyze_entity_sentiment_request_language_entity_sentiment_text.py
+  - region_tag: language_syntax_gcs
+    path: python/analyze_syntax_request_language_syntax_gcs.py

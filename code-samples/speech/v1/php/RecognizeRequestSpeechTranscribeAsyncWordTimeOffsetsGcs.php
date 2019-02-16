@@ -66,19 +66,19 @@ function sampleRecognize($languageCode, $gcsUri)
 // [END speech_transcribe_async_word_time_offsets_gcs]
 
 $opts = [
-    'languageCode::',
-    'gcsUri::',
+    'language_code::',
+    'gcs_uri::',
 ];
 
 $defaultOptions = [
-    'languageCode' => 'en-US',
-    'gcsUri' => 'gs://cloud-samples-data/speech/brooklyn_bridge.raw',
+    'language_code' => 'en-US',
+    'gcs_uri' => 'gs://cloud-samples-data/speech/brooklyn_bridge.raw',
 ];
 
 $options = getopt('', $opts);
 $options += $defaultOptions;
 
-$languageCode = $options['languageCode'];
-$gcsUri = $options['gcsUri'];
+$languageCode = $options['language_code'];
+$gcsUri = $options['gcs_uri'];
 
 sampleRecognize($languageCode, $gcsUri);

@@ -12,9 +12,9 @@ excluded_paths = %w[ /env/ /node_modules/ /vendor/ ]
 
 languages = [
   { name: "php",    extension: "php", bin: "php",    samples: [] },
-  # Ignore Python for now, both PHP and Go use camelCase CLI arguments
-  # { name: "python", extension: "py",  bin: "python", samples: [] },
-  { name: "go",     extension: "go",  bin: "go run", samples: [] }
+  { name: "python", extension: "py",  bin: "python", samples: [] }
+  # Ignore Go for now, it uses camelCase CLI argument names
+  # { name: "go",     extension: "go",  bin: "go run", samples: [] }
 ]
 
 directory = ARGV.shift

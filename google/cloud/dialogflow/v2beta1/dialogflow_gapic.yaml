@@ -1254,6 +1254,32 @@ interfaces:
     timeout_millis: 60000
     resource_name_treatment: STATIC_TYPES
   - name: CreateKnowledgeBase
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [dialogflow_create_knowledge_base]
+        region_tag: dialogflow_create_knowledge_base
+    sample_value_sets:
+    - id: dialogflow_create_knowledge_base
+      description: Create Knowledge Base
+      parameters:
+        defaults:
+        - parent%project="Your Google Cloud Project ID"
+        - knowledge_base.display_name="KnowledgeBase display name"
+        attributes:
+        - parameter: parent%project
+          sample_argument_name: project_id
+        - parameter: knowledge_base.display_name
+          sample_argument_name: display_name
+      on_success:
+      - print:
+        - "Created Knowledge Base"
+      - print:
+        - "Name: %s"
+        - $resp.name
+      - print:
+        - "Display Name: %s"
+        - $resp.display_name
     flattening:
       groups:
       - parameters:

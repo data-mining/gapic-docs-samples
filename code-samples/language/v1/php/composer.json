@@ -1,0 +1,14 @@
+{
+	"repositories": [
+		{
+			"type": "path",
+			"url": "../../../client-libraries/php/google-cloud-language-v1",
+			"options": {
+				"symlink": true
+			}
+		}
+	],
+	"require": {
+		"google/cloud-language": "@dev"
+	}
+}

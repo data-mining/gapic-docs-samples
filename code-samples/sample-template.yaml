@@ -18,6 +18,8 @@ interfaces:
         - document.content="Your text to analyze, e.g. Hello, world!"
         - parent%project="Your Google Cloud Project ID"
         attributes:
+        - parameter: parent%project
+          sample_argument_name: project_id
         - parameter: entity_type.display_name
           sample_argument_name: display_name
         - parameter: document.content

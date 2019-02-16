@@ -1,0 +1,13 @@
+---
+version: 1
+sets:
+- language: php
+  bin: php
+  path: dialogflow/v2beta1/
+  __items__:
+  - region_tag: dialogflow_create_knowledge_base
+    path: php/CreateKnowledgeBaseRequestDialogflowCreateKnowledgeBase.php
+- language: python
+  bin: python
+  path: dialogflow/v2beta1/
+  __items__: []

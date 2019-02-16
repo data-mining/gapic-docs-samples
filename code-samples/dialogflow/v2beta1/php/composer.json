@@ -1,0 +1,14 @@
+{
+	"repositories": [
+		{
+			"type": "path",
+			"url": "../../../client-libraries/php/google-cloud-dialogflow-v2beta1",
+			"options": {
+				"symlink": true
+			}
+		}
+	],
+	"require": {
+		"google/cloud-dialogflow": "@dev"
+	}
+}

@@ -1,6 +1,20 @@
 ---
 version: 1
 sets:
+- language: php
+  bin: php
+  path: language/v1/
+  __items__:
+  - region_tag: language_entity_sentiment_text
+    path: php/AnalyzeEntitySentimentRequestLanguageEntitySentimentText.php
+  - region_tag: language_syntax_text
+    path: php/AnalyzeSyntaxRequestLanguageSyntaxText.php
+  - region_tag: language_syntax_gcs
+    path: php/AnalyzeSyntaxRequestLanguageSyntaxGcs.php
+  - region_tag: language_sentiment_text
+    path: php/AnalyzeSentimentRequestLanguageSentimentText.php
+  - region_tag: language_sentiment_gcs
+    path: php/AnalyzeSentimentRequestLanguageSentimentGcs.php
 - language: python
   bin: python
   path: language/v1/

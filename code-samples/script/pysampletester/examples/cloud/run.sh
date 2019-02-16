@@ -11,3 +11,5 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+./sampletester ${FLAGS:---xunit $(mktemp --suffix=.xml --tmpdir sampletester.xunit.XXXXX) -s -v} --convention=cloud examples/cloud/language.test.yaml examples/testdata/googleapis 

@@ -1,0 +1,137 @@
+# Copyright 2019 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+test:
+  # For this test, suite names should contain the strings "Passing" or
+  # "Failing" so the text fixture knows what to expect.
+  #
+  # The test case  # names should be just "yaml" or "code".  
+  suites:
+  - name: Passing directives test
+    cases:
+    - name: "code"
+      spec:
+      - code: |
+          out = call('/bin/echo', '"It was the best of times"')
+          assert_success("echo should have succeeded")
+          assert_contains("best")
+          assert_not_contains("worst")
+          assert_that('ime' in out, 'expected "ime" in the preceding output')
+          expect('ime' in out, 'expected "ime" in the preceding output')
+          call_may_fail('/nonexistent/dir/foobar')
+          assert_failure("foobar call should have failed")
+          homedir = env('HOME')
+          log('homedir: {}'.format(homedir))
+          my_uuid = uuid()
+          log('uuid: {}'.format(my_uuid))
+    - name: "yaml"
+      spec:
+      - call:
+          target: "/bin/echo"
+          args:
+            - literal: "It was the best of times"
+      - assert_success:
+        - "echo should have succeeded"
+      - assert_contains:
+        - message: "Expected 'best'"
+        - literal: "best"
+      - assert_not_contains:
+        - message: "Expected no 'worst'"            
+        - literal: "worst"
+      - call_may_fail:
+          target: '/nonexistent/dir/foobar'
+      - assert_failure:
+        - message: "foobar call should have failed"
+      - env:
+          what: HOME
+          var: homedir
+      - log:
+        - "homedir: {}"
+        - homedir
+      - uuid: my_uuid
+      - log:
+        - "uuid: {}"
+        - my_uuid
+  - name: Failing env
+    cases:
+    - name: code
+      spec:
+      - code: homedir = env('FOOLALA')      
+    - name: yaml
+      spec:
+      - env:
+          what: FOOLALA
+          var: homedir    
+  - name: Failing call
+    cases:
+    - name: code
+      spec:
+      - code: out=call('/foo/foo')
+    - name: yaml
+      spec:
+      - call:
+          target: '/foo/foo'
+  - name: Failing assert_success
+    cases:
+    - name: code
+      spec:
+      - code: |
+          out = call_may_fail('/bin/ls', '/foo/foo')
+          assert_success('claim this passes')
+    - name: yaml
+      spec:
+      - code: out=call_may_fail('/bin/ls', '/foo/foo')
+      - assert_success:
+        - "claim this passes"
+  - name: Failing assert_failure
+    cases:
+    - name: code
+      spec:
+      - code: |
+          out = call_may_fail('/bin/echo', 'Hello')
+          assert_failure('claim this fails')
+    - name: yaml
+      spec:
+      - code: out = call_may_fail('/bin/echo', 'Hello')
+      - assert_failure:
+        - "claim this fails"
+  - name: Failing assert_contains
+    cases:
+    - name: code
+      spec:
+      - code: |
+          out = call('/bin/echo', 'It was the best of times')
+          assert_contains('claim this is in there', 'worst')  # TODO: reverse these args; they're counterintuitive
+    - name: yaml
+      spec:
+      - code: out = call('/bin/echo', 'It was the best of times')
+      - assert_contains:
+        - message: "claim this is in there"
+        - literal: "worst"
+  - name: Failing assert_not_contains
+    cases:
+    - name: code
+      spec:
+      - code: |
+          out = call('/bin/echo', 'It was the best of times')
+          assert_not_contains('claim this is not in there', 'best')  # TODO: reverse these args; they're counterintuitive
+    - name: yaml
+      spec:
+      - code: out = call('/bin/echo', 'It was the best of times')
+      - assert_not_contains:
+        - message: "claim this is not in there"
+        - literal: "best"
+
+          
+

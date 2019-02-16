@@ -9,4 +9,4 @@ TEST_DIR="$1"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 TEST_SAMPLE_PY="$SCRIPT_DIR/pysampletester/sampletester"
 
-$TEST_SAMPLE_PY -s $TEST_DIR/*.yaml
+$TEST_SAMPLE_PY -s -v $TEST_DIR/*.yaml

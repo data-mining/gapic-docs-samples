@@ -1,164 +1,101 @@
 #!/usr/bin/env python3
-# Copyright 2019 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 
-# See README.md for set-up instructions.
+# pip install pyyaml
 
-# Run all tests with:
-#  python3 -m unittest discover -s . -p '*_test.py' -v
-#
-# Run examples by executing the `examples/**/run.sh` files (you can set the
-# FLAGS flag to make this less verbose)
-#
-# You can run a quick verification that everything works (tests and all passing
-# examples) by invoking the following (you can set the FLAGS flag to make this
-# less verbose):
-#  eval $(find examples/ -name 'run.sh' -printf 'echo +++++ Running: %p && %p && ') echo -e "===\n\nChecks: OK" || echo -e "===\n\nChecks: ERROR (status: $?) above"
-#
-# To find all TODOs:
-#  grep -r TODO | grep -v '~' | grep -v /lib/
+# https://docs.python.org/3/library/functions.html#exec
+# https://pyyaml.org/wiki/PyYAMLDocumentation
 
-# TODO(vchudnov): Change the name of this file to sampletester.py
+# run with "manifest" convention (still need to change sample.manifest to a real manifest of the test samples; this fails at the moment because of that):
+#  ./test_sample.py convention/manifest/ex.language.test.yaml convention/manifest/ex.language.manifest.yaml
+#
+# run with "cloud" convention:
+#   ./test_sample.py convention/cloud/cloud.py convention/cloud/ex.language.test.yaml testdata/googleapis
+#   ./test_sample.py convention/cloud/cloud.py convention/cloud/ex.product_search_test.yaml testdata/googleapis
 
 import logging
 import os
 import string
 import sys
-import environment_registry
-import runner
-import convention
-import testplan
-import summary
-import xunit
-import argparse
-import contextlib
-import traceback
+import testcase
+import yaml
 
-EXITCODE_SUCCESS = 0
-EXITCODE_TEST_FAILURE = 1
-EXITCODE_FLAG_ERROR = 2
-EXITCODE_SETUP_ERROR = 3
+import testenv
 
-DEFAULT_LOG_LEVEL = 100
+default_convention='convention/manifest/id_by_region.py'
 
-DEBUGME=False
+usage_message = """\nUsage:
+{} TEST.yaml [CONVENTION.py] [TEST.yaml ...] [USERPATH ...]
+
+CONVENTION.py is one of `convention/manifest/id_by_region.py` (default) or
+   `convention/cloud/cloud.py`
+
+USERPATH depends on CONVENTION. For `id_by_region`, it should be a path to a
+   `MANIFEST.manifest.yaml` file.
+""".format(os.path.basename(__file__))
 
 def main():
-  args, usage = parse_cli()
-
-  log_level = LOG_LEVELS[args.logging] or DEFAULT_LOG_LEVEL
-  logging.basicConfig(level=log_level)
+  logging.basicConfig(level=logging.INFO)
   logging.info("argv: {}".format(sys.argv))
+  __abs_file__ = os.path.abspath(__file__)
+  __abs_file_path__ = os.path.split(__abs_file__)[0]
 
-  try:
-    convention_files, test_files, user_paths = get_files(args.files)
-    convention_files = convention_files or [convention.default]
+  convention_files, test_files, user_paths = read_args(sys.argv)
+  if not convention_files or len(convention_files) == 0:
+    convention_files = [os.path.join(__abs_file_path__, default_convention)]
 
-    # TODO(vchudnov): Catch exceptions and print
-    registry = environment_registry.new(args.convention, user_paths)
+  environment_registry = testenv.from_files(convention_files, user_paths)
 
-    test_suites = testplan.suites_from(test_files)
-    manager = testplan.Manager(registry, test_suites)
-  except Exception as e:
-    logging.error("fatal error: {}".format(repr(e)))
-    print("\nERROR: could not run tests because {}\n".format(e))
-    if DEBUGME:
-      traceback.print_exc(file=sys.stdout)
-    else:
-      print(usage)
-    exit(EXITCODE_SETUP_ERROR)
+  test_suites = gather_test_suites(test_files)
 
-  success = manager.accept(runner.Visitor())
+  logging.info("envs: {}".format(environment_registry.get_names()))
 
-  if args.summary:
-    print(manager.accept(summary.SummaryVisitor(args.verbose)))
-    print()
-    if success:
-      print("Tests passed")
-    else:
-      print("Tests failed")
+  SUITE_ENABLED="enabled"
+  SUITE_SETUP="setup"
+  SUITE_TEARDOWN="teardown"
+  SUITE_NAME="name"
+  SUITE_SOURCE="source"
+  SUITE_CASES="cases"
+  CASE_NAME="name"
+  CASE_SPEC="spec"
 
-  if args.xunit:
-    try:
-      with smart_open(args.xunit) as xunit_output:
-        xunit_output.write(manager.accept(xunit.Visitor()))
-      if args.summary:
-        print('xUnit output written to "{}"'.format(args.xunit))
-    except Exception as e:
-      print("could not write xunit output to {}: {}".format(args.xunit, e))
-      if DEBUGME:
-        traceback.print_exc(file=sys.stdout)
-      exit(EXITCODE_FLAG_ERROR)
+  run_passed = True
+  for environment in environment_registry.list():
+    environment.setup()
 
-  exit(EXITCODE_SUCCESS if success else EXITCODE_TEST_FAILURE)
+    for suite_num, suite in enumerate(test_suites):
+      if not suite.get(SUITE_ENABLED, True):
+        continue
+      setup = suite.get(SUITE_SETUP, "")
+      teardown = suite.get(SUITE_TEARDOWN, "")
+      suite_name = suite.get(SUITE_NAME,"")
+      print("\n==== SUITE {}:{}:{} START  ==========================================".format(environment.name(), suite_num, suite_name))
+      print("     {}".format(suite[SUITE_SOURCE]))
+      suite_passed = True
+      for idx, case in enumerate(suite[SUITE_CASES]):
+        this_case = testcase.TestCase(environment, idx,
+                                      case.get(CASE_NAME, "(missing name)"),
+                                      setup,
+                                      case.get(CASE_SPEC,""),
+                                      teardown)
+        suite_passed &=this_case.run()
+      if suite_passed:
+        print("==== SUITE {}:{}:{} SUCCESS ========================================".format(environment.name(), suite_num, suite_name))
+      else:
+        print("==== SUITE {}:{}:{} FAILURE ========================================".format(environment.name(), suite_num, suite_name))
+      print()
+      run_passed &= suite_passed
 
+    environment.teardown()
 
-LOG_LEVELS = {"none": None, "info": logging.INFO, "debug": logging.DEBUG}
-
-
-def parse_cli():
-  epilog = """CONFIGS consists of any number of the following, in any order:
-
-  TEST.yaml files: these are the test plans to execute against the CONVENTION
-
-  arbitrary files/paths, depending on CONVENTION. For `lang_region` (the
-    default), these should be paths to `MANIFEST.manifest.yaml` files.
-  """
-
-  parser = argparse.ArgumentParser(
-      description="A tool to run tests on equivalent samples in different languages",
-      epilog=epilog,
-      formatter_class=argparse.RawDescriptionHelpFormatter)
-
-  parser.add_argument(
-      "-c",
-      "--convention",
-      help="name of convention to use in resolving artifact names in specific languages",
-      default=convention.default
-  )
-
-  parser.add_argument(
-      "--xunit", metavar="FILE", help="xunit output file (use `-` for stdout)")
-
-  parser.add_argument(
-      "-s",
-      "--summary",
-      help="show test status summary on stdout",
-      action="store_true")
-
-  parser.add_argument(
-      "-v", "--verbose", help="if -s, be verbose", action="store_true")
-
-  parser.add_argument(
-      "-l",
-      "--logging",
-      metavar="LEVEL",
-      help="show logs at the specified level",
-      choices=list(LOG_LEVELS.keys()),
-      default="none")
-
-
-  parser.add_argument("files", metavar="CONFIGS", nargs=argparse.REMAINDER)
-  return parser.parse_args(), parser.format_usage()
-
+  if not run_passed:
+    exit(-1)
 
 # cf https://docs.python.org/3/library/argparse.html
-def get_files(files):
+def read_args(argv):
   convention_files = []
   test_files = []
   user_paths = []
-  for filename in files:
+  for filename in argv[1:]:
     filepath = os.path.abspath(filename)
     if os.path.isdir(filepath):
       user_paths.append(filepath)
@@ -166,33 +103,37 @@ def get_files(files):
 
     ext_split = os.path.splitext(filename)
     ext = ext_split[-1]
-    if ext == ".yaml":
+    if ext == ".py":
+      convention_files.append(filepath)
+    elif ext == ".yaml":
       prev_ext = os.path.splitext(ext_split[0])[-1]
       if prev_ext == ".manifest":
         user_paths.append(filepath)
       else:
         test_files.append(filepath)
     else:
-      msg = 'unknown file type: "{}"'.format(filename)
+      msg = 'unknown file type: "{}"\n{}'.format(filename, usage_message)
       logging.critical(msg)
       raise ValueError(msg)
   return convention_files, test_files, user_paths
 
+def gather_test_suites(test_files):
 
-# from https://stackoverflow.com/a/17603000
-@contextlib.contextmanager
-def smart_open(filename=None):
-  if filename and filename != "-":
-    fh = open(filename, "w")
-  else:
-    fh = sys.stdout
+  # TODO(vchudnov): Append line number info to aid in error messages
+  # cf: https://stackoverflow.com/a/13319530
+  all_suites = []
+  for filename in test_files:
+    logging.info('Reading test file "{}"'.format(filename))
+    with open(filename, 'r') as stream:
+      spec = yaml.load(stream)
+      these_suites = spec["test"]["suites"]
+      for suite in these_suites:
+        suite["source"] = filename
+      all_suites.extend(these_suites)
+  return all_suites
 
-  try:
-    yield fh
-  finally:
-    if fh is not sys.stdout:
-      fh.close()
 
+#  eval(spec["test"]["case"])
 
-if __name__ == "__main__":
+if __name__== "__main__":
   main()

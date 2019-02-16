@@ -6,6 +6,8 @@ The samples here are intended to represent the _ideal_ output of the sample gene
 
 The samples here are intended to represent the _current standard_ of the hand-written samples.
 
+> **Note:** This does not _yet_ contain canonical tests for samples.
+
 #### Synchronous API Request
 
 For this sample, we use a simple Natural Language API call for `AnalyzeSentiment`

@@ -1,0 +1,17 @@
+test:
+  suites:
+  - name: Canonical Samples
+    cases:
+
+    - name: Synchronous Request
+      spec:
+      - call:
+          target: language_sentiment_text
+          params:
+            text_content:
+              literal: "I am very happy"
+      - assert_contains:
+        - literal: "Score: 0."
+
+
+

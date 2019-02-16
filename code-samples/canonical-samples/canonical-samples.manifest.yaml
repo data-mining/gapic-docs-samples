@@ -1,0 +1,8 @@
+version: 1
+sets:
+- language: python
+  bin: python3
+  path: canonical-samples/python/
+  __items__:
+  - region_tag: language_sentiment_text
+    path: synchronous-request/language_sentiment_text.py

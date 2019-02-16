@@ -37,10 +37,10 @@ _If there are blocking issues, we can use this document to note them down._
 
  - [Analyzing Syntax][]
    - [X] `language_syntax_text` 
-   - [ ] `language_syntax_gcs`
+   - [X] `language_syntax_gcs`
  - [Analyzing Sentiment][]
-   - [ ] `language_sentiment_text` 
-   - [ ] `language_sentiment_gcs`
+   - [X] `language_sentiment_text` 
+   - [X] `language_sentiment_gcs`
  - [Analyzing Entities][]
    - [ ] `language_entities_text` 
    - [ ] `language_entities_gcs`

@@ -22,18 +22,13 @@ from google.cloud import language
 from google.cloud.language import enums
 from google.cloud.language import types
 
-import six
-
-def analyze_sentiment(text_content='Hello, world!'):
+def analyze_sentiment_text(text_content='Hello, world!'):
     """Analyze sentiment of text
     Args:
         text: Text to analyze, e.g. 'Hello, world!'
     """
 
     client = language.LanguageServiceClient()
-
-    if isinstance(text_content, six.binary_type):
-        text_content = text_content.decode('utf-8')
 
     document = types.Document(
         content=text_content,

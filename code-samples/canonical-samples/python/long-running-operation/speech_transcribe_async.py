@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright 2017 Google Inc. All Rights Reserved.
+# Copyright 2019 Google Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,23 +14,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import argparse
-import io
-
-
 # [START speech_transcribe_async_gcs]
-def transcribe_gcs(gcs_uri):
-    """Asynchronously transcribes the audio file specified by the gcs_uri."""
-    from google.cloud import speech
-    from google.cloud.speech import enums
-    from google.cloud.speech import types
+from google.cloud import speech
+from google.cloud.speech import enums
+from google.cloud.speech import types
+
+def long_running_recognize_gcs(
+        gcs_uri='gs://cloud-sample-data/speech/brooklyn.raw',
+        language_code='en-US'
+    ):
+    """Asynchronously transcribes the audio file specified by the gcs_uri.
+    Args:
+        gcs_uri: Path to audio file in Google Cloud Storage
+            e.g. gs://BUCKET/FILE
+        language_code: The language of the supplied audio as
+            a BCP-47 language tag, e.g. 'en-US'
+    """
+
     client = speech.SpeechClient()
 
     audio = types.RecognitionAudio(uri=gcs_uri)
     config = types.RecognitionConfig(
+        # This is a comment describing one of the fields being set
         encoding=enums.RecognitionConfig.AudioEncoding.FLAC,
         sample_rate_hertz=16000,
-        language_code='en-US')
+        language_code=language_code)
 
     operation = client.long_running_recognize(config, audio)
 
@@ -44,3 +52,5 @@ def transcribe_gcs(gcs_uri):
         print(u'Transcript: {}'.format(result.alternatives[0].transcript))
         print('Confidence: {}'.format(result.alternatives[0].confidence))
 # [END speech_transcribe_async_gcs]
+
+# import argparse

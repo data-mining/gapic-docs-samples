@@ -1,8 +1,14 @@
 version: 1
 sets:
+
+# 🐍 Python
 - language: python
   bin: python3
   path: canonical-samples/python/
   __items__:
+  # Synchronous Request
   - region_tag: language_sentiment_text
     path: synchronous-request/language_sentiment_text.py
+  # Long-Running Operation
+  - region_tag: language_sentiment_text
+    path: long-running-operation/speech_transcribe_async.py

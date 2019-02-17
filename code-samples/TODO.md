@@ -206,4 +206,56 @@ _If there are blocking issues, we can use this document to note them down._
 [Adding Sentiment Analysis to Detect Intent Requests]: https://cloud.google.com/dialogflow-enterprise/docs/sentiment
 [Knowledge Connectors]: https://cloud.google.com/dialogflow-enterprise/docs/knowledge-connectors
 
+#### 🧠 AutoML
+
+ - Managing Datasets
+   - 👁 [Vision](https://cloud.google.com/vision/automl/docs/datasets)
+     - [ ] `automl_vision_create_dataset`
+     - [ ] `automl_vision_list_datasets`
+     - [ ] `automl_vision_delete_dataset`
+     - [ ] `automl_vision_import_data`
+   - 📜 [Natural Language](https://cloud.google.com/natural-language/automl/docs/datasets)
+     - [ ] `automl_natural_language_create_dataset`
+     - [ ] `automl_natural_language_list_datasets`
+     - [ ] `automl_natural_language_delete_dataset`
+     - [ ] `automl_natural_language_import_data`
+   - 🈂️ [Translation](https://cloud.google.com/translate/automl/docs/datasets)
+     - [ ] `automl_translation_create_dataset`
+     - [ ] `automl_translation_list_datasets`
+     - [ ] `automl_translation_delete_dataset`
+     - [ ] `automl_translation_import_data`
+
+ - Managing Models
+   - 👁 [Vision](https://cloud.google.com/vision/automl/docs/models)
+     - [ ] `automl_vision_create_model`
+     - [ ] `automl_vision_get_model`
+     - [ ] `automl_vision_list_models`
+     - [ ] `automl_vision_delete_model`
+   - 📜 [Natural Language](https://cloud.google.com/natural-language/automl/docs/models)
+     - [ ] `automl_natural_language_create_model`
+     - [ ] `automl_natural_language_get_model`
+     - [ ] `automl_natural_language_list_models`
+     - [ ] `automl_natural_language_delete_model`
+   - 🈂️ [Translation](https://cloud.google.com/translate/automl/docs/models)
+     - [ ] `automl_translation_create_model`
+     - [ ] `automl_translation_get_model`
+     - [ ] `automl_translation_list_models`
+     - [ ] `automl_translation_delete_model`
+
+ - Evaluating Models
+   - 👁 [Vision](https://cloud.google.com/vision/automl/docs/evaluate)
+     - [ ] `automl_vision_display_evaluation`
+   - 📜 [Natural Language](https://cloud.google.com/natural-language/automl/docs/evaluate)
+     - [ ] `automl_natural_language_display_evaluation`
+   - 🈂️ [Translation](https://cloud.google.com/translate/automl/docs/evaluate)
+     - [ ] `automl_translation_display_evaluation`
+
+ - Annotating Images
+   - 👁 [Vision](https://cloud.google.com/vision/automl/docs/predict)
+     - [ ] `automl_vision_predict`
+   - 📜 [Natural Language](https://cloud.google.com/natural-language/automl/docs/predict)
+     - [ ] `automl_natural_language_predict`
+   - 🈂️ [Translation](https://cloud.google.com/translate/automl/docs/predict)
+     - [ ] `automl_translation_predict`
+
 #### 💼 Job Discovery API

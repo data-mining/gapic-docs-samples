@@ -33,7 +33,7 @@ Please only cross of each individual language after confirming that the tests pa
 
 _If there are blocking issues, we can use this document to note them down._
 
-#### 📜 Natural Language API ([`PASS`](https://github.com/beccasaurus/gapic-docs-samples/tree/master/code-samples/language/v1))
+#### 📜 Natural Language API ([`DONE`](https://github.com/beccasaurus/gapic-docs-samples/tree/master/code-samples/language/v1))
 
  - [Analyzing Syntax][]
    - [X] `language_syntax_text` 
@@ -57,7 +57,7 @@ _If there are blocking issues, we can use this document to note them down._
 [Analyzing Entity Sentiment]: https://cloud.google.com/natural-language/docs/analyzing-entity-sentiment
 [Classifying Content]: https://cloud.google.com/natural-language/docs/classifying-text
 
-#### 👂 Speech-to-Text API
+#### 👂 Speech-to-Text API ([`IN PROGRESS`](https://github.com/beccasaurus/gapic-docs-samples/tree/master/code-samples/speech/v1))
 
  - [Transcribing short audio files][]
    - [X] `speech_transcribe_sync`

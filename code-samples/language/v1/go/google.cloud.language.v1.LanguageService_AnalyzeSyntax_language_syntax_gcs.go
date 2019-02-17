@@ -35,7 +35,7 @@ func sampleAnalyzeSyntax(gcsUri string) error {
 		return err
 	}
 
-	// gcsUri := "gs://cloud-samples-data/california.txt"
+	// gcsUri := "gs://cloud-samples-data/language/syntax-sentence.txt"
 	req := &languagepb.AnalyzeSyntaxRequest{
 		Document: &languagepb.Document{
 			Type: languagepb.Document_PLAIN_TEXT,
@@ -60,7 +60,7 @@ func sampleAnalyzeSyntax(gcsUri string) error {
 // [END language_syntax_gcs]
 
 func main() {
-	gcsUri := flag.String("gcs_uri", "gs://cloud-samples-data/california.txt", "")
+	gcsUri := flag.String("gcs_uri", "gs://cloud-samples-data/language/syntax-sentence.txt", "")
 	flag.Parse()
 	if err := sampleAnalyzeSyntax(*gcsUri); err != nil {
 		log.Fatal(err)

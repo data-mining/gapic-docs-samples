@@ -35,7 +35,7 @@ func sampleAnalyzeEntities(gcsUri string) error {
 		return err
 	}
 
-	// gcsUri := "gs://cloud-samples-data/california.txt"
+	// gcsUri := "gs://cloud-samples-data/language/entity.txt"
 	req := &languagepb.AnalyzeEntitiesRequest{
 		Document: &languagepb.Document{
 			Type: languagepb.Document_PLAIN_TEXT,
@@ -64,7 +64,7 @@ func sampleAnalyzeEntities(gcsUri string) error {
 // [END language_entities_gcs]
 
 func main() {
-	gcsUri := flag.String("gcs_uri", "gs://cloud-samples-data/california.txt", "")
+	gcsUri := flag.String("gcs_uri", "gs://cloud-samples-data/language/entity.txt", "")
 	flag.Parse()
 	if err := sampleAnalyzeEntities(*gcsUri); err != nil {
 		log.Fatal(err)

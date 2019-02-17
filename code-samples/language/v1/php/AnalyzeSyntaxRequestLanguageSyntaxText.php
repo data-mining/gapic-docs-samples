@@ -32,7 +32,7 @@ function sampleAnalyzeSyntax($textContent)
 
     $languageServiceClient = new LanguageServiceClient();
 
-    // $textContent = 'California is a state.';
+    // $textContent = 'This is a short sentence.';
     $type = Document_Type::PLAIN_TEXT;
     $document = new Document();
     $document->setType($type);
@@ -58,7 +58,7 @@ $opts = [
 ];
 
 $defaultOptions = [
-    'text_content' => 'California is a state.',
+    'text_content' => 'This is a short sentence.',
 ];
 
 $options = getopt('', $opts);

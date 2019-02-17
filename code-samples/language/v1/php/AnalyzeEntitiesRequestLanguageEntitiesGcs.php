@@ -32,7 +32,7 @@ function sampleAnalyzeEntities($gcsUri)
 
     $languageServiceClient = new LanguageServiceClient();
 
-    // $gcsUri = 'gs://cloud-samples-data/california.txt';
+    // $gcsUri = 'gs://cloud-samples-data/language/entity.txt';
     $type = Document_Type::PLAIN_TEXT;
     $document = new Document();
     $document->setType($type);
@@ -62,7 +62,7 @@ $opts = [
 ];
 
 $defaultOptions = [
-    'gcs_uri' => 'gs://cloud-samples-data/california.txt',
+    'gcs_uri' => 'gs://cloud-samples-data/language/entity.txt',
 ];
 
 $options = getopt('', $opts);

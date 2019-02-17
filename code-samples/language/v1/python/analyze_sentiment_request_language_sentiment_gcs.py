@@ -35,7 +35,7 @@ def sample_analyze_sentiment(gcs_uri):
 
     client = language_v1.LanguageServiceClient()
 
-    # gcs_uri = 'gs://cloud-samples-data/positive.txt'
+    # gcs_uri = 'gs://cloud-samples-data/language/sentiment-positive.txt'
 
     if isinstance(gcs_uri, six.binary_type):
         gcs_uri = gcs_uri.decode('utf-8')
@@ -44,7 +44,7 @@ def sample_analyze_sentiment(gcs_uri):
 
     response = client.analyze_sentiment(document)
     sentiment = response.document_sentiment
-    print('Score: {}'.format(sentiment.score))
+    print('Sentiment score: {}'.format(sentiment.score))
     print('Magnitude: {}'.format(sentiment.magnitude))
 
     # [END language_sentiment_gcs_core]
@@ -58,7 +58,9 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--gcs_uri', type=str, default='gs://cloud-samples-data/positive.txt')
+        '--gcs_uri',
+        type=str,
+        default='gs://cloud-samples-data/language/sentiment-positive.txt')
     args = parser.parse_args()
 
     sample_analyze_sentiment(args.gcs_uri)

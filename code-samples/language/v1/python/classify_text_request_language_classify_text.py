@@ -14,46 +14,43 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# DO NOT EDIT! This is a generated sample ("Request",  "language_syntax_gcs")
+# DO NOT EDIT! This is a generated sample ("Request",  "language_classify_text")
 
 # To install the latest published package dependency, execute the following:
 #   pip install google-cloud-language
 
 import sys
 
-# [START language_syntax_gcs]
+# [START language_classify_text]
 
 from google.cloud import language_v1
-from google.cloud.language_v1 import enums
 from google.cloud.language_v1 import enums
 import six
 
 
-def sample_analyze_syntax(gcs_uri):
-    """Analyze syntax of text in GCS"""
+def sample_classify_text(text_content):
+    """Classify text"""
 
-    # [START language_syntax_gcs_core]
+    # [START language_classify_text_core]
 
     client = language_v1.LanguageServiceClient()
 
-    # gcs_uri = 'gs://cloud-samples-data/language/syntax-sentence.txt'
+    # text_content = 'This is about film and movies and television and acting and movie theatres and theatre and drama and entertainment and the arts.'
 
-    if isinstance(gcs_uri, six.binary_type):
-        gcs_uri = gcs_uri.decode('utf-8')
+    if isinstance(text_content, six.binary_type):
+        text_content = text_content.decode('utf-8')
     type_ = enums.Document.Type.PLAIN_TEXT
-    document = {'type': type_, 'gcs_content_uri': gcs_uri}
+    document = {'type': type_, 'content': text_content}
 
-    response = client.analyze_syntax(document)
-    tokens = response.tokens
-    for token in tokens:
-        print('Part of speech: {}'.format(
-            enums.PartOfSpeech.Tag(token.part_of_speech.tag).name))
-        print('Text: {}'.format(token.text.content))
+    response = client.classify_text(document)
+    for category in response.categories:
+        print('Category name: {}'.format(category.name))
+        print('Confidence: {}'.format(category.confidence))
 
-    # [END language_syntax_gcs_core]
+    # [END language_classify_text_core]
 
 
-# [END language_syntax_gcs]
+# [END language_classify_text]
 
 
 def main():
@@ -61,12 +58,14 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--gcs_uri',
+        '--text_content',
         type=str,
-        default='gs://cloud-samples-data/language/syntax-sentence.txt')
+        default=
+        'This is about film and movies and television and acting and movie theatres and theatre and drama and entertainment and the arts.'
+    )
     args = parser.parse_args()
 
-    sample_analyze_syntax(args.gcs_uri)
+    sample_classify_text(args.text_content)
 
 
 if __name__ == '__main__':

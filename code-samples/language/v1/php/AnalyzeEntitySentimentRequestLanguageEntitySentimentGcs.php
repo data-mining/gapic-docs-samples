@@ -16,27 +16,27 @@
  */
 
 /*
- * DO NOT EDIT! This is a generated sample ("Request",  "language_entity_sentiment_text")
+ * DO NOT EDIT! This is a generated sample ("Request",  "language_entity_sentiment_gcs")
  */
 
-// [START language_entity_sentiment_text]
+// [START language_entity_sentiment_gcs]
 require __DIR__ . '/vendor/autoload.php';
 
 use Google\Cloud\Language\V1\LanguageServiceClient;
 use Google\Cloud\Language\V1\Document;
 use Google\Cloud\Language\V1\Document_Type;
 
-function sampleAnalyzeEntitySentiment($textContent)
+function sampleAnalyzeEntitySentiment($gcsUri)
 {
-    // [START language_entity_sentiment_text_core]
+    // [START language_entity_sentiment_gcs_core]
 
     $languageServiceClient = new LanguageServiceClient();
 
-    // $textContent = 'Grapes are good. Bananas are bad.';
+    // $gcsUri = 'gs://cloud-samples-data/language/entity-sentiment.txt';
     $type = Document_Type::PLAIN_TEXT;
     $document = new Document();
     $document->setType($type);
-    $document->setContent($textContent);
+    $document->setGcsContentUri($gcsUri);
 
     try {
         $response = $languageServiceClient->analyzeEntitySentiment($document);
@@ -54,21 +54,21 @@ function sampleAnalyzeEntitySentiment($textContent)
         $languageServiceClient->close();
     }
 
-    // [END language_entity_sentiment_text_core]
+    // [END language_entity_sentiment_gcs_core]
 }
-// [END language_entity_sentiment_text]
+// [END language_entity_sentiment_gcs]
 
 $opts = [
-    'text_content::',
+    'gcs_uri::',
 ];
 
 $defaultOptions = [
-    'text_content' => 'Grapes are good. Bananas are bad.',
+    'gcs_uri' => 'gs://cloud-samples-data/language/entity-sentiment.txt',
 ];
 
 $options = getopt('', $opts);
 $options += $defaultOptions;
 
-$textContent = $options['text_content'];
+$gcsUri = $options['gcs_uri'];
 
-sampleAnalyzeEntitySentiment($textContent);
+sampleAnalyzeEntitySentiment($gcsUri);

@@ -32,7 +32,7 @@ function sampleAnalyzeSyntax($gcsUri)
 
     $languageServiceClient = new LanguageServiceClient();
 
-    // $gcsUri = 'gs://cloud-samples-data/california.txt';
+    // $gcsUri = 'gs://cloud-samples-data/language/syntax-sentence.txt';
     $type = Document_Type::PLAIN_TEXT;
     $document = new Document();
     $document->setType($type);
@@ -58,7 +58,7 @@ $opts = [
 ];
 
 $defaultOptions = [
-    'gcs_uri' => 'gs://cloud-samples-data/california.txt',
+    'gcs_uri' => 'gs://cloud-samples-data/language/syntax-sentence.txt',
 ];
 
 $options = getopt('', $opts);

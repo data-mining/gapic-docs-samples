@@ -1,3 +1,22 @@
+# Commented out assertions for PHP
+# PHP does not yet support printing out the display name of enum values
+# This is a general protobuf issue: https://github.com/protocolbuffers/protobuf/pull/5342
+# Assertions commented out here should work in all languages except PHP
+# Will uncomment once PHP offers enum support (pending protobuf 3.7 release)
+
+# What should be tested?
+#
+# Should we test that samples run with default values (without passing arguments)?
+# Should we test that samples run with explicitly passed arguments?
+#
+# Ideally – both.
+#
+# Which is the priority? – default values.
+#
+# It's more important that the samples run AS-IS, as they can be viewed on the website.
+#
+# Making sure that they run with CLI arguments passed in is *good* but significantly less of a priority.
+
 test:
   suites:
   - name: Natural Language V1
@@ -7,43 +26,40 @@ test:
       spec:
       - call:
           target: language_syntax_text
-          params:
-            text_content:
-              literal: "California is a state."
-      # Breaks in PHP – pending enum support – https://github.com/protocolbuffers/protobuf/pull/5342
-      #
-      # sampletester does not yet allow certain languages to be skipped, so comment out this assertion
-      #
-      # - assert_contains:
-      #  - literal: "Part of speech: NOUN"
       - assert_contains:
-        - literal: "Text: California"
+      # - literal: "Part of speech: DET"
+        - literal: "Text: This"
+      # - literal: "Part of speech: VERB"
+        - literal: "Text: is"
+      # - literal: "Part of speech: ADJ"
+        - literal: "Text: short"
+      # - literal: "Part of speech: NOUN"
+        - literal: "Text: sentence"
+      # - literal: "Part of speech: PUNCT"
+        - literal: "Text: ."
 
     - name: Analyze Syntax – GCS
       spec:
       - call:
           target: language_syntax_gcs
-          params:
-            gcs_uri:
-              literal: "gs://cloud-samples-data/language/california.txt"
-      # Breaks in PHP – pending enum support – https://github.com/protocolbuffers/protobuf/pull/5342
-      #
-      # sampletester does not yet allow certain languages to be skipped, so comment out this assertion
-      #
-      #- assert_contains:
-      #  - literal: "Part of speech: NOUN"
       - assert_contains:
-        - literal: "Text: California"
+      # - literal: "Part of speech: DET"
+        - literal: "Text: This"
+      # - literal: "Part of speech: VERB"
+        - literal: "Text: is"
+      # - literal: "Part of speech: ADJ"
+        - literal: "Text: short"
+      # - literal: "Part of speech: NOUN"
+        - literal: "Text: sentence"
+      # - literal: "Part of speech: PUNCT"
+        - literal: "Text: ."
 
-    - name: Analyze Sentiment – Positive
+    - name: Analyze Sentiment
       spec:
       - call:
           target: language_sentiment_text
-          params:
-            text_content:
-              literal: "I am so happy and joyful."
       - assert_contains:
-        - literal: "Score: 0."
+        - literal: "Sentiment score: 0."
         - literal: "Magnitude: 0."
 
     - name: Analyze Sentiment – Negative
@@ -54,18 +70,15 @@ test:
             text_content:
               literal: "I am so sad and upset."
       - assert_contains:
-        - literal: "Score: -0."
+        - literal: "Sentiment score: -0."
         - literal: "Magnitude: 0."
 
-    - name: Analyze Sentiment – GCS – Positive
+    - name: Analyze Sentiment – GCS
       spec:
       - call:
           target: language_sentiment_gcs
-          params:
-            gcs_uri:
-              literal: "gs://cloud-samples-data/language/positive.txt"
       - assert_contains:
-        - literal: "Score: 0."
+        - literal: "Sentiment score: 0."
         - literal: "Magnitude: 0."
 
     - name: Analyze Sentiment – GCS – Negative
@@ -74,18 +87,15 @@ test:
           target: language_sentiment_gcs
           params:
             gcs_uri:
-              literal: "gs://cloud-samples-data/language/negative.txt"
+              literal: "gs://cloud-samples-data/language/sentiment-negative.txt"
       - assert_contains:
-        - literal: "Score: -0."
+        - literal: "Sentiment score: -0."
         - literal: "Magnitude: 0."
        
     - name: Analyze Entities
       spec:
       - call:
           target: language_entities_text
-          params:
-            text_content:
-              literal: "California is a state."
       - assert_contains:
         - literal: "Entity name: California"
         #- literal: "Entity type: LOCATION"
@@ -98,9 +108,6 @@ test:
       spec:
       - call:
           target: language_entities_gcs
-          params:
-            gcs_uri:
-              literal: "gs://cloud-samples-data/language/california.txt"
       - assert_contains:
         - literal: "Entity name: California"
         #- literal: "Entity type: LOCATION"
@@ -108,3 +115,51 @@ test:
         - literal: "Mention: California"
         #- literal: "Mention type: PROPER"
         - literal: "Mention: state"
+
+    - name: Analyze Entity Sentiment
+      spec:
+      - call:
+          target: language_entity_sentiment_text
+      - assert_contains:
+        - literal: "Entity name: Grapes"
+        - literal: "Entity sentiment score: 0."
+        - literal: "Mention: Grapes"
+        #- literal: "Mention type: COMMON"
+        - literal: "Mention sentiment score: 0."
+        - literal: "Mention sentiment magnitude: 0."
+        - literal: "Entity name: Bananas"
+        - literal: "Entity sentiment score: -0."
+        - literal: "Mention: Bananas"
+        - literal: "Mention sentiment score: -0."
+
+    - name: Analyze Entity Sentiment – GCS
+      spec:
+      - call:
+          target: language_entity_sentiment_gcs
+      - assert_contains:
+        - literal: "Entity name: Grapes"
+        - literal: "Entity sentiment score: 0."
+        - literal: "Mention: Grapes"
+        #- literal: "Mention type: COMMON"
+        - literal: "Mention sentiment score: 0."
+        - literal: "Mention sentiment magnitude: 0."
+        - literal: "Entity name: Bananas"
+        - literal: "Entity sentiment score: -0."
+        - literal: "Mention: Bananas"
+        - literal: "Mention sentiment score: -0."
+
+    - name: Classify Text
+      spec:
+      - call:
+          target: language_classify_text
+      - assert_contains:
+        - literal: "Category name: /Arts & Entertainment"
+        - literal: "Confidence: 0."
+
+    - name: Classify Text – GCS
+      spec:
+      - call:
+          target: language_classify_gcs
+      - assert_contains:
+        - literal: "Category name: /Arts & Entertainment"
+        - literal: "Confidence: 0."

@@ -30,13 +30,13 @@ import six
 
 
 def sample_analyze_entity_sentiment(text_content):
-    """Analyze Entity Sentiment"""
+    """Analyze Sentiment of Entities in Text"""
 
     # [START language_entity_sentiment_text_core]
 
     client = language_v1.LanguageServiceClient()
 
-    # text_content = 'California is a state.'
+    # text_content = 'Grapes are good. Bananas are bad.'
 
     if isinstance(text_content, six.binary_type):
         text_content = text_content.decode('utf-8')
@@ -46,14 +46,15 @@ def sample_analyze_entity_sentiment(text_content):
     response = client.analyze_entity_sentiment(document)
     for entity in response.entities:
         print('Entity name: {}'.format(entity.name))
-        print('Entity sentiment: {}'.format(entity.sentiment.score))
+        print('Entity sentiment score: {}'.format(entity.sentiment.score))
         for mention in entity.mentions:
-            print('Content: {}'.format(mention.text.content))
-            print('Sentiment score: {}'.format(mention.sentiment.score))
-            print('Sentiment magnitude: {}'.format(
-                mention.sentiment.magnitude))
+            print('Mention: {}'.format(mention.text.content))
             print('Mention type: {}'.format(
                 enums.EntityMention.Type(mention.type).name))
+            print('Mention sentiment score: {}'.format(
+                mention.sentiment.score))
+            print('Mention sentiment magnitude: {}'.format(
+                mention.sentiment.magnitude))
 
     # [END language_entity_sentiment_text_core]
 
@@ -66,7 +67,9 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--text_content', type=str, default='California is a state.')
+        '--text_content',
+        type=str,
+        default='Grapes are good. Bananas are bad.')
     args = parser.parse_args()
 
     sample_analyze_entity_sentiment(args.text_content)

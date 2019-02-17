@@ -41,7 +41,7 @@ function sampleAnalyzeSentiment($textContent)
     try {
         $response = $languageServiceClient->analyzeSentiment($document);
         $sentiment = $response->getDocumentSentiment();
-        printf('Score: %s'.PHP_EOL, $sentiment->getScore());
+        printf('Sentiment score: %s'.PHP_EOL, $sentiment->getScore());
         printf('Magnitude: %s'.PHP_EOL, $sentiment->getMagnitude());
     } finally {
         $languageServiceClient->close();

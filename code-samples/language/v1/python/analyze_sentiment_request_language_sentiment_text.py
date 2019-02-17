@@ -44,7 +44,7 @@ def sample_analyze_sentiment(text_content):
 
     response = client.analyze_sentiment(document)
     sentiment = response.document_sentiment
-    print('Score: {}'.format(sentiment.score))
+    print('Sentiment score: {}'.format(sentiment.score))
     print('Magnitude: {}'.format(sentiment.magnitude))
 
     # [END language_sentiment_text_core]

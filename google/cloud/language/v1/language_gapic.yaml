@@ -78,7 +78,7 @@ interfaces:
       on_success: &samples_sentiment_response
       - define: sentiment=$resp.document_sentiment
       - print:
-        - "Score: %s"
+        - "Sentiment score: %s"
         - sentiment.score
       - print:
         - "Magnitude: %s"
@@ -88,7 +88,7 @@ interfaces:
       parameters:
         defaults:
         - document.type=PLAIN_TEXT
-        - document.gcs_content_uri="gs://cloud-samples-data/positive.txt"
+        - document.gcs_content_uri="gs://cloud-samples-data/language/sentiment-positive.txt"
         attributes: &samples_gcs_attributes
         - parameter: document.gcs_content_uri
           sample_argument_name: gcs_uri
@@ -149,7 +149,7 @@ interfaces:
       parameters:
         defaults:
         - document.type=PLAIN_TEXT
-        - document.gcs_content_uri="gs://cloud-samples-data/california.txt"
+        - document.gcs_content_uri="gs://cloud-samples-data/language/entity.txt"
         attributes: *samples_gcs_attributes
       on_success: *samples_entities_response
   - name: AnalyzeEntitySentiment
@@ -168,17 +168,18 @@ interfaces:
        - calling_forms: ".*"
          value_sets: [language_entity_sentiment_text]
          region_tag: language_entity_sentiment_text
+       - calling_forms: ".*"
+         value_sets: [language_entity_sentiment_gcs]
+         region_tag: language_entity_sentiment_gcs
     sample_value_sets:
     - id: language_entity_sentiment_text
-      description: "Analyze Entity Sentiment"
+      description: "Analyze Sentiment of Entities in Text"
       parameters:
         defaults:
         - document.type=PLAIN_TEXT
-        - document.content="California is a state."
-        attributes:
-        - parameter: document.content
-          sample_argument_name: text_content
-      on_success:
+        - document.content="Grapes are good. Bananas are bad."
+        attributes: *samples_text_attributes
+      on_success: &samples_entity_sentiment_response
       - loop:
           collection: $resp.entities
           variable: entity
@@ -187,24 +188,32 @@ interfaces:
             - "Entity name: %s"
             - entity.name
           - print:
-            - "Entity sentiment: %s"
+            - "Entity sentiment score: %s"
             - entity.sentiment.score
           - loop:
               collection: entity.mentions
               variable: mention
               body:
               - print:
-                - "Content: %s"
+                - "Mention: %s"
                 - mention.text.content
-              - print:
-                - "Sentiment score: %s"
-                - mention.sentiment.score
-              - print:
-                - "Sentiment magnitude: %s"
-                - mention.sentiment.magnitude
               - print:
                 - "Mention type: %s"
                 - mention.type
+              - print:
+                - "Mention sentiment score: %s"
+                - mention.sentiment.score
+              - print:
+                - "Mention sentiment magnitude: %s"
+                - mention.sentiment.magnitude
+    - id: language_entity_sentiment_gcs
+      description: "Analyze Sentiment of Entities in Text stored in GCS"
+      parameters:
+        defaults:
+        - document.type=PLAIN_TEXT
+        - document.gcs_content_uri="gs://cloud-samples-data/language/entity-sentiment.txt"
+        attributes: *samples_gcs_attributes
+      on_success: *samples_entity_sentiment_response
   - name: AnalyzeSyntax
     flattening:
       groups:
@@ -230,11 +239,9 @@ interfaces:
       parameters:
         defaults:
         - document.type=PLAIN_TEXT
-        - document.content="California is a state."
-        attributes:
-        - parameter: document.content
-          sample_argument_name: text_content
-      on_success:
+        - document.content="This is a short sentence."
+        attributes: *samples_text_attributes
+      on_success: &samples_syntax_response
       - define: tokens=$resp.tokens
       - loop:
           variable: token
@@ -251,22 +258,9 @@ interfaces:
       parameters:
         defaults:
         - document.type=PLAIN_TEXT
-        - document.gcs_content_uri="gs://cloud-samples-data/california.txt"
-        attributes:
-        - parameter: document.gcs_content_uri
-          sample_argument_name: gcs_uri
-      on_success:
-      - define: tokens=$resp.tokens
-      - loop:
-          variable: token
-          collection: tokens
-          body:
-            - print:
-              - "Part of speech: %s"
-              - token.part_of_speech.tag
-            - print:
-              - "Text: %s"
-              - token.text.content
+        - document.gcs_content_uri="gs://cloud-samples-data/language/syntax-sentence.txt"
+        attributes: *samples_gcs_attributes
+      on_success: *samples_syntax_response
   - name: ClassifyText
     flattening:
       groups:
@@ -277,6 +271,41 @@ interfaces:
     retry_codes_name: idempotent
     retry_params_name: default
     timeout_millis: 30000
+    samples:
+       standalone:
+       - calling_forms: ".*"
+         value_sets: [language_classify_text]
+         region_tag: language_classify_text
+       - calling_forms: ".*"
+         value_sets: [language_classify_gcs]
+         region_tag: language_classify_gcs
+    sample_value_sets:
+    - id: language_classify_text
+      description: "Classify text"
+      parameters:
+        defaults:
+        - document.type=PLAIN_TEXT
+        - document.content="This is about film and movies and television and acting and movie theatres and theatre and drama and entertainment and the arts."
+        attributes: *samples_text_attributes
+      on_success: &samples_classify_response
+      - loop:
+          collection: $resp.categories
+          variable: category
+          body:
+          - print:
+            - "Category name: %s"
+            - category.name
+          - print:
+            - "Confidence: %s"
+            - category.confidence
+    - id: language_classify_gcs
+      description: "Classify text in GCS"
+      parameters:
+        defaults:
+        - document.type=PLAIN_TEXT
+        - document.gcs_content_uri="gs://cloud-samples-data/language/classify-entertainment.txt"
+        attributes: *samples_gcs_attributes
+      on_success: *samples_classify_response
   - name: AnnotateText
     flattening:
       groups:

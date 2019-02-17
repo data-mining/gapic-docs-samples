@@ -35,7 +35,7 @@ func sampleAnalyzeEntitySentiment(textContent string) error {
 		return err
 	}
 
-	// textContent := "California is a state."
+	// textContent := "Grapes are good. Bananas are bad."
 	req := &languagepb.AnalyzeEntitySentimentRequest{
 		Document: &languagepb.Document{
 			Type: languagepb.Document_PLAIN_TEXT,
@@ -51,12 +51,12 @@ func sampleAnalyzeEntitySentiment(textContent string) error {
 
 	for _, entity := range resp.GetEntities() {
 		fmt.Printf("Entity name: %v\n", entity.GetName())
-		fmt.Printf("Entity sentiment: %v\n", entity.GetSentiment().GetScore())
+		fmt.Printf("Entity sentiment score: %v\n", entity.GetSentiment().GetScore())
 		for _, mention := range entity.GetMentions() {
-			fmt.Printf("Content: %v\n", mention.GetText().GetContent())
-			fmt.Printf("Sentiment score: %v\n", mention.GetSentiment().GetScore())
-			fmt.Printf("Sentiment magnitude: %v\n", mention.GetSentiment().GetMagnitude())
+			fmt.Printf("Mention: %v\n", mention.GetText().GetContent())
 			fmt.Printf("Mention type: %v\n", mention.GetType())
+			fmt.Printf("Mention sentiment score: %v\n", mention.GetSentiment().GetScore())
+			fmt.Printf("Mention sentiment magnitude: %v\n", mention.GetSentiment().GetMagnitude())
 		}
 	}
 	return nil
@@ -65,7 +65,7 @@ func sampleAnalyzeEntitySentiment(textContent string) error {
 // [END language_entity_sentiment_text]
 
 func main() {
-	textContent := flag.String("text_content", "California is a state.", "")
+	textContent := flag.String("text_content", "Grapes are good. Bananas are bad.", "")
 	flag.Parse()
 	if err := sampleAnalyzeEntitySentiment(*textContent); err != nil {
 		log.Fatal(err)

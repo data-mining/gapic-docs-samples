@@ -50,7 +50,7 @@ func sampleAnalyzeSentiment(textContent string) error {
 	}
 
 	sentiment := resp.GetDocumentSentiment()
-	fmt.Printf("Score: %v\n", sentiment.GetScore())
+	fmt.Printf("Sentiment score: %v\n", sentiment.GetScore())
 	fmt.Printf("Magnitude: %v\n", sentiment.GetMagnitude())
 	return nil
 }

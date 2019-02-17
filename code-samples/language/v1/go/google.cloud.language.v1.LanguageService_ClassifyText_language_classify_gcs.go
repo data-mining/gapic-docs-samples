@@ -26,43 +26,42 @@ import (
 	languagepb "google.golang.org/genproto/googleapis/cloud/language/v1"
 )
 
-// [START language_syntax_text]
+// [START language_classify_gcs]
 
-func sampleAnalyzeSyntax(textContent string) error {
+func sampleClassifyText(gcsUri string) error {
 	ctx := context.Background()
 	c, err := language.NewClient(ctx)
 	if err != nil {
 		return err
 	}
 
-	// textContent := "This is a short sentence."
-	req := &languagepb.AnalyzeSyntaxRequest{
+	// gcsUri := "gs://cloud-samples-data/language/classify-entertainment.txt"
+	req := &languagepb.ClassifyTextRequest{
 		Document: &languagepb.Document{
 			Type: languagepb.Document_PLAIN_TEXT,
-			Source: &languagepb.Document_Content{
-				Content: textContent,
+			Source: &languagepb.Document_GcsContentUri{
+				GcsContentUri: gcsUri,
 			},
 		},
 	}
-	resp, err := c.AnalyzeSyntax(ctx, req)
+	resp, err := c.ClassifyText(ctx, req)
 	if err != nil {
 		return err
 	}
 
-	tokens := resp.GetTokens()
-	for _, token := range tokens {
-		fmt.Printf("Part of speech: %v\n", token.GetPartOfSpeech().GetTag())
-		fmt.Printf("Text: %v\n", token.GetText().GetContent())
+	for _, category := range resp.GetCategories() {
+		fmt.Printf("Category name: %v\n", category.GetName())
+		fmt.Printf("Confidence: %v\n", category.GetConfidence())
 	}
 	return nil
 }
 
-// [END language_syntax_text]
+// [END language_classify_gcs]
 
 func main() {
-	textContent := flag.String("text_content", "This is a short sentence.", "")
+	gcsUri := flag.String("gcs_uri", "gs://cloud-samples-data/language/classify-entertainment.txt", "")
 	flag.Parse()
-	if err := sampleAnalyzeSyntax(*textContent); err != nil {
+	if err := sampleClassifyText(*gcsUri); err != nil {
 		log.Fatal(err)
 	}
 }

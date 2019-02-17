@@ -16,47 +16,48 @@
  */
 
 /*
- * DO NOT EDIT! This is a generated sample ("Request",  "language_sentiment_gcs")
+ * DO NOT EDIT! This is a generated sample ("Request",  "language_classify_gcs")
  */
 
-// [START language_sentiment_gcs]
+// [START language_classify_gcs]
 require __DIR__ . '/vendor/autoload.php';
 
 use Google\Cloud\Language\V1\LanguageServiceClient;
 use Google\Cloud\Language\V1\Document;
 use Google\Cloud\Language\V1\Document_Type;
 
-function sampleAnalyzeSentiment($gcsUri)
+function sampleClassifyText($gcsUri)
 {
-    // [START language_sentiment_gcs_core]
+    // [START language_classify_gcs_core]
 
     $languageServiceClient = new LanguageServiceClient();
 
-    // $gcsUri = 'gs://cloud-samples-data/language/sentiment-positive.txt';
+    // $gcsUri = 'gs://cloud-samples-data/language/classify-entertainment.txt';
     $type = Document_Type::PLAIN_TEXT;
     $document = new Document();
     $document->setType($type);
     $document->setGcsContentUri($gcsUri);
 
     try {
-        $response = $languageServiceClient->analyzeSentiment($document);
-        $sentiment = $response->getDocumentSentiment();
-        printf('Sentiment score: %s'.PHP_EOL, $sentiment->getScore());
-        printf('Magnitude: %s'.PHP_EOL, $sentiment->getMagnitude());
+        $response = $languageServiceClient->classifyText($document);
+        foreach ($response->getCategories() as $category) {
+            printf('Category name: %s'.PHP_EOL, $category->getName());
+            printf('Confidence: %s'.PHP_EOL, $category->getConfidence());
+        }
     } finally {
         $languageServiceClient->close();
     }
 
-    // [END language_sentiment_gcs_core]
+    // [END language_classify_gcs_core]
 }
-// [END language_sentiment_gcs]
+// [END language_classify_gcs]
 
 $opts = [
     'gcs_uri::',
 ];
 
 $defaultOptions = [
-    'gcs_uri' => 'gs://cloud-samples-data/language/sentiment-positive.txt',
+    'gcs_uri' => 'gs://cloud-samples-data/language/classify-entertainment.txt',
 ];
 
 $options = getopt('', $opts);
@@ -64,4 +65,4 @@ $options += $defaultOptions;
 
 $gcsUri = $options['gcs_uri'];
 
-sampleAnalyzeSentiment($gcsUri);
+sampleClassifyText($gcsUri);

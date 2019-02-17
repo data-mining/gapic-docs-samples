@@ -36,7 +36,7 @@ def sample_analyze_syntax(text_content):
 
     client = language_v1.LanguageServiceClient()
 
-    # text_content = 'California is a state.'
+    # text_content = 'This is a short sentence.'
 
     if isinstance(text_content, six.binary_type):
         text_content = text_content.decode('utf-8')
@@ -61,7 +61,7 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--text_content', type=str, default='California is a state.')
+        '--text_content', type=str, default='This is a short sentence.')
     args = parser.parse_args()
 
     sample_analyze_syntax(args.text_content)

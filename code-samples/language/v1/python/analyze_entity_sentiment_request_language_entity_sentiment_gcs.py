@@ -14,14 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# DO NOT EDIT! This is a generated sample ("Request",  "language_syntax_gcs")
+# DO NOT EDIT! This is a generated sample ("Request",  "language_entity_sentiment_gcs")
 
 # To install the latest published package dependency, execute the following:
 #   pip install google-cloud-language
 
 import sys
 
-# [START language_syntax_gcs]
+# [START language_entity_sentiment_gcs]
 
 from google.cloud import language_v1
 from google.cloud.language_v1 import enums
@@ -29,31 +29,37 @@ from google.cloud.language_v1 import enums
 import six
 
 
-def sample_analyze_syntax(gcs_uri):
-    """Analyze syntax of text in GCS"""
+def sample_analyze_entity_sentiment(gcs_uri):
+    """Analyze Sentiment of Entities in Text stored in GCS"""
 
-    # [START language_syntax_gcs_core]
+    # [START language_entity_sentiment_gcs_core]
 
     client = language_v1.LanguageServiceClient()
 
-    # gcs_uri = 'gs://cloud-samples-data/language/syntax-sentence.txt'
+    # gcs_uri = 'gs://cloud-samples-data/language/entity-sentiment.txt'
 
     if isinstance(gcs_uri, six.binary_type):
         gcs_uri = gcs_uri.decode('utf-8')
     type_ = enums.Document.Type.PLAIN_TEXT
     document = {'type': type_, 'gcs_content_uri': gcs_uri}
 
-    response = client.analyze_syntax(document)
-    tokens = response.tokens
-    for token in tokens:
-        print('Part of speech: {}'.format(
-            enums.PartOfSpeech.Tag(token.part_of_speech.tag).name))
-        print('Text: {}'.format(token.text.content))
+    response = client.analyze_entity_sentiment(document)
+    for entity in response.entities:
+        print('Entity name: {}'.format(entity.name))
+        print('Entity sentiment score: {}'.format(entity.sentiment.score))
+        for mention in entity.mentions:
+            print('Mention: {}'.format(mention.text.content))
+            print('Mention type: {}'.format(
+                enums.EntityMention.Type(mention.type).name))
+            print('Mention sentiment score: {}'.format(
+                mention.sentiment.score))
+            print('Mention sentiment magnitude: {}'.format(
+                mention.sentiment.magnitude))
 
-    # [END language_syntax_gcs_core]
+    # [END language_entity_sentiment_gcs_core]
 
 
-# [END language_syntax_gcs]
+# [END language_entity_sentiment_gcs]
 
 
 def main():
@@ -63,10 +69,10 @@ def main():
     parser.add_argument(
         '--gcs_uri',
         type=str,
-        default='gs://cloud-samples-data/language/syntax-sentence.txt')
+        default='gs://cloud-samples-data/language/entity-sentiment.txt')
     args = parser.parse_args()
 
-    sample_analyze_syntax(args.gcs_uri)
+    sample_analyze_entity_sentiment(args.gcs_uri)
 
 
 if __name__ == '__main__':

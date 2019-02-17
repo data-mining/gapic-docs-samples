@@ -35,7 +35,7 @@ func sampleAnalyzeSentiment(gcsUri string) error {
 		return err
 	}
 
-	// gcsUri := "gs://cloud-samples-data/positive.txt"
+	// gcsUri := "gs://cloud-samples-data/language/sentiment-positive.txt"
 	req := &languagepb.AnalyzeSentimentRequest{
 		Document: &languagepb.Document{
 			Type: languagepb.Document_PLAIN_TEXT,
@@ -50,7 +50,7 @@ func sampleAnalyzeSentiment(gcsUri string) error {
 	}
 
 	sentiment := resp.GetDocumentSentiment()
-	fmt.Printf("Score: %v\n", sentiment.GetScore())
+	fmt.Printf("Sentiment score: %v\n", sentiment.GetScore())
 	fmt.Printf("Magnitude: %v\n", sentiment.GetMagnitude())
 	return nil
 }
@@ -58,7 +58,7 @@ func sampleAnalyzeSentiment(gcsUri string) error {
 // [END language_sentiment_gcs]
 
 func main() {
-	gcsUri := flag.String("gcs_uri", "gs://cloud-samples-data/positive.txt", "")
+	gcsUri := flag.String("gcs_uri", "gs://cloud-samples-data/language/sentiment-positive.txt", "")
 	flag.Parse()
 	if err := sampleAnalyzeSentiment(*gcsUri); err != nil {
 		log.Fatal(err)

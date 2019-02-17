@@ -36,7 +36,7 @@ def sample_analyze_entities(gcs_uri):
 
     client = language_v1.LanguageServiceClient()
 
-    # gcs_uri = 'gs://cloud-samples-data/california.txt'
+    # gcs_uri = 'gs://cloud-samples-data/language/entity.txt'
 
     if isinstance(gcs_uri, six.binary_type):
         gcs_uri = gcs_uri.decode('utf-8')
@@ -66,7 +66,7 @@ def main():
     parser.add_argument(
         '--gcs_uri',
         type=str,
-        default='gs://cloud-samples-data/california.txt')
+        default='gs://cloud-samples-data/language/entity.txt')
     args = parser.parse_args()
 
     sample_analyze_entities(args.gcs_uri)

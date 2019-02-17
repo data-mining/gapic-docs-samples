@@ -14,14 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# DO NOT EDIT! This is a generated sample ("Request",  "language_syntax_text")
+# DO NOT EDIT! This is a generated sample ("Request",  "language_entities_text")
 
 # To install the latest published package dependency, execute the following:
 #   pip install google-cloud-language
 
 import sys
 
-# [START language_syntax_text]
+# [START language_entities_text]
 
 from google.cloud import language_v1
 from google.cloud.language_v1 import enums
@@ -29,10 +29,10 @@ from google.cloud.language_v1 import enums
 import six
 
 
-def sample_analyze_syntax(text_content):
-    """Analyze syntax of text"""
+def sample_analyze_entities(text_content):
+    """Analyze entities in text"""
 
-    # [START language_syntax_text_core]
+    # [START language_entities_text_core]
 
     client = language_v1.LanguageServiceClient()
 
@@ -43,17 +43,20 @@ def sample_analyze_syntax(text_content):
     type_ = enums.Document.Type.PLAIN_TEXT
     document = {'type': type_, 'content': text_content}
 
-    response = client.analyze_syntax(document)
-    tokens = response.tokens
-    for token in tokens:
-        print('Part of speech: {}'.format(
-            enums.PartOfSpeech.Tag(token.part_of_speech.tag).name))
-        print('Text: {}'.format(token.text.content))
+    response = client.analyze_entities(document)
+    for entity in response.entities:
+        print('Entity name: {}'.format(entity.name))
+        print('Entity type: {}'.format(enums.Entity.Type(entity.type).name))
+        print('Entity salience score: {}'.format(entity.salience))
+        for mention in entity.mentions:
+            print('Mention: {}'.format(mention.text.content))
+            print('Mention type: {}'.format(
+                enums.EntityMention.Type(mention.type).name))
 
-    # [END language_syntax_text_core]
+    # [END language_entities_text_core]
 
 
-# [END language_syntax_text]
+# [END language_entities_text]
 
 
 def main():
@@ -64,7 +67,7 @@ def main():
         '--text_content', type=str, default='California is a state.')
     args = parser.parse_args()
 
-    sample_analyze_syntax(args.text_content)
+    sample_analyze_entities(args.text_content)
 
 
 if __name__ == '__main__':

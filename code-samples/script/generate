@@ -26,7 +26,9 @@ case "$LANGUAGE" in
   "php")
     LANGUAGE_EXTENSION=php
     ;;
-  *)
+  "go")
+		$SCRIPT_DIR/generate-go $API_NAME $API_VERSION
+		exit $?
     ;;
 esac
 

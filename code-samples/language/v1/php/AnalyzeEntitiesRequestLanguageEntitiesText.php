@@ -16,47 +16,53 @@
  */
 
 /*
- * DO NOT EDIT! This is a generated sample ("Request",  "language_sentiment_text")
+ * DO NOT EDIT! This is a generated sample ("Request",  "language_entities_text")
  */
 
-// [START language_sentiment_text]
+// [START language_entities_text]
 require __DIR__ . '/vendor/autoload.php';
 
 use Google\Cloud\Language\V1\LanguageServiceClient;
 use Google\Cloud\Language\V1\Document;
 use Google\Cloud\Language\V1\Document_Type;
 
-function sampleAnalyzeSentiment($textContent)
+function sampleAnalyzeEntities($textContent)
 {
-    // [START language_sentiment_text_core]
+    // [START language_entities_text_core]
 
     $languageServiceClient = new LanguageServiceClient();
 
-    // $textContent = 'I am so happy and joyful.';
+    // $textContent = 'California is a state.';
     $type = Document_Type::PLAIN_TEXT;
     $document = new Document();
     $document->setType($type);
     $document->setContent($textContent);
 
     try {
-        $response = $languageServiceClient->analyzeSentiment($document);
-        $sentiment = $response->getDocumentSentiment();
-        printf('Score: %s'.PHP_EOL, $sentiment->getScore());
-        printf('Magnitude: %s'.PHP_EOL, $sentiment->getMagnitude());
+        $response = $languageServiceClient->analyzeEntities($document);
+        foreach ($response->getEntities() as $entity) {
+            printf('Entity name: %s'.PHP_EOL, $entity->getName());
+            printf('Entity type: %s'.PHP_EOL, $entity->getType());
+            printf('Entity salience score: %s'.PHP_EOL, $entity->getSalience());
+            foreach ($entity->getMentions() as $mention) {
+                printf('Mention: %s'.PHP_EOL, $mention->getText()->getContent());
+                printf('Mention type: %s'.PHP_EOL, $mention->getType());
+            }
+        }
     } finally {
         $languageServiceClient->close();
     }
 
-    // [END language_sentiment_text_core]
+    // [END language_entities_text_core]
 }
-// [END language_sentiment_text]
+// [END language_entities_text]
 
 $opts = [
     'text_content::',
 ];
 
 $defaultOptions = [
-    'text_content' => 'I am so happy and joyful.',
+    'text_content' => 'California is a state.',
 ];
 
 $options = getopt('', $opts);
@@ -64,4 +70,4 @@ $options += $defaultOptions;
 
 $textContent = $options['text_content'];
 
-sampleAnalyzeSentiment($textContent);
+sampleAnalyzeEntities($textContent);

@@ -26,17 +26,17 @@ use Google\Cloud\Language\V1\LanguageServiceClient;
 use Google\Cloud\Language\V1\Document;
 use Google\Cloud\Language\V1\Document_Type;
 
-function sampleAnalyzeSyntax($content)
+function sampleAnalyzeSyntax($textContent)
 {
     // [START language_syntax_text_core]
 
     $languageServiceClient = new LanguageServiceClient();
 
-    // $content = 'California is a state.';
+    // $textContent = 'California is a state.';
     $type = Document_Type::PLAIN_TEXT;
     $document = new Document();
     $document->setType($type);
-    $document->setContent($content);
+    $document->setContent($textContent);
 
     try {
         $response = $languageServiceClient->analyzeSyntax($document);
@@ -54,16 +54,16 @@ function sampleAnalyzeSyntax($content)
 // [END language_syntax_text]
 
 $opts = [
-    'content::',
+    'text_content::',
 ];
 
 $defaultOptions = [
-    'content' => 'California is a state.',
+    'text_content' => 'California is a state.',
 ];
 
 $options = getopt('', $opts);
 $options += $defaultOptions;
 
-$content = $options['content'];
+$textContent = $options['text_content'];
 
-sampleAnalyzeSyntax($content);
+sampleAnalyzeSyntax($textContent);

@@ -12,26 +12,21 @@ require "yaml"
 
 excluded_paths = %w[ /env/ /node_modules/ /vendor/ ]
 
-disabled_tests_file = File.expand_path File.join(File.dirname(__FILE__), "..", ".disabled_tests.yaml")
-disabled_tests = YAML.load_file disabled_tests_file
-
 languages = [
   { name: "php",    extension: "php", bin: "php",    samples: [] },
-  { name: "python", extension: "py",  bin: "python", samples: [] }
-  # Ignore Go for now, it uses camelCase CLI argument names
-  # { name: "go",     extension: "go",  bin: "go run", samples: [] }
+  { name: "python", extension: "py",  bin: "python", samples: [] },
+  { name: "go",     extension: "go",  bin: "go run", samples: [] }
 ]
 
 directory = ARGV.shift
 
 Dir.chdir(directory) do
   languages.each do |language|
-    disabled_regions = disabled_tests[language[:name]] || []
     sample_files = Dir.glob("**/*.#{language[:extension]}")
     sample_files.reject! { |file| excluded_paths.any? {|path| file.include? path }}
     sample_files.each do |sample_file|
       region_tag = File.read(sample_file).scan(/\[START ([^\]]+)\]/).flatten.first
-      language[:samples] << { "region_tag" => region_tag, "path" => sample_file } unless disabled_regions.include?(region_tag)
+      language[:samples] << { "region_tag" => region_tag, "path" => sample_file }
     end
   end
 end

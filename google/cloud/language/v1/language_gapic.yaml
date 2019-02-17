@@ -71,35 +71,28 @@ interfaces:
       parameters:
         defaults:
         - document.type=PLAIN_TEXT
-        - document.content="Your text to analyze, e.g. Hello, world!"
-        attributes:
+        - document.content="I am so happy and joyful."
+        attributes: &samples_text_attributes
         - parameter: document.content
-          sample_argument_name: content
-      on_success:
+          sample_argument_name: text_content
+      on_success: &samples_sentiment_response
       - define: sentiment=$resp.document_sentiment
       - print:
-        - "score: %s"
+        - "Score: %s"
         - sentiment.score
       - print:
-        - "magnitude: %s"
+        - "Magnitude: %s"
         - sentiment.magnitude
     - id: language_sentiment_gcs
       description: "Analyze sentiment of text stored in GCS"
       parameters:
         defaults:
         - document.type=PLAIN_TEXT
-        - document.gcs_content_uri="Path to text file, e.g. gs://my-bucket/textfile"
-        attributes:
-        - parameter: document.gcs_content_uri # can this be renamed?
-          sample_argument_name: uri
-      on_success:
-      - define: sentiment=$resp.document_sentiment
-      - print:
-        - "score: %s"
-        - sentiment.score
-      - print:
-        - "magnitude: %s"
-        - sentiment.magnitude
+        - document.gcs_content_uri="gs://cloud-samples-data/positive.txt"
+        attributes: &samples_gcs_attributes
+        - parameter: document.gcs_content_uri
+          sample_argument_name: gcs_uri
+      on_success: *samples_sentiment_response
   - name: AnalyzeEntities
     flattening:
       groups:
@@ -111,6 +104,54 @@ interfaces:
     retry_codes_name: idempotent
     retry_params_name: default
     timeout_millis: 30000
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [language_entities_text]
+        region_tag: language_entities_text
+      - calling_forms: ".*"
+        value_sets: [language_entities_gcs]
+        region_tag: language_entities_gcs
+    sample_value_sets:
+    - id: language_entities_text
+      description: "Analyze entities in text"
+      parameters:
+        defaults:
+        - document.type=PLAIN_TEXT
+        - document.content="California is a state."
+        attributes: *samples_text_attributes
+      on_success: &samples_entities_response
+      - loop:
+          collection: $resp.entities
+          variable: entity
+          body:
+          - print:
+            - "Entity name: %s"
+            - entity.name
+          - print:
+            - "Entity type: %s"
+            - entity.type
+          - print:
+            - "Entity salience score: %s"
+            - entity.salience
+          - loop:
+              collection: entity.mentions
+              variable: mention
+              body:
+              - print:
+                - "Mention: %s"
+                - mention.text.content
+              - print:
+                - "Mention type: %s"
+                - mention.type
+    - id: language_entities_gcs
+      description: "Analyze entities in text stored in GCS"
+      parameters:
+        defaults:
+        - document.type=PLAIN_TEXT
+        - document.gcs_content_uri="gs://cloud-samples-data/california.txt"
+        attributes: *samples_gcs_attributes
+      on_success: *samples_entities_response
   - name: AnalyzeEntitySentiment
     flattening:
       groups:
@@ -136,7 +177,7 @@ interfaces:
         - document.content="California is a state."
         attributes:
         - parameter: document.content
-          sample_argument_name: content
+          sample_argument_name: text_content
       on_success:
       - loop:
           collection: $resp.entities
@@ -192,7 +233,7 @@ interfaces:
         - document.content="California is a state."
         attributes:
         - parameter: document.content
-          sample_argument_name: content
+          sample_argument_name: text_content
       on_success:
       - define: tokens=$resp.tokens
       - loop:
@@ -213,7 +254,7 @@ interfaces:
         - document.gcs_content_uri="gs://cloud-samples-data/california.txt"
         attributes:
         - parameter: document.gcs_content_uri
-          sample_argument_name: uri
+          sample_argument_name: gcs_uri
       on_success:
       - define: tokens=$resp.tokens
       - loop:

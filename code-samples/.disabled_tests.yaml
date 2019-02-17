@@ -1,5 +1,0 @@
-php:
-
-# PHP does not support printing Enums
-- language_syntax_text
-- language_syntax_gcs

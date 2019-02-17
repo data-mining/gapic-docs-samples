@@ -26,17 +26,17 @@ use Google\Cloud\Language\V1\LanguageServiceClient;
 use Google\Cloud\Language\V1\Document;
 use Google\Cloud\Language\V1\Document_Type;
 
-function sampleAnalyzeSyntax($uri)
+function sampleAnalyzeSyntax($gcsUri)
 {
     // [START language_syntax_gcs_core]
 
     $languageServiceClient = new LanguageServiceClient();
 
-    // $uri = 'gs://cloud-samples-data/california.txt';
+    // $gcsUri = 'gs://cloud-samples-data/california.txt';
     $type = Document_Type::PLAIN_TEXT;
     $document = new Document();
     $document->setType($type);
-    $document->setGcsContentUri($uri);
+    $document->setGcsContentUri($gcsUri);
 
     try {
         $response = $languageServiceClient->analyzeSyntax($document);
@@ -54,16 +54,16 @@ function sampleAnalyzeSyntax($uri)
 // [END language_syntax_gcs]
 
 $opts = [
-    'uri::',
+    'gcs_uri::',
 ];
 
 $defaultOptions = [
-    'uri' => 'gs://cloud-samples-data/california.txt',
+    'gcs_uri' => 'gs://cloud-samples-data/california.txt',
 ];
 
 $options = getopt('', $opts);
 $options += $defaultOptions;
 
-$uri = $options['uri'];
+$gcsUri = $options['gcs_uri'];
 
-sampleAnalyzeSyntax($uri);
+sampleAnalyzeSyntax($gcsUri);

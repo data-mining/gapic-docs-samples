@@ -29,19 +29,19 @@ from google.cloud.language_v1 import enums
 import six
 
 
-def sample_analyze_syntax(uri):
+def sample_analyze_syntax(gcs_uri):
     """Analyze syntax of text in GCS"""
 
     # [START language_syntax_gcs_core]
 
     client = language_v1.LanguageServiceClient()
 
-    # uri = 'gs://cloud-samples-data/california.txt'
+    # gcs_uri = 'gs://cloud-samples-data/california.txt'
 
-    if isinstance(uri, six.binary_type):
-        uri = uri.decode('utf-8')
+    if isinstance(gcs_uri, six.binary_type):
+        gcs_uri = gcs_uri.decode('utf-8')
     type_ = enums.Document.Type.PLAIN_TEXT
-    document = {'type': type_, 'gcs_content_uri': uri}
+    document = {'type': type_, 'gcs_content_uri': gcs_uri}
 
     response = client.analyze_syntax(document)
     tokens = response.tokens
@@ -61,10 +61,12 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--uri', type=str, default='gs://cloud-samples-data/california.txt')
+        '--gcs_uri',
+        type=str,
+        default='gs://cloud-samples-data/california.txt')
     args = parser.parse_args()
 
-    sample_analyze_syntax(args.uri)
+    sample_analyze_syntax(args.gcs_uri)
 
 
 if __name__ == '__main__':

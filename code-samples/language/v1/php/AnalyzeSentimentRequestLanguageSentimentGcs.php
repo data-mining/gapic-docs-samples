@@ -26,23 +26,23 @@ use Google\Cloud\Language\V1\LanguageServiceClient;
 use Google\Cloud\Language\V1\Document;
 use Google\Cloud\Language\V1\Document_Type;
 
-function sampleAnalyzeSentiment($uri)
+function sampleAnalyzeSentiment($gcsUri)
 {
     // [START language_sentiment_gcs_core]
 
     $languageServiceClient = new LanguageServiceClient();
 
-    // $uri = 'Path to text file, e.g. gs://my-bucket/textfile';
+    // $gcsUri = 'gs://cloud-samples-data/positive.txt';
     $type = Document_Type::PLAIN_TEXT;
     $document = new Document();
     $document->setType($type);
-    $document->setGcsContentUri($uri);
+    $document->setGcsContentUri($gcsUri);
 
     try {
         $response = $languageServiceClient->analyzeSentiment($document);
         $sentiment = $response->getDocumentSentiment();
-        printf('score: %s'.PHP_EOL, $sentiment->getScore());
-        printf('magnitude: %s'.PHP_EOL, $sentiment->getMagnitude());
+        printf('Score: %s'.PHP_EOL, $sentiment->getScore());
+        printf('Magnitude: %s'.PHP_EOL, $sentiment->getMagnitude());
     } finally {
         $languageServiceClient->close();
     }
@@ -52,16 +52,16 @@ function sampleAnalyzeSentiment($uri)
 // [END language_sentiment_gcs]
 
 $opts = [
-    'uri::',
+    'gcs_uri::',
 ];
 
 $defaultOptions = [
-    'uri' => 'Path to text file, e.g. gs://my-bucket/textfile',
+    'gcs_uri' => 'gs://cloud-samples-data/positive.txt',
 ];
 
 $options = getopt('', $opts);
 $options += $defaultOptions;
 
-$uri = $options['uri'];
+$gcsUri = $options['gcs_uri'];
 
-sampleAnalyzeSentiment($uri);
+sampleAnalyzeSentiment($gcsUri);

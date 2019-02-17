@@ -5,6 +5,8 @@ sets:
   bin: php
   path: language/v1/
   __items__:
+  - region_tag: language_entities_gcs
+    path: php/AnalyzeEntitiesRequestLanguageEntitiesGcs.php
   - region_tag: language_entity_sentiment_text
     path: php/AnalyzeEntitySentimentRequestLanguageEntitySentimentText.php
   - region_tag: language_syntax_text
@@ -15,10 +17,16 @@ sets:
     path: php/AnalyzeSentimentRequestLanguageSentimentText.php
   - region_tag: language_sentiment_gcs
     path: php/AnalyzeSentimentRequestLanguageSentimentGcs.php
+  - region_tag: language_entities_text
+    path: php/AnalyzeEntitiesRequestLanguageEntitiesText.php
 - language: python
   bin: python
   path: language/v1/
   __items__:
+  - region_tag: language_entities_gcs
+    path: python/analyze_entities_request_language_entities_gcs.py
+  - region_tag: language_entities_text
+    path: python/analyze_entities_request_language_entities_text.py
   - region_tag: language_sentiment_gcs
     path: python/analyze_sentiment_request_language_sentiment_gcs.py
   - region_tag: language_syntax_text
@@ -29,3 +37,21 @@ sets:
     path: python/analyze_entity_sentiment_request_language_entity_sentiment_text.py
   - region_tag: language_syntax_gcs
     path: python/analyze_syntax_request_language_syntax_gcs.py
+- language: go
+  bin: go run
+  path: language/v1/
+  __items__:
+  - region_tag: language_syntax_gcs
+    path: go/google.cloud.language.v1.LanguageService_AnalyzeSyntax_language_syntax_gcs.go
+  - region_tag: language_sentiment_text
+    path: go/google.cloud.language.v1.LanguageService_AnalyzeSentiment_language_sentiment_text.go
+  - region_tag: language_syntax_text
+    path: go/google.cloud.language.v1.LanguageService_AnalyzeSyntax_language_syntax_text.go
+  - region_tag: language_entities_text
+    path: go/google.cloud.language.v1.LanguageService_AnalyzeEntities_language_entities_text.go
+  - region_tag: language_entity_sentiment_text
+    path: go/google.cloud.language.v1.LanguageService_AnalyzeEntitySentiment_language_entity_sentiment_text.go
+  - region_tag: language_sentiment_gcs
+    path: go/google.cloud.language.v1.LanguageService_AnalyzeSentiment_language_sentiment_gcs.go
+  - region_tag: language_entities_gcs
+    path: go/google.cloud.language.v1.LanguageService_AnalyzeEntities_language_entities_gcs.go

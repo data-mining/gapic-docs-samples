@@ -29,19 +29,19 @@ from google.cloud.language_v1 import enums
 import six
 
 
-def sample_analyze_entity_sentiment(content):
+def sample_analyze_entity_sentiment(text_content):
     """Analyze Entity Sentiment"""
 
     # [START language_entity_sentiment_text_core]
 
     client = language_v1.LanguageServiceClient()
 
-    # content = 'California is a state.'
+    # text_content = 'California is a state.'
 
-    if isinstance(content, six.binary_type):
-        content = content.decode('utf-8')
+    if isinstance(text_content, six.binary_type):
+        text_content = text_content.decode('utf-8')
     type_ = enums.Document.Type.PLAIN_TEXT
-    document = {'type': type_, 'content': content}
+    document = {'type': type_, 'content': text_content}
 
     response = client.analyze_entity_sentiment(document)
     for entity in response.entities:
@@ -66,10 +66,10 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--content', type=str, default='California is a state.')
+        '--text_content', type=str, default='California is a state.')
     args = parser.parse_args()
 
-    sample_analyze_entity_sentiment(args.content)
+    sample_analyze_entity_sentiment(args.text_content)
 
 
 if __name__ == '__main__':

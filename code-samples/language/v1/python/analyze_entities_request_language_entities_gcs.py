@@ -14,43 +14,49 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# DO NOT EDIT! This is a generated sample ("Request",  "language_sentiment_gcs")
+# DO NOT EDIT! This is a generated sample ("Request",  "language_entities_gcs")
 
 # To install the latest published package dependency, execute the following:
 #   pip install google-cloud-language
 
 import sys
 
-# [START language_sentiment_gcs]
+# [START language_entities_gcs]
 
 from google.cloud import language_v1
+from google.cloud.language_v1 import enums
 from google.cloud.language_v1 import enums
 import six
 
 
-def sample_analyze_sentiment(gcs_uri):
-    """Analyze sentiment of text stored in GCS"""
+def sample_analyze_entities(gcs_uri):
+    """Analyze entities in text stored in GCS"""
 
-    # [START language_sentiment_gcs_core]
+    # [START language_entities_gcs_core]
 
     client = language_v1.LanguageServiceClient()
 
-    # gcs_uri = 'gs://cloud-samples-data/positive.txt'
+    # gcs_uri = 'gs://cloud-samples-data/california.txt'
 
     if isinstance(gcs_uri, six.binary_type):
         gcs_uri = gcs_uri.decode('utf-8')
     type_ = enums.Document.Type.PLAIN_TEXT
     document = {'type': type_, 'gcs_content_uri': gcs_uri}
 
-    response = client.analyze_sentiment(document)
-    sentiment = response.document_sentiment
-    print('Score: {}'.format(sentiment.score))
-    print('Magnitude: {}'.format(sentiment.magnitude))
+    response = client.analyze_entities(document)
+    for entity in response.entities:
+        print('Entity name: {}'.format(entity.name))
+        print('Entity type: {}'.format(enums.Entity.Type(entity.type).name))
+        print('Entity salience score: {}'.format(entity.salience))
+        for mention in entity.mentions:
+            print('Mention: {}'.format(mention.text.content))
+            print('Mention type: {}'.format(
+                enums.EntityMention.Type(mention.type).name))
 
-    # [END language_sentiment_gcs_core]
+    # [END language_entities_gcs_core]
 
 
-# [END language_sentiment_gcs]
+# [END language_entities_gcs]
 
 
 def main():
@@ -58,10 +64,12 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--gcs_uri', type=str, default='gs://cloud-samples-data/positive.txt')
+        '--gcs_uri',
+        type=str,
+        default='gs://cloud-samples-data/california.txt')
     args = parser.parse_args()
 
-    sample_analyze_sentiment(args.gcs_uri)
+    sample_analyze_entities(args.gcs_uri)
 
 
 if __name__ == '__main__':

@@ -140,11 +140,13 @@ interfaces:
                 - "Word: %s"
                 - word_info.word
               - print:
-                - "Word start time: %s"
-                - word_info.start_time
+                - "Word start time: %s seconds, %s nanos"
+                - word_info.start_time.seconds
+                - word_info.start_time.nanos
               - print:
-                - "Word end time: %s"
-                - word_info.end_time
+                - "Word end time: %s seconds, %s nanos"
+                - word_info.end_time.seconds
+                - word_info.end_time.nanos
   - name: LongRunningRecognize
     samples:
       standalone:

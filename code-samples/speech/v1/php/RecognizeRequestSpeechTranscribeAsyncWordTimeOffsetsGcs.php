@@ -53,8 +53,8 @@ function sampleRecognize($languageCode, $gcsUri)
             printf('Transcript: %s'.PHP_EOL, $alternative->getTranscript());
             foreach ($alternative->getWords() as $wordInfo) {
                 printf('Word: %s'.PHP_EOL, $wordInfo->getWord());
-                printf('Word start time: %s'.PHP_EOL, print_r($wordInfo->getStartTime(), true));
-                printf('Word end time: %s'.PHP_EOL, print_r($wordInfo->getEndTime(), true));
+                printf('Word start time: %s seconds, %s nanos'.PHP_EOL, $wordInfo->getStartTime()->getSeconds(), $wordInfo->getStartTime()->getNanos());
+                printf('Word end time: %s seconds, %s nanos'.PHP_EOL, $wordInfo->getEndTime()->getSeconds(), $wordInfo->getEndTime()->getNanos());
             }
         }
     } finally {

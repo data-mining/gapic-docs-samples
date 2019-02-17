@@ -36,3 +36,13 @@ test:
           target: speech_transcribe_async_gcs
       - assert_contains:
         - literal: "how old is the Brooklyn Bridge"
+
+    - name: speech_transcribe_async_word_time_offsets_gcs
+      spec:
+      - call:
+          target: speech_transcribe_async_word_time_offsets_gcs
+      - assert_contains:
+        - literal: "Word: Brooklyn"
+        - literal: "Word start time: 0 seconds"
+        - literal: "Word start time: 1 seconds"
+        - literal: "Word end time:"

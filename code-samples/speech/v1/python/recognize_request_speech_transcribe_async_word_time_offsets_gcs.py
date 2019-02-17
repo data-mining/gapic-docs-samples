@@ -59,8 +59,10 @@ def sample_recognize(language_code, gcs_uri):
         print('Transcript: {}'.format(alternative.transcript))
         for word_info in alternative.words:
             print('Word: {}'.format(word_info.word))
-            print('Word start time: {}'.format(word_info.start_time))
-            print('Word end time: {}'.format(word_info.end_time))
+            print('Word start time: {} seconds, {} nanos'.format(
+                word_info.start_time.seconds, word_info.start_time.nanos))
+            print('Word end time: {} seconds, {} nanos'.format(
+                word_info.end_time.seconds, word_info.end_time.nanos))
 
     # [END speech_transcribe_async_word_time_offsets_gcs_core]
 

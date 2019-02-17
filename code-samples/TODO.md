@@ -64,9 +64,9 @@ _If there are blocking issues, we can use this document to note them down._
    - [X] `speech_transcribe_sync_gcs`
  - [Transcribing long audio files][]
    - [X] `speech_transcribe_async`
-   - [ ] `speech_transcribe_async_gcs`
+   - [X] `speech_transcribe_async_gcs`
  - [Getting word timestamps][]
-   - [ ] `speech_transcribe_async_word_time_offsets_gcs`
+   - [X] `speech_transcribe_async_word_time_offsets_gcs`
  - 🔬 Beta Features
    - [Enabling word-level confidence][]
      - [ ] `speech_transcribe_word_level_confidence_beta`

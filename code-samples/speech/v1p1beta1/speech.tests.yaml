@@ -1,0 +1,17 @@
+test:
+  suites:
+  - name:  Speech-to-Text v1p1beta1 API
+    cases:
+
+    - name: speech_transcribe_word_level_confidence_beta
+      spec:
+      - call:
+          target: speech_transcribe_word_level_confidence_beta
+          params:
+            local_file_path:
+              literal: "speech/resources/brooklyn_bridge.raw"
+      - assert_contains:
+        - literal: "Transcript: how old is the Brooklyn Bridge"
+        - literal: "Confidence: 0."
+        - literal: "Word: Brooklyn"
+        - literal: "Word confidence: 0."

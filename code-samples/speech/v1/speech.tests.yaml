@@ -1,6 +1,6 @@
 test:
   suites:
-  - name:  "Speech-to-Text V1"
+  - name:  Speech-to-Text v1 API
     cases:
 
     - name: speech_transcribe_sync

@@ -69,7 +69,7 @@ _If there are blocking issues, we can use this document to note them down._
    - [X] `speech_transcribe_async_word_time_offsets_gcs`
  - 🔬 Beta Features
    - [Enabling word-level confidence][]
-     - [ ] `speech_transcribe_word_level_confidence_beta`
+     - [X] `speech_transcribe_word_level_confidence_beta`
    - [Separating different speakers in an audio recording][]
      - [ ] `speech_transcribe_diarization_beta`
    - [Detecting language spoken automatically][]

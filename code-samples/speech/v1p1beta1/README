@@ -1,0 +1,10 @@
+/Users/rebeccataylor/code/gapic-docs-samples/code-samples/script/pysampletester/sampletester -s speech/v1p1beta1//speech.manifest.yaml speech/v1p1beta1//speech.tests.yaml
+
+SUCCESS: Environment: "php"
+  SUCCESS: Suite: "Speech-to-Text v1p1beta1 API"
+    SUCCESS: Case: "speech_transcribe_word_level_confidence_beta"
+SUCCESS: Environment: "python"
+  SUCCESS: Suite: "Speech-to-Text v1p1beta1 API"
+    SUCCESS: Case: "speech_transcribe_word_level_confidence_beta"
+
+Tests passed

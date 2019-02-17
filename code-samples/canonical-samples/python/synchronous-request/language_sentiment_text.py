@@ -22,7 +22,7 @@ from google.cloud import language
 from google.cloud.language import enums
 from google.cloud.language import types
 
-def analyze_sentiment_text(text_content='Hello, world!'):
+def analyze_sentiment_text(text_content='I am so happy and joyful'):
     """Analyze sentiment of text
     Args:
         text: Text to analyze, e.g. 'Hello, world!'

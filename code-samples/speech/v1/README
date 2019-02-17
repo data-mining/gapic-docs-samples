@@ -1,0 +1,16 @@
+/Users/rebeccataylor/code/gapic-docs-samples/code-samples/script/pysampletester/sampletester -s speech/v1/speech.manifest.yaml speech/v1/speech.tests.yaml
+
+SUCCESS: Environment: "php"
+  SUCCESS: Suite: "Speech-to-Text V1"
+    SUCCESS: Case: "speech_transcribe_sync"
+    SUCCESS: Case: "speech_transcribe_sync_gcs"
+    SUCCESS: Case: "speech_transcribe_async"
+    SUCCESS: Case: "speech_transcribe_async_gcs"
+SUCCESS: Environment: "python"
+  SUCCESS: Suite: "Speech-to-Text V1"
+    SUCCESS: Case: "speech_transcribe_sync"
+    SUCCESS: Case: "speech_transcribe_sync_gcs"
+    SUCCESS: Case: "speech_transcribe_async"
+    SUCCESS: Case: "speech_transcribe_async_gcs"
+
+Tests passed

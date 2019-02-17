@@ -5,6 +5,8 @@ sets:
   bin: php
   path: speech/v1/
   __items__:
+  - region_tag: speech_transcribe_async_gcs
+    path: php/LongRunningRecognizeLongRunningRequestSpeechTranscribeAsyncGcs.php
   - region_tag: speech_transcribe_sync_gcs
     path: php/RecognizeRequestSpeechTranscribeSyncGcs.php
   - region_tag: speech_transcribe_sync
@@ -23,5 +25,11 @@ sets:
     path: python/long_running_recognize_long_running_promise_speech_transcribe_async.py
   - region_tag: speech_transcribe_async_word_time_offsets_gcs
     path: python/recognize_request_speech_transcribe_async_word_time_offsets_gcs.py
+  - region_tag: speech_transcribe_async_gcs
+    path: python/long_running_recognize_long_running_promise_speech_transcribe_async_gcs.py
   - region_tag: speech_transcribe_sync_gcs
     path: python/recognize_request_speech_transcribe_sync_gcs.py
+- language: go
+  bin: go run
+  path: speech/v1/
+  __items__: []

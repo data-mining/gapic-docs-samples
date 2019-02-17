@@ -259,3 +259,15 @@ _If there are blocking issues, we can use this document to note them down._
      - [ ] `automl_translation_predict`
 
 #### 💼 Job Discovery API
+
+> **New Samples:** these do not yet appear have cloud.google.com pages 
+
+ - [ ] `job_search_create_company`
+ - [ ] `job_search_create_job`
+ - [ ] `job_search_get_job`
+ - [ ] `job_search_create_job_custom_attributes`
+ - [ ] `job_search_create_client_event`
+ - [ ] `job_search_autocomplete_job_title`
+ - [ ] `job_search_histogram_search`
+ - [ ] `job_search_commute_search`
+ - [ ] `job_search_custom_ranking_search`

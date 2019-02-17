@@ -33,7 +33,7 @@ Please only cross of each individual language after confirming that the tests pa
 
 _If there are blocking issues, we can use this document to note them down._
 
-#### 📜 Natural Language API
+#### 📜 Natural Language API ([`PASS`](https://github.com/beccasaurus/gapic-docs-samples/tree/master/code-samples/language/v1))
 
  - [Analyzing Syntax][]
    - [X] `language_syntax_text` 
@@ -42,14 +42,14 @@ _If there are blocking issues, we can use this document to note them down._
    - [X] `language_sentiment_text` 
    - [X] `language_sentiment_gcs`
  - [Analyzing Entities][]
-   - [ ] `language_entities_text` 
-   - [ ] `language_entities_gcs`
+   - [X] `language_entities_text` 
+   - [X] `language_entities_gcs`
  - [Analyzing Entity Sentiment][]
-   - [ ] `language_entity_sentiment_text`
-   - [ ] `language_entity_sentiment_gcs`
+   - [X] `language_entity_sentiment_text`
+   - [X] `language_entity_sentiment_gcs`
  - [Classifying Content][]
-   - [ ] `language_classify_text`
-   - [ ] `language_classify_gcs`
+   - [X] `language_classify_text`
+   - [X] `language_classify_gcs`
  
 [Analyzing Syntax]: https://cloud.google.com/natural-language/docs/analyzing-syntax
 [Analyzing Sentiment]: https://cloud.google.com/natural-language/docs/analyzing-sentiment

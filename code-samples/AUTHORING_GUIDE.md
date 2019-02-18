@@ -1,4 +1,4 @@
-`TODO`
+`WIP`
 
 ----
 
@@ -177,6 +177,43 @@
   ```
 
 #### Paged Responses
+
+Response messages which contain a `next_page_token` field and a repeated field are handled specially.
+
+Samples demonstrate language idiomatic code to cycle through the pages of results returned by the API.
+
+In the YAML `on_success:` for these API methods, `$resp` references an individual object being paged over.
+The code is implicitly rendered in a loop. 
+
+- Example:
+  ```yaml
+  on_success:
+  - print:
+    - "Entity type name: %s"
+    - $resp.name
+  - print:
+    - "Entity type display name: %s"
+    - $resp.display_name
+  ```
+  ```py
+  # Iterate over all results
+  for response_item in client.list_entity_types(parent):
+      print('Entity type name: {}'.format(response_item.name))
+      print('Entity type display name: {}'.format(
+          response_item.display_name))
+  ```
+  ```php
+  try {
+    // Iterate through all elements
+    $pagedResponse = $entityTypesClient->listEntityTypes($formattedParent);
+    foreach ($pagedResponse->iterateAllElements() as $responseItem) {
+        printf('Entity type name: %s'.PHP_EOL, $responseItem->getName());
+        printf('Entity type display name: %s'.PHP_EOL, $responseItem->getDisplayName());
+    }
+  } finally {
+    $entityTypesClient->close();
+  }
+  ```
 
 ----
 

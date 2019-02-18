@@ -34,39 +34,35 @@
 
 #### Printing values
 
-```yaml
-- print:
-  - "Hello world"
-```
+- Basic:
+  ```yaml
+  - print:
+    - "Hello world"
+  ```
+  ```py
+  print('Hello world)
+  ```
 
-```py
-print('Hello world)
-```
+- Interpolating values:
+  ```yaml
+  - print:
+    - "Hello %s"
+    - my_variable
+  ```
+  ```py
+  print('Hello {}'.format(my_variable))
+  ```
 
- 
-
-```yaml
-- print:
-  - "Hello %s"
-  - my_variable
-```
-
-```py
-print('Hello {}'.format(my_variable))
-```
-
- 
-
-```yaml
-- print:
-  - "Hello %s and also %s"
-  - my_variable
-  - second_variable
-```
-
-```py
-print('Hello {} and also {}'.format(my_variable, second_variable))
-```
+- Interpolating multiple variables:
+  ```yaml
+  - print:
+    - "Hello %s and also %s"
+    - my_variable
+    - second_variable
+  ```
+  ```py
+  print('Hello {} and also {}'.format(my_variable, second_variable))
+  ```
 
 #### Defining variables
 

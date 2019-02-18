@@ -1,45 +1,6 @@
-`WIP`
-
-----
-
 # 📚 Sample Configuration Reference
 
-`WIP`
-
-
-----
-
-- Sample Configuration Format
-
-- Request Input Parameters
-
-  - Setting request field values
-      - String fields
-      - Numeric fields
-      - Enum fields
-      - Array fields
-      - Map fields
-      - Byte fields
-      - oneof fields
-      - Project ID
-      - Resource Paths
-
-  - Configuring Method input parameters
-      - Parameter naming
-      - Local file parameters
-      - Command-line interface
-
-- Response handling
-  - Printing values
-  - Defining variables
-  - Loops
-  - Code comments
-  - Paged Responses
-  
-- Test Configuration Reference
-  - ...
-
-----
+### Example
 
 ```yaml
 methods:
@@ -88,24 +49,9 @@ methods:
       # ...
 ```
 
-## API Request setup
+## Request Configuration
 
-```yaml
-# Request Input Parameters
-parameters:
-
-  # Assign values to fields on Request object
-  defaults:
-  
-  # Metadata for Request fields
-  # – `sample_argument_name:` – name of method argument / command-line argument
-  # – `read_file:` – function accepts path to local file which is read into bytes field
-  attributes:
-```
-
-### Setting request field values
-
-#### String fields
+### String fields
 
 ```yaml
 defaults:
@@ -118,7 +64,7 @@ config = {
 }
 ```
 
-#### Numeric fields
+### Numeric fields
 
 ```yaml
 defaults:
@@ -131,7 +77,7 @@ config = {
 }
 ```
 
-#### Enum fields
+### Enum fields
 
 ```yaml
 defaults:
@@ -144,15 +90,11 @@ config = {
 }
 ```
 
-#### Array fields
+### Array fields
 
-#### Map fields
+### Map fields
 
-#### Byte fields
-
-#### oneof fields
-
-#### Project ID
+### Google Cloud Project ID
 
 ```yaml
 parameters:
@@ -179,11 +121,7 @@ try {
 // ...
 ```
 
-#### Resource Paths
-
-### Method input parameters
-
-#### Parameter naming
+### Customize parameter name
 
 ```yaml
 parameters:
@@ -226,7 +164,7 @@ $textContent = $options['text_content'];
 sampleAnalyzeSyntax($textContent);
 ```
 
-#### Local file parameters
+### Local file parameters
 
 > Define `parameter: [byte field name]` with attribute `read_file: true`.  
 > Note: field must be configured with string value in `defaults:` (used as parameter description).
@@ -302,18 +240,7 @@ $localFilePath = $options['local_file_path'];
 sampleRecognize($languageCode, $localFilePath);
 ```
 
-#### Command-line interface
-
-## API Response handling
-
-```yaml
-# Print values from the response
-on_success:
-- print:
-- loop:
-- define:
-- comment:
-```
+# Response Handling
 
 #### Printing values
 

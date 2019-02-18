@@ -2,6 +2,8 @@
 
 ----
 
+- Sample Configuration Format
+
 - Request Input Parameters
 
   - Setting request field values

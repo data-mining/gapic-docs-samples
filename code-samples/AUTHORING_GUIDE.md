@@ -2,6 +2,10 @@
 
 ----
 
+`TOC HERE`
+
+----
+
 # 📚 Sample Configuration Reference
 
 ## API Request setup

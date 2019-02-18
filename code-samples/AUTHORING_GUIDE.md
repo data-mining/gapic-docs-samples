@@ -144,9 +144,82 @@ $options += $defaultOptions;
 $textContent = $options['text_content'];
 sampleAnalyzeSyntax($textContent);
 ```
-      
 
 #### Local file parameters
+
+> Define `parameter: [byte field name]` with attribute `read_file: true`.  
+> Note: field must be configured with string value in `defaults:` (used as parameter description).
+
+```yaml
+parameters:
+    defaults:
+    - audio.content="Path to local audio file, e.g. /path/audio.wav"
+    attributes: &samples_local_file_attributes
+    - parameter: audio.content
+      sample_argument_name: local_file_path
+      read_file: true
+```
+```py
+import io
+
+def sample_recognize(language_code, local_file_path):
+    """Transcribe local audio file"""
+
+    config = {
+        # ...
+    }
+    with io.open(local_file_path, 'rb') as f:
+        content = f.read()
+    audio = {'content': content}
+
+    response = client.recognize(config, audio)
+    
+    # ...
+
+def main():
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--language_code', type=str, default='en-US')
+    parser.add_argument(
+        '--local_file_path',
+        type=str,
+        default='Path to local audio file, e.g. /path/audio.wav')
+    args = parser.parse_args()
+
+    sample_recognize(args.language_code, args.local_file_path)
+```
+```php
+function sampleRecognize($languageCode, $localFilePath)
+{
+    // ...
+
+    $content = file_get_contents($localFilePath);
+    $audio = new RecognitionAudio();
+    $audio->setContent($content);
+    try {
+        $response = $speechClient->recognize($config, $audio);
+        // ...
+    } finally {
+        $speechClient->close();
+    }
+    // [END speech_transcribe_sync_core]
+}
+// [END speech_transcribe_sync]
+$opts = [
+    'language_code::',
+    'local_file_path::',
+];
+$defaultOptions = [
+    'language_code' => 'en-US',
+    'local_file_path' => 'Path to local audio file, e.g. /path/audio.wav',
+];
+$options = getopt('', $opts);
+$options += $defaultOptions;
+$languageCode = $options['language_code'];
+$localFilePath = $options['local_file_path'];
+sampleRecognize($languageCode, $localFilePath);
+```
 
 #### Command-line interface
 

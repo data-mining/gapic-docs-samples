@@ -8,7 +8,58 @@
 
 # 📚 Sample Configuration Reference
 
+```yaml
+methods:
+  - name: ApiMethodName
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [sample_one]
+        region_tag: sample_one
+      - calling_forms: ".*"
+        value_sets: [sample_two]
+        region_tag: sample_two
+    sample_value_sets:
+    - id: sample_one
+      description: This is my amazing sample
+      # [ Request Definition ]
+      parameters:
+        defaults:
+        - parent%project="Your Google Cloud Project ID"
+        - config.string_field="en-US"
+        - config.numeric_field=128
+        - config.enum_field=VALUE_NAME
+        - image.content_bytes="Path to local file, e.g. /path/image.png"
+        attributes:
+        - parameter: parent%project
+          sample_argument_name: project_id
+        - parameter: config.string_field
+          sample_argument_name: the_text_value
+        - parameter: image.content_bytes
+          sample_argument_name: local_file_path
+          read_file: true
+      # [ Response Handling Definition ]
+      on_success:
+      - define: entities=$resp.discovery_results.entities
+      - comment:
+        - "Loop over all entities and print entity name."
+      - loop:
+          collection: entities
+          collection: entity
+          body:
+          - print:
+            - "Entity name: %s"
+            - entity.name
+    - id: sample_two
+      description: My second sample
+      # ...
+```
+
 ## API Request setup
+
+```yaml
+
+```
 
 ### Setting request field values
 

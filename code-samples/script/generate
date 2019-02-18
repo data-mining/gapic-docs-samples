@@ -8,6 +8,22 @@ if [ "$#" -ne 3 ]; then
   echo "Usage: ./script/generate [api_name] [api_version] [language]"
 fi
 
+function error_and_exit() {
+	echo "$1" >&2
+	exit 1
+}
+
+for dependency_bin in docker python ruby; do
+	if ! [ -x "$(command -v $dependency_bin)" ]; then
+		error_and_exit "$dependency_bin is not installed. Please install before continuing."
+	fi
+done
+
+if [ -z "$(docker images | grep googleapis/artman)" ]; then
+	echo "Pulling required Docker image (googleapis/artman)"
+	docker pull googleapis/artman
+fi
+
 API_NAME="$1"
 API_VERSION="$2"
 LANGUAGE="$3"

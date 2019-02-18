@@ -58,7 +58,9 @@ methods:
 ## API Request setup
 
 ```yaml
-
+parameters:
+  defaults:
+  attributes:
 ```
 
 ### Setting request field values
@@ -279,6 +281,10 @@ sampleRecognize($languageCode, $localFilePath);
 #### Command-line interface
 
 ## API Response handling
+
+```yaml
+on_success:
+```
 
 #### Printing values
 

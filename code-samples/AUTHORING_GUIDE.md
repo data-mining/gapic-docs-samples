@@ -79,7 +79,7 @@
   - define: transcript=$resp.alternatives[0].transcript
   ```
   ```py
-  transcript=response.alternatives[0].transcript
+  transcript = response.alternatives[0].transcript
   ```
 
 #### Loops

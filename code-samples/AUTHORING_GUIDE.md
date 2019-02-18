@@ -39,6 +39,7 @@
   - print:
     - "Hello world"
   ```
+  🐍
   ```py
   print('Hello world)
   ```
@@ -49,6 +50,7 @@
     - "Hello %s"
     - my_variable
   ```
+  🐍
   ```py
   print('Hello {}'.format(my_variable))
   ```
@@ -60,6 +62,7 @@
     - my_variable
     - second_variable
   ```
+  🐍
   ```py
   print('Hello {} and also {}'.format(my_variable, second_variable))
   ```
@@ -70,6 +73,7 @@
     - "Entity type %s"
     - entity.type
   ```
+  🐍
   ```py
   print('Entity type: {}'.format(enums.Entity.Type(entity.type).name))
   ```
@@ -80,6 +84,7 @@
   ```yaml
   - define: sentiment=$resp.document_sentiment
   ```
+  🐍
   ```py
   sentiment = response.document_sentiment
   ```
@@ -88,8 +93,13 @@
   ```yaml
   - define: transcript=$resp.alternatives[0].transcript
   ```
+  🐍
   ```py
   transcript = response.alternatives[0].transcript
+  ```
+  🐘
+  ```php
+  $transcript = $result->getAlternatives()[0]->getTranscript();
   ```
 
 #### Loops
@@ -104,6 +114,7 @@
        - "Entity name: %s"
        - entity.name
   ```
+  🐍
   ```py
   for entity in response.entities:
         print('Entity name: {}'.format(entity.name))
@@ -126,6 +137,7 @@
            - "Mention: %s"
            - mention.text.content
   ```
+  🐍
   ```py
   for entity in response.entities:
       print('Entity name: {}'.format(entity.name))
@@ -141,6 +153,7 @@
     - "Defines a variable referencing the document sentiment"
   - define: sentiment=$resp.document_sentiment
   ```
+  🐍
   ```py
   # Defines a variable referencing the document sentiment
   sentiment = response.document_sentiment
@@ -153,10 +166,12 @@
     - document_sentiment
   - define: document_sentiment=$resp.document_sentiment
   ```
+  🐍
   ```py
   # The document_sentiment variable references the document sentiment
   document_sentiment = response.document_sentiment
   ```
+  🐘
   ```php
   // The documentSentiment variable references the document sentiment
   $documentSentiment = $response->getDocumentSentiment();
@@ -170,6 +185,7 @@
          This is a multiline comment
   - define: sentiment=$resp.document_sentiment
   ```
+  🐍
   ```py
   # Hello world
   # This is a multiline comment
@@ -195,6 +211,7 @@ The code is implicitly rendered in a loop.
     - "Entity type display name: %s"
     - $resp.display_name
   ```
+  🐍
   ```py
   # Iterate over all results
   for response_item in client.list_entity_types(parent):
@@ -202,6 +219,7 @@ The code is implicitly rendered in a loop.
       print('Entity type display name: {}'.format(
           response_item.display_name))
   ```
+  🐘
   ```php
   try {
     // Iterate through all elements

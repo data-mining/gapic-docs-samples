@@ -43,7 +43,7 @@
 print('Hello world)
 ```
 
-–
+ 
 
 ```yaml
 - print:
@@ -55,7 +55,7 @@ print('Hello world)
 print('Hello {}'.format(my_variable))
 ```
 
-–
+ 
 
 ```yaml
 - print:

@@ -64,6 +64,16 @@
   print('Hello {} and also {}'.format(my_variable, second_variable))
   ```
 
+- Enum values:
+  ```yaml
+  - print:
+    - "Entity type %s"
+    - entity.type
+  ```
+  ```py
+  print('Entity type: {}'.format(enums.Entity.Type(entity.type).name))
+  ```
+
 #### Defining variables
 
 - Basic:
@@ -83,6 +93,45 @@
   ```
 
 #### Loops
+
+- Basic:
+  ```yaml
+  - loop:
+     collection: $resp.entities
+     variable: entity
+     body:
+     - print:
+       - "Entity name: %s"
+       - entity.name
+  ```
+  ```py
+  for entity in response.entities:
+        print('Entity name: {}'.format(entity.name))
+  ```
+
+- Inner loop:
+  ```yaml
+  - loop:
+     collection: $resp.entities
+     variable: entity
+     body:
+     - print:
+       - "Entity name: %s"
+       - entity.name
+     - loop:
+         collection: entity.mentions
+         variable: mention
+         body:
+         - print:
+           - "Mention: %s"
+           - mention.text.content
+  ```
+  ```py
+  for entity in response.entities:
+      print('Entity name: {}'.format(entity.name))
+      for mention in entity.mentions:
+          print('Mention: {}'.format(mention.text.content))
+  ```
 
 #### Code comments
 

@@ -2,6 +2,13 @@
 
 ----
 
+# 📚 Sample Configuration Reference
+
+`WIP`
+
+
+----
+
 - Sample Configuration Format
 
 - Request Input Parameters
@@ -33,8 +40,6 @@
   - ...
 
 ----
-
-# 📚 Sample Configuration Reference
 
 ```yaml
 methods:

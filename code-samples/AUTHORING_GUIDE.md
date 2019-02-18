@@ -66,6 +66,22 @@
 
 #### Defining variables
 
+- Basic:
+  ```yaml
+  - define: sentiment=$resp.document_sentiment
+  ```
+  ```py
+  sentiment = response.document_sentiment
+  ```
+
+- Deeply nested:
+  ```yaml
+  - define: transcript=$resp.alternatives[0].transcript
+  ```
+  ```py
+  transcript=response.alternatives[0].transcript
+  ```
+
 #### Loops
 
 #### Code comments

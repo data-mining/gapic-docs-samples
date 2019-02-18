@@ -58,8 +58,15 @@ methods:
 ## API Request setup
 
 ```yaml
+# Request Input Parameters
 parameters:
+
+  # Assign values to fields on Request object
   defaults:
+  
+  # Metadata for Request fields
+  # – `sample_argument_name:` – name of method argument / command-line argument
+  # – `read_file:` – function accepts path to local file which is read into bytes field
   attributes:
 ```
 

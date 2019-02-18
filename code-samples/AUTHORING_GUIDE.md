@@ -34,6 +34,40 @@
 
 #### Printing values
 
+```yaml
+- print:
+  - "Hello world"
+```
+
+```py
+print('Hello world)
+```
+
+–
+
+```yaml
+- print:
+  - "Hello %s"
+  - my_variable
+```
+
+```py
+print('Hello {}'.format(my_variable))
+```
+
+–
+
+```yaml
+- print:
+  - "Hello %s and also %s"
+  - my_variable
+  - second_variable
+```
+
+```py
+print('Hello {} and also {}'.format(my_variable, second_variable))
+```
+
 #### Defining variables
 
 #### Loops

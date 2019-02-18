@@ -135,6 +135,47 @@
 
 #### Code comments
 
+- Basic:
+  ```yaml
+  - comment:
+    - "Defines a variable referencing the document sentiment"
+  - define: sentiment=$resp.document_sentiment
+  ```
+  ```py
+  # Defines a variable referencing the document sentiment
+  sentiment = response.document_sentiment
+  ```
+
+- Variable casing:
+  ```yaml
+  - comment:
+    - "The %s variable references the document sentiment"
+    - document_sentiment
+  - define: document_sentiment=$resp.document_sentiment
+  ```
+  ```py
+  # The document_sentiment variable references the document sentiment
+  document_sentiment = response.document_sentiment
+  ```
+  ```php
+  // The documentSentiment variable references the document sentiment
+  $documentSentiment = $response->getDocumentSentiment();
+  ```
+
+- Multi-line:
+  ```yaml
+  - comment:
+    - |
+         Hello world
+         This is a multiline comment
+  - define: sentiment=$resp.document_sentiment
+  ```
+  ```py
+  # Hello world
+  # This is a multiline comment
+  sentiment = response.document_sentiment
+  ```
+
 #### Paged Responses
 
 ----

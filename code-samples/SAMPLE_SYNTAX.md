@@ -92,7 +92,16 @@ config = {
 
 ### Array fields
 
+```yaml
+parameters:
+  defaults:
+  - document.language_codes[0]="en-US"
+  - document.language_codes[1]="fr-FR"
+```
+
 ### Map fields
+
+`TODO`
 
 ### Google Cloud Project ID
 
@@ -240,9 +249,9 @@ $localFilePath = $options['local_file_path'];
 sampleRecognize($languageCode, $localFilePath);
 ```
 
-# Response Handling
+## Response Handling
 
-#### Printing values
+### Printing values
 
 - Basic:
   ```yaml
@@ -284,7 +293,7 @@ sampleRecognize($languageCode, $localFilePath);
   print('Entity type: {}'.format(enums.Entity.Type(entity.type).name))
   ```
 
-#### Defining variables
+### Defining variables
 
 - Basic:
   ```yaml
@@ -305,7 +314,7 @@ sampleRecognize($languageCode, $localFilePath);
   $transcript = $result->getAlternatives()[0]->getTranscript();
   ```
 
-#### Loops
+### Loops
 
 - Basic:
   ```yaml
@@ -346,7 +355,7 @@ sampleRecognize($languageCode, $localFilePath);
           print('Mention: {}'.format(mention.text.content))
   ```
 
-#### Code comments
+### Code comments
 
 - Basic:
   ```yaml
@@ -389,7 +398,7 @@ sampleRecognize($languageCode, $localFilePath);
   sentiment = response.document_sentiment
   ```
 
-#### Paged Responses
+### Paged Responses
 
 Response messages which contain a `next_page_token` field and a repeated field are handled specially.
 
@@ -427,9 +436,3 @@ The code is implicitly rendered in a loop.
     $entityTypesClient->close();
   }
   ```
-
-----
-
-# 📚 Test Configuration Reference
-
-`TODO`

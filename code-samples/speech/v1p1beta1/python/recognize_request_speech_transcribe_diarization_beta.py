@@ -14,43 +14,38 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# DO NOT EDIT! This is a generated sample ("Request",  "speech_transcribe_word_level_confidence_beta")
+# DO NOT EDIT! This is a generated sample ("Request",  "speech_transcribe_diarization_beta")
 
 # To install the latest published package dependency, execute the following:
 #   pip install google-cloud-speech
 
 import sys
 
-# [START speech_transcribe_word_level_confidence_beta]
+# [START speech_transcribe_diarization_beta]
 
 from google.cloud import speech_v1p1beta1
-from google.cloud.speech_v1p1beta1 import enums
 import io
 import six
 
 
 def sample_recognize(language_code, local_file_path):
-    """Enabling word-level confidence"""
+    """Separate different speakers in an audio recording"""
 
-    # [START speech_transcribe_word_level_confidence_beta_core]
+    # [START speech_transcribe_diarization_beta_core]
 
     client = speech_v1p1beta1.SpeechClient()
 
     # language_code = 'en-US'
-    # local_file_path = 'Path to local audio file, e.g. /path/audio.raw'
+    # local_file_path = 'Path to local audio file, e.g. /path/audio.wav'
 
     if isinstance(language_code, six.binary_type):
         language_code = language_code.decode('utf-8')
     if isinstance(local_file_path, six.binary_type):
         local_file_path = local_file_path.decode('utf-8')
-    sample_rate_hertz = 16000
-    encoding = enums.RecognitionConfig.AudioEncoding.LINEAR16
-    enable_word_confidence = True
+    enable_speaker_diarization = True
     config = {
-        'sample_rate_hertz': sample_rate_hertz,
         'language_code': language_code,
-        'encoding': encoding,
-        'enable_word_confidence': enable_word_confidence
+        'enable_speaker_diarization': enable_speaker_diarization
     }
     with io.open(local_file_path, 'rb') as f:
         content = f.read()
@@ -60,15 +55,15 @@ def sample_recognize(language_code, local_file_path):
     for result in response.results:
         alternative = result.alternatives[0]
         print('Transcript: {}'.format(alternative.transcript))
-        print('Confidence: {}'.format(alternative.confidence))
+        # Speaker tag is a distinct integer assigned to every speaker in the audio.
         for word in alternative.words:
             print('Word: {}'.format(word.word))
-            print('Word confidence: {}'.format(word.confidence))
+            print('Speaker tag: {}'.format(word.speaker_tag))
 
-    # [END speech_transcribe_word_level_confidence_beta_core]
+    # [END speech_transcribe_diarization_beta_core]
 
 
-# [END speech_transcribe_word_level_confidence_beta]
+# [END speech_transcribe_diarization_beta]
 
 
 def main():
@@ -79,7 +74,7 @@ def main():
     parser.add_argument(
         '--local_file_path',
         type=str,
-        default='Path to local audio file, e.g. /path/audio.raw')
+        default='Path to local audio file, e.g. /path/audio.wav')
     args = parser.parse_args()
 
     sample_recognize(args.language_code, args.local_file_path)

@@ -15,3 +15,21 @@ test:
         - literal: "Confidence: 0."
         - literal: "Word: Brooklyn"
         - literal: "Word confidence: 0."
+
+    - name: speech_transcribe_diarization_beta
+      spec:
+      - call:
+          target: speech_transcribe_diarization_beta
+          params:
+            local_file_path:
+              literal: "speech/resources/commercial_mono.wav"
+      - assert_contains:
+        - literal: "Speaker tag: 0"
+        - literal: "Speaker tag: 1"
+        - literal: "Transcript:"
+        # 'thank' is used multiple times & is a reasonable word
+        # to expect the API to transcribe correctly
+        - literal: "Word: thank"
+
+
+        

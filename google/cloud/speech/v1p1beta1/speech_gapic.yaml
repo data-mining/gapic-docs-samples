@@ -123,65 +123,27 @@ interfaces:
       - calling_forms: ".*"
         value_sets: [speech_transcribe_word_level_confidence_beta]
         region_tag: speech_transcribe_word_level_confidence_beta
+      - calling_forms: ".*"
+        value_sets: [speech_transcribe_diarization_beta]
+        region_tag: speech_transcribe_diarization_beta
       # - calling_forms: ".*"
       #   value_sets: [speech_transcribe_auto_punctuation_beta]
       #   region_tag: speech_transcribe_auto_punctuation_beta
-      # - calling_forms: ".*"
-      #   value_sets: [speech_transcribe_diarization_beta]
-      #   region_tag: speech_transcribe_diarization_beta
       # - calling_forms: ".*"
       #   value_sets: [speech_transcribe_multichannel_beta]
       #   region_tag: speech_transcribe_multichannel_beta
     sample_value_sets:
 
-    - id: speech_transcribe_sync
-      description: Transcribe local audio file
-      parameters:
-        defaults: &samples_local_file_defaults
-        - audio.content="Path to local audio file, e.g. /path/audio.wav"
-        - config.sample_rate_hertz=16000
-        - config.language_code="en-US"
-        - config.encoding=LINEAR16
-        attributes: &samples_local_file_attributes
-        - parameter: config.language_code
-          sample_argument_name: language_code
-        - parameter: audio.content
-          sample_argument_name: local_file_path
-          read_file: true
-      on_success: &samples_transcripton_response
-      - loop:
-          variable: result
-          collection: $resp.results
-          body:
-          - print:
-            - "Transcript: %s"
-            - result.alternatives[0].transcript
-
-    - id: speech_transcribe_sync_gcs
-      description: Transcribe audio file from Google Cloud Storage
-      parameters:
-        defaults: &samples_gcs_defaults
-        - audio.uri="gs://cloud-samples-data/speech/brooklyn_bridge.raw"
-        - config.sample_rate_hertz=16000
-        - config.language_code="en-US"
-        - config.encoding=LINEAR16
-        attributes: &samples_gcs_attributes
-        - parameter: config.language_code
-          sample_argument_name: language_code
-        - parameter: audio.uri
-          sample_argument_name: gcs_uri
-      on_success: *samples_transcripton_response
-
     - id: speech_transcribe_word_level_confidence_beta
-      description: Transcribe local audio file with word-level confidence
+      description: Enabling word-level confidence
       parameters:
-        defaults: &samples_local_file_defaults
-        - audio.content="Path to local audio file, e.g. /path/audio.wav"
+        defaults:
+        - audio.content="Path to local audio file, e.g. /path/audio.raw"
         - config.sample_rate_hertz=16000
         - config.language_code="en-US"
         - config.encoding=LINEAR16
         - config.enable_word_confidence=True
-        attributes: &samples_local_file_attributes
+        attributes:
         - parameter: config.language_code
           sample_argument_name: language_code
         - parameter: audio.content
@@ -209,6 +171,42 @@ interfaces:
               - print:
                 - "Word confidence: %s"
                 - word.confidence
+
+    - id: speech_transcribe_diarization_beta
+      description: Separate different speakers in an audio recording
+      parameters:
+        defaults:
+        - audio.content="Path to local audio file, e.g. /path/audio.wav"
+        - config.language_code="en-US"
+        - config.enable_speaker_diarization=True
+        attributes:
+        - parameter: config.language_code
+          sample_argument_name: language_code
+        - parameter: audio.content
+          sample_argument_name: local_file_path
+          read_file: true
+      on_success:
+      - loop:
+          variable: result
+          collection: $resp.results
+          body:
+          - define: alternative=result.alternatives[0]
+          - print:
+            - "Transcript: %s"
+            - alternative.transcript
+          - comment:
+            - "Speaker tag is a distinct integer assigned to every speaker in the audio."
+          - loop:
+              collection: alternative.words
+              variable: word
+              body:
+              - print:
+                - "Word: %s"
+                - word.word
+              - print:
+                - "Speaker tag: %s"
+                - word.speaker_tag
+
 
     # - id: speech_transcribe_auto_punctuation_beta
     #   description: Transcribe local audio file with punctuation

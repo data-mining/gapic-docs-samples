@@ -71,7 +71,7 @@ _If there are blocking issues, we can use this document to note them down._
    - [Enabling word-level confidence][]
      - [X] `speech_transcribe_word_level_confidence_beta`
    - [Separating different speakers in an audio recording][]
-     - [ ] `speech_transcribe_diarization_beta`
+     - [X] `speech_transcribe_diarization_beta`
    - [Detecting language spoken automatically][]
      - [ ] `speech_transcribe_multilanguage_beta`
    - [Transcribing audio with multiple channels][]

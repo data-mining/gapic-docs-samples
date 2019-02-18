@@ -16,33 +16,28 @@
  */
 
 /*
- * DO NOT EDIT! This is a generated sample ("Request",  "speech_transcribe_word_level_confidence_beta")
+ * DO NOT EDIT! This is a generated sample ("Request",  "speech_transcribe_diarization_beta")
  */
 
-// [START speech_transcribe_word_level_confidence_beta]
+// [START speech_transcribe_diarization_beta]
 require __DIR__ . '/vendor/autoload.php';
 
 use Google\Cloud\Speech\V1p1beta1\SpeechClient;
 use Google\Cloud\Speech\V1p1beta1\RecognitionAudio;
 use Google\Cloud\Speech\V1p1beta1\RecognitionConfig;
-use Google\Cloud\Speech\V1p1beta1\RecognitionConfig_AudioEncoding;
 
 function sampleRecognize($languageCode, $localFilePath)
 {
-    // [START speech_transcribe_word_level_confidence_beta_core]
+    // [START speech_transcribe_diarization_beta_core]
 
     $speechClient = new SpeechClient();
 
     // $languageCode = 'en-US';
-    // $localFilePath = 'Path to local audio file, e.g. /path/audio.raw';
-    $sampleRateHertz = 16000;
-    $encoding = RecognitionConfig_AudioEncoding::LINEAR16;
-    $enableWordConfidence = true;
+    // $localFilePath = 'Path to local audio file, e.g. /path/audio.wav';
+    $enableSpeakerDiarization = true;
     $config = new RecognitionConfig();
-    $config->setSampleRateHertz($sampleRateHertz);
     $config->setLanguageCode($languageCode);
-    $config->setEncoding($encoding);
-    $config->setEnableWordConfidence($enableWordConfidence);
+    $config->setEnableSpeakerDiarization($enableSpeakerDiarization);
     $content = file_get_contents($localFilePath);
     $audio = new RecognitionAudio();
     $audio->setContent($content);
@@ -52,19 +47,19 @@ function sampleRecognize($languageCode, $localFilePath)
         foreach ($response->getResults() as $result) {
             $alternative = $result->getAlternatives()[0];
             printf('Transcript: %s'.PHP_EOL, $alternative->getTranscript());
-            printf('Confidence: %s'.PHP_EOL, $alternative->getConfidence());
+            // Speaker tag is a distinct integer assigned to every speaker in the audio.
             foreach ($alternative->getWords() as $word) {
                 printf('Word: %s'.PHP_EOL, $word->getWord());
-                printf('Word confidence: %s'.PHP_EOL, $word->getConfidence());
+                printf('Speaker tag: %s'.PHP_EOL, $word->getSpeakerTag());
             }
         }
     } finally {
         $speechClient->close();
     }
 
-    // [END speech_transcribe_word_level_confidence_beta_core]
+    // [END speech_transcribe_diarization_beta_core]
 }
-// [END speech_transcribe_word_level_confidence_beta]
+// [END speech_transcribe_diarization_beta]
 
 $opts = [
     'language_code::',
@@ -73,7 +68,7 @@ $opts = [
 
 $defaultOptions = [
     'language_code' => 'en-US',
-    'local_file_path' => 'Path to local audio file, e.g. /path/audio.raw',
+    'local_file_path' => 'Path to local audio file, e.g. /path/audio.wav',
 ];
 
 $options = getopt('', $opts);

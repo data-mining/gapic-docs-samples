@@ -290,7 +290,12 @@ sampleRecognize($languageCode, $localFilePath);
 ## API Response handling
 
 ```yaml
+# Print values from the response
 on_success:
+- print:
+- loop:
+- define:
+- comment:
 ```
 
 #### Printing values

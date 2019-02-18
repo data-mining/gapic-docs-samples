@@ -176,22 +176,6 @@ try {
 
 ### Method input parameters
 
-- Default value without `sample_argument_name`:
-  ```yaml
-  ...
-  ```
-  ```py
-  ...
-  ```
-
-- Configured `sample_argument_name`:
-  ```yaml
-  ...
-  ```
-  ```py
-  ...
-  ```
-
 #### Parameter naming
 
 ```yaml

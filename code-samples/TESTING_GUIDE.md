@@ -225,7 +225,7 @@ assert_contains:
 - literal: "Another string which must also be contained in the last output"
 ```
 
-> 🐞 `message:` must be the first item in the list or an error is raised
+> 🐞 `message:` must be the first item in the list or an error is raised.
 
 #### `assert_success` and `assert_not_success`
 

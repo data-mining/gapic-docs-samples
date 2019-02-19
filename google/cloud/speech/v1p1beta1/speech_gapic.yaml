@@ -214,27 +214,6 @@ interfaces:
               - print:
                 - "Speaker tag: %s"
                 - word.speaker_tag
-          - comment:
-            - "Results of all alternatives (may be more than one)"
-          - print:
-            - "Results from all alternatives (may be more than one):"
-          - loop:
-              collection: result.alternatives
-              variable: alternative
-              body:
-              - print:
-                - "Transcript: %s"
-                - alternative.transcript
-              - loop:
-                  collection: alternative.words
-                  variable: alt_word
-                  body:
-                  - print:
-                    - "Word: %s"
-                    - alt_word.word
-                  - print:
-                    - "Speaker tag: %s"
-                    - alt_word.speaker_tag
 
     - id: speech_transcribe_multilanguage_beta
       description: |

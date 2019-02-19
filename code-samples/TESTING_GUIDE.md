@@ -169,6 +169,35 @@ PASSED: Test environment: "ruby"
 
 ### Shell commands
 
+```yaml
+- uuid: temp_directory
+
+- shell:
+  - mkdir "{}"
+  - temp_directory
+
+- shell:
+  - ls
+```
+```sh
+# $ sampletester -s -v *.yaml
+
+| ### Test case TEST
+| 
+| # Calling: ls
+| my-first-test.tests.yaml
+| targets.manifest.yaml
+| 
+| # Calling: mkdir "3ee0b895-1b3c-4d69-8288-b501108bc29a"
+| 
+| # Calling: ls
+| 3ee0b895-1b3c-4d69-8288-b501108bc29a
+| my-first-test.tests.yaml
+| targets.manifest.yaml
+| 
+| ### Test case TEARDOWN
+```
+
 ### Named targets
 
 

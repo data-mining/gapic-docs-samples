@@ -531,3 +531,5 @@ target: required # Name of the call target.
 ```yaml
 path: required # Path to the file to execute when this call target is run.
 ```
+
+For more information about how sample manifests are used, see [Named targets](#named-targets).

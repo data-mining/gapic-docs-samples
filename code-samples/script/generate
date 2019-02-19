@@ -2,7 +2,7 @@
 
 # ⚠️  This makes a LOT of assumptions. It will probably break for you.
 
-# (beccasaurus) Refactor language bits out / etc / make it all pretty!
+# (beccasaurus) Refactor language bits out / etc / make it all pretty! After February.
 
 if [ "$#" -ne 3 ]; then
   echo "Usage: ./script/generate [api_name] [api_version] [language]"
@@ -41,6 +41,9 @@ case "$LANGUAGE" in
     ;;
   "php")
     LANGUAGE_EXTENSION=php
+    ;;
+  "nodejs")
+    LANGUAGE_EXTENSION=js
     ;;
   "go")
 		$SCRIPT_DIR/generate-go $API_NAME $API_VERSION
@@ -111,10 +114,12 @@ if [ ! -d "$SAMPLES_DIRECTORY" ]; then
   exit 1
 fi
 
-for sample_file in `find "$SAMPLES_DIRECTORY" -type f \( -name "*.php" -or -name "*.py" \)`; do
+for sample_file in `find "$SAMPLES_DIRECTORY" -type f \( -name "*.php" -or -name "*.py" -or -name "*.js" -or -name "*.java" \)`; do
   echo "Sample file: $sample_file"
   if [ "$LANGUAGE" == "php" ]; then
     cat "$sample_file" | sed "s|require __DIR__.*|require __DIR__ . '/vendor/autoload.php';|" > "$API_SAMPLES_DIRECTORY/$(basename $sample_file)"
+  elif [ "$LANGUAGE" == "nodejs" ]; then
+		cat "$sample_file" | sed 's|/\*||' | sed 's|\*/||' > "$API_SAMPLES_DIRECTORY/$(basename $sample_file)"
   else
     cp -v "$sample_file" "$API_SAMPLES_DIRECTORY/"
   fi
@@ -216,6 +221,22 @@ EOL
       composer install
     fi
     ;;
+  "nodejs")
+    if [ -f "package.js" ]; then
+      npm install
+    else
+      echo "Missing package.jsom in $RELATIVE_API_SAMPLES_DIRECTORY"
+      echo "Saving package.json (guessing @google-cloud/$API_NAME)"
+      cat > package.json <<EOL
+{
+    "dependencies": {
+        "@google-cloud/$API_NAME": "*"
+    }
+}
+EOL
+      npm install
+    fi
+    ;;
   *)
     echo "Unsure how to install dependencies for $LANGUAGE"
     ;;
@@ -251,7 +272,17 @@ case "$LANGUAGE" in
   "php")
     EXAMPLE_SAMPLE_FILE="$(find "$API_SAMPLES_DIRECTORY" -type f -name "*.php" | head -1 | xargs basename)"
     EXAMPLE_SAMPLE_PARAMETERS="$( grep '= $options\[' "$API_SAMPLES_DIRECTORY/$EXAMPLE_SAMPLE_FILE" | awk '{print $1}' | sed 's/\$//' )"
-    echo -e "\033[0;96m>> php $RELATIVE_API_SAMPLES_DIRECTORY/$EXAMPLE_SAMPLE_FILE --inputParam=\"value\"\033[0m"
+    echo -e "\033[0;96m>> php $RELATIVE_API_SAMPLES_DIRECTORY/$EXAMPLE_SAMPLE_FILE --input_param=\"value\"\033[0m"
+    if [ -n "$EXAMPLE_SAMPLE_PARAMETERS" ]; then
+      echo
+      echo "This sample accepts the following parameters:"
+      echo -e "$EXAMPLE_SAMPLE_PARAMETERS"
+    fi
+    ;;
+  "nodejs")
+    EXAMPLE_SAMPLE_FILE="$(find "$API_SAMPLES_DIRECTORY" -type f -name "*.js" | head -1 | xargs basename)"
+		EXAMPLE_SAMPLE_PARAMETERS="$( grep "^  .default('" "$API_SAMPLES_DIRECTORY/$EXAMPLE_SAMPLE_FILE" | sed "s/  .default('\([^']*\).*/\1/" )"
+    echo -e "\033[0;96m>> node $RELATIVE_API_SAMPLES_DIRECTORY/$EXAMPLE_SAMPLE_FILE --input_param=\"value\"\033[0m"
     if [ -n "$EXAMPLE_SAMPLE_PARAMETERS" ]; then
       echo
       echo "This sample accepts the following parameters:"

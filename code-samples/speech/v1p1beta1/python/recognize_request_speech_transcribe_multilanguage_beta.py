@@ -68,7 +68,6 @@ alternative languages of the supplied audio.
     audio = {'content': content}
 
     response = client.recognize(config, audio)
-    # Each recognition result corresponds to a portion of audio
     for result in response.results:
         print('Result detected language: {}'.format(result.language_code))
         print('Highest accuracy result transcript: {}'.format(

@@ -16,6 +16,7 @@ test:
         - literal: "Word: Brooklyn"
         - literal: "Word confidence: 0."
 
+    # TODO(rebeccataylor) try diarization with multichannel stereo file and 2 speakers
     - name: speech_transcribe_diarization_beta
       spec:
       - call:
@@ -28,7 +29,7 @@ test:
         ## - literal: "Speaker tag: 0"
         ## - literal: "Speaker tag: 1"
         - literal: "Speaker tag:"
-        - literal: "Transcript:"
+        - literal: "Most probable transcript:"
         # Choose a word that is used multiple times and is a
         # reasonable word to expect the API to transcribe correctly
         - literal: "Word: thank"
@@ -47,4 +48,16 @@ test:
         # reasonable word to expect the API to transcribe correctly
         - literal: "you "
 
-        
+    - name: speech_transcribe_multichannel_beta
+      spec:
+      - call:
+          target: speech_transcribe_multichannel_beta
+          params:
+            local_file_path:
+              literal: "speech/resources/commercial_stereo.wav"
+      - assert_contains:
+        - literal: "Channel tag: 1"
+        - literal: "Channel tag: 2"
+        # Choose a word that is used multiple times and is a
+        # reasonable word to expect the API to transcribe correctly
+        - literal: "you "

@@ -11,6 +11,8 @@ sets:
     path: php/RecognizeRequestSpeechTranscribeDiarizationBeta.php
   - target: speech_transcribe_auto_punctuation_beta
     path: php/RecognizeRequestSpeechTranscribeAutoPunctuationBeta.php
+  - target: speech_transcribe_multichannel_beta
+    path: php/RecognizeRequestSpeechTranscribeMultichannelBeta.php
   - target: speech_transcribe_word_level_confidence_beta
     path: php/RecognizeRequestSpeechTranscribeWordLevelConfidenceBeta.php
 - language: python
@@ -21,6 +23,8 @@ sets:
     path: python/recognize_request_speech_transcribe_multilanguage_beta.py
   - target: speech_transcribe_word_level_confidence_beta
     path: python/recognize_request_speech_transcribe_word_level_confidence_beta.py
+  - target: speech_transcribe_multichannel_beta
+    path: python/recognize_request_speech_transcribe_multichannel_beta.py
   - target: speech_transcribe_diarization_beta
     path: python/recognize_request_speech_transcribe_diarization_beta.py
 - language: go

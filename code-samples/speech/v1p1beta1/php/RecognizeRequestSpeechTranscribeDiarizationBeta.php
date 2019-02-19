@@ -59,15 +59,6 @@ function sampleRecognize($languageCode, $localFilePath)
                 // Speaker tag is a distinct integer assigned to every speaker in the audio.
                 printf('Speaker tag: %s'.PHP_EOL, $word->getSpeakerTag());
             }
-            // Results of all alternatives (may be more than one)
-            printf('Results from all alternatives (may be more than one):'.PHP_EOL);
-            foreach ($result->getAlternatives() as $alternative) {
-                printf('Transcript: %s'.PHP_EOL, $alternative->getTranscript());
-                foreach ($alternative->getWords() as $altWord) {
-                    printf('Word: %s'.PHP_EOL, $altWord->getWord());
-                    printf('Speaker tag: %s'.PHP_EOL, $altWord->getSpeakerTag());
-                }
-            }
         }
     } finally {
         $speechClient->close();

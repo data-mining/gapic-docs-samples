@@ -47,7 +47,6 @@ function sampleRecognize($localFilePath, $languageCode, $altLanguageOne, $altLan
 
     try {
         $response = $speechClient->recognize($config, $audio);
-        // Each recognition result corresponds to a portion of audio
         foreach ($response->getResults() as $result) {
             printf('Result detected language: %s'.PHP_EOL, $result->getLanguageCode());
             printf('Highest accuracy result transcript: %s'.PHP_EOL, $result->getAlternatives()[0]->getTranscript());

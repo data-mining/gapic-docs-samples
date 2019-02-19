@@ -67,13 +67,6 @@ def sample_recognize(language_code, local_file_path):
             print('Word: {}'.format(word.word))
             # Speaker tag is a distinct integer assigned to every speaker in the audio.
             print('Speaker tag: {}'.format(word.speaker_tag))
-        # Results of all alternatives (may be more than one)
-        print('Results from all alternatives (may be more than one):')
-        for alternative in result.alternatives:
-            print('Transcript: {}'.format(alternative.transcript))
-            for alt_word in alternative.words:
-                print('Word: {}'.format(alt_word.word))
-                print('Speaker tag: {}'.format(alt_word.speaker_tag))
 
     # [END speech_transcribe_diarization_beta_core]
 

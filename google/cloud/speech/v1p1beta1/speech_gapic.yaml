@@ -129,6 +129,9 @@ interfaces:
       - calling_forms: ".*"
         value_sets: [speech_transcribe_multilanguage_beta]
         region_tag: speech_transcribe_multilanguage_beta
+      - calling_forms: ".*"
+        value_sets: [speech_transcribe_multichannel_beta]
+        region_tag: speech_transcribe_multichannel_beta
 
     sample_value_sets:
 
@@ -241,8 +244,6 @@ interfaces:
         - parameter: config.alternative_language_codes[2]
           sample_argument_name: alt_language_three
       on_success:
-      - comment:
-        - "Each recognition result corresponds to a portion of audio"
       - loop:
           variable: result
           collection: $resp.results
@@ -253,7 +254,42 @@ interfaces:
           - print:
             - "Highest accuracy result transcript: %s"
             - result.alternatives[0].transcript
-   
+
+    - id: speech_transcribe_multichannel_beta
+      description: |
+        Transcribe audio with multiple channels
+      parameters:
+        defaults:
+        - audio.content="Path to local audio file, e.g. /path/audio.wav"
+        - config.language_code="en-US"
+        - config.enable_separate_recognition_per_channel=True
+        - config.audio_channel_count=2
+        attributes:
+        - parameter: audio.content
+          sample_argument_name: local_file_path
+          read_file: true
+        - parameter: config.language_code
+          sample_argument_name: language_cod
+          # Can numerical values be passed in via CLI?
+          # TODO(rebeccataylor) confirm.
+        - parameter: config.audio_channel_count
+          sample_argument_name: channel_count
+      on_success:
+      - loop:
+          variable: result
+          collection: $resp.results
+          body:
+          - comment:
+            - |
+                For multi-channel audio, this is the channel number corresponding
+                to the recognized result for the audio from that channel.
+          - print:
+            - "Channel tag: %s"
+            - result.channel_tag
+          - print:
+            - "Transcript: %s"
+            - result.alternatives[0].transcript
+
     flattening:
       groups:
       - parameters:

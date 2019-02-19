@@ -73,7 +73,7 @@ _If there are blocking issues, we can use this document to note them down._
    - [Separating different speakers in an audio recording][]
      - [X] `speech_transcribe_diarization_beta`
    - [Detecting language spoken automatically][]
-     - [ ] `speech_transcribe_multilanguage_beta`
+     - [X] `speech_transcribe_multilanguage_beta`
    - [Transcribing audio with multiple channels][]
      - [ ] `speech_transcribe_multichannel_beta`
    - [Using enhanced models][]

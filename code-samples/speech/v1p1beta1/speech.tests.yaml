@@ -77,4 +77,17 @@ test:
         # results were returned with punctuation.
         - literal: "?"
 
-        
+    - name: speech_transcribe_recognition_metadata_beta
+      spec:
+      - call:
+          target: speech_transcribe_recognition_metadata_beta
+          params:
+            local_file_path:
+              literal: "speech/resources/commercial_mono.wav"
+      - assert_contains:
+        # Nothing in particular changes about the response.
+        # Check for Transcript and maybe a repeated word spoken
+        # in commercial_nono.zip audio file used for testing.
+        - literal: "Transcript:"
+        # Repeated word
+        - literal: "Chrome"

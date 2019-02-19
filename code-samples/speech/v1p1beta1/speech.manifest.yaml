@@ -11,6 +11,8 @@ sets:
     path: php/RecognizeRequestSpeechTranscribeDiarizationBeta.php
   - target: speech_transcribe_auto_punctuation_beta
     path: php/RecognizeRequestSpeechTranscribeAutoPunctuationBeta.php
+  - target: speech_transcribe_recognition_metadata_beta
+    path: php/RecognizeRequestSpeechTranscribeRecognitionMetadataBeta.php
   - target: speech_transcribe_multichannel_beta
     path: php/RecognizeRequestSpeechTranscribeMultichannelBeta.php
   - target: speech_transcribe_word_level_confidence_beta
@@ -19,6 +21,8 @@ sets:
   bin: python
   path: speech/v1p1beta1/
   __items__:
+  - target: speech_transcribe_recognition_metadata_beta
+    path: python/recognize_request_speech_transcribe_recognition_metadata_beta.py
   - target: speech_transcribe_multilanguage_beta
     path: python/recognize_request_speech_transcribe_multilanguage_beta.py
   - target: speech_transcribe_word_level_confidence_beta

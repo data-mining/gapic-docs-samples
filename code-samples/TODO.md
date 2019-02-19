@@ -79,7 +79,7 @@ _If there are blocking issues, we can use this document to note them down._
    - [Using enhanced models][]
      - [ ] `speech_transcribe_enhanced_model_beta`
    - [Adding recognition metadata][]
-     - [ ] `speech_transcribe_recognition_metadata_beta`
+     - [X] `speech_transcribe_recognition_metadata_beta`
    - [Getting punctuation][]
      - [X] `speech_transcribe_auto_punctuation_beta`
  

@@ -219,11 +219,13 @@ assert_contains:
 
 ```yaml
 assert_contains:
+- message: "Custom message which is printed if this assertion fails"
 - literal: "This string must be contained in the last output"
 - variable: my_uuid # This value must also be contained in the last output
 - literal: "Another string which must also be contained in the last output"
-- message: "Custom message which is printed if this assertion fails"
 ```
+
+> 🐞 `message:` must be the first item in the list or an error is raised
 
 #### `assert_success` and `assert_not_success`
 

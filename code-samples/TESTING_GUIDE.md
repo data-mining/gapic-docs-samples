@@ -173,6 +173,9 @@ PASSED: Test environment: "ruby"
 - uuid: temp_directory
 
 - shell:
+  - ls
+
+- shell:
   - mkdir "{}"
   - temp_directory
 

@@ -349,14 +349,14 @@ class TestCase:
     return [parts[0]] + self.lookup_values(parts[1:]), {}
 
   def params_for_set(self, parts):
-    key_what = 'what'
-    key_variable = 'var'
+    key_get = 'get'
+    key_variable = 'variable'
     if len(parts) < 2:
       log_raise(
           logging.critical, ValueError,
           'need both "{}" and "{}"'
-          .format(key_what, key_variable))
-    return parts[key_variable], parts[key_what]
+          .format(key_get, key_variable))
+    return parts[key_variable], parts[key_get]
 
   def params_for_call(self, parts):
     key_cmd = "target"

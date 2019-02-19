@@ -407,7 +407,7 @@ sets:
 > for an example test suite which asserts the correct, identical bahavior of scripts implemented in different languages.
 
 > Includes:
-> - Code samples which create, list, and delete dogs.
+> - [Code samples](https://gist.github.com/beccasaurus/e35193932257c95b22a445a5e22aca34#file-create-dog-sh) which create, list, and delete dogs.
 > - Full [test suite](https://gist.github.com/beccasaurus/e35193932257c95b22a445a5e22aca34#file-dog-tests-yaml) testing samples (runs against both Ruby and BASH samples).
 
 ### Named parameters

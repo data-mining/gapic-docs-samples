@@ -31,6 +31,65 @@ test:
 
 ### Running tests
 
+```
+sampletester -s -v dog_crud.tests.yaml sample-files.manifest.yaml
+```
+
+```sh
+# Given a directory of multiple test YAML files and one or more manifest files
+sampletester -s -v *.yaml
+```
+
+### Sample Manifest Files
+
+To use `call: target:` to specify a script with an identifier,
+a YAML manifest file must be created which defines how to call this target
+across different environments (e.g. programming languages).
+
+If you do not use `call: target:` then you do not need a manifest file.
+
+```yaml
+version: 1
+sets:
+
+- language: python
+  bin: python3
+  path: samples/python/
+  __items__:
+  - region_tag: my_sample
+    path: the_sample_file.py
+    
+- language: executable script
+  path: samples/bash/
+  __items__:
+  - region_tag: my_sample
+    path: the_sample_file.sh
+```
+
+```yaml
+language: required # Specifies the environment name (usually a programming language).
+```
+
+```yaml
+bin: optional # Specifies the executable (can be excluded if files are executable).
+```
+
+```yaml
+path: optional # Specifies a base path for all file paths.
+```
+
+```yaml
+__items__
+```
+
+```yaml
+region_tag: required # Name of the call target. 
+```
+
+```yaml
+path: required # Path to the file to execute when this call target is run.
+```
+
 ### Logging
 
 ### Environment Variables
@@ -60,5 +119,3 @@ test:
 ### Run Arbitrary Executable
 
 ### Embedded Python
-
-### Sample Manifest Files

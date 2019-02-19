@@ -1,14 +1,10 @@
-/Users/rebeccataylor/code/gapic-docs-samples/code-samples/script/pysampletester/sampletester -s speech/v1p1beta1/speech.manifest.yaml speech/v1p1beta1/speech.tests.yaml
+PASSED: Test environment: "php"
+  PASSED: Test suite: "Speech-to-Text v1p1beta1 API"
+    PASSED: Test case: "speech_transcribe_word_level_confidence_beta"
+    PASSED: Test case: "speech_transcribe_diarization_beta"
+PASSED: Test environment: "python"
+  PASSED: Test suite: "Speech-to-Text v1p1beta1 API"
+    PASSED: Test case: "speech_transcribe_word_level_confidence_beta"
+    PASSED: Test case: "speech_transcribe_diarization_beta"
 
-FAILURE: Environment: "php"
-  FAILURE: Suite: "Speech-to-Text v1p1beta1 API"
-    SUCCESS: Case: "speech_transcribe_word_level_confidence_beta"
-    FAILURE: Case: "speech_transcribe_diarization_beta"
-    SUCCESS: Case: "speech_transcribe_multilanguage_beta"
-FAILURE: Environment: "python"
-  FAILURE: Suite: "Speech-to-Text v1p1beta1 API"
-    SUCCESS: Case: "speech_transcribe_word_level_confidence_beta"
-    FAILURE: Case: "speech_transcribe_diarization_beta"
-    SUCCESS: Case: "speech_transcribe_multilanguage_beta"
-
-Tests failed
+Tests passed

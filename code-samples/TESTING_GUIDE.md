@@ -198,6 +198,101 @@ PASSED: Test environment: "ruby"
 | ### Test case TEARDOWN
 ```
 
+### Assertions
+
+> `assert_contains` and `assert_not_contains`
+
+Asserts whether the output of the last executed command contains the given variable or literal string.
+
+```yaml
+assert_contains:
+- literal: "This string must be contained in the last output"
+```
+
+```yaml
+assert_contains:
+- variable: my_uuid # This value must be contained in the last output
+```
+
+```yaml
+assert_contains:
+- literal: "This string must be contained in the last output"
+- variable: my_uuid # This value must also be contained in the last output
+- literal: "Another string which must also be contained in the last output"
+- message: "Custom message which is printed if this assertion fails"
+```
+
+> `assert_success` and `assert_not_success`
+
+Asserts whether the last command failed or succeeded. Command ran successfully if exit code is `0`. 
+
+```yaml
+# Unrealistic script to demonstrate `assert_success` and `assert_failure`
+
+ℹ️ grep returns exit code 0 when match is found, else returns 1 (failure)
+
+# Unique UUID value to look for in a given file.
+- uuid: my_unique_value
+
+# Name of the file to look for UUID in, provided via environment variable.
+- env:
+    name: FILE_TO_SEARCH
+    variable: file_to_search
+
+# Verify that the file does not (yet) contain the UUID (we will append it).
+- shell:
+  - grep {} {}
+  - my_unique_value
+  - file_to_search
+- assert_failure: "Expected FILE_TO_SEARCH not to include UUID but it did."
+
+# Append the UUID to the file
+- shell:
+  - |
+      echo "{}" >> "{}" && \
+      echo "Appended value to file."
+  - my_unique_value
+  - file_to_search
+
+# Verify that the file does contain the UUID (which we appended).
+- shell:
+  - grep {} {}
+  - my_unique_value
+  - file_to_search
+- assert_success: "Expected FILE_TO_SEARCH to include UUID but it did not."
+```
+
+```sh
+# $ FILE_TO_SEARCH=content.txt sampletester -s -v *.yaml
+
+PASSED: Test environment: "ruby"
+  PASSED: Test suite: "My first test suite"
+    PASSED: Test case: "My first test"
+      | 
+      | ### Test case SETUP
+      | 
+      | ### Test case TEST
+      | 
+      | # Calling: grep 8d1a895a-1ee6-48d2-80d2-8dca504aa42a content.txt
+      | # ... call did not succeed  
+      | # Calling: echo "8d1a895a-1ee6-48d2-80d2-8dca504aa42a" >> "content.txt" && \
+      | echo "Appended value to file."
+      | 
+      | Appended value to file.
+      | 
+      | # Calling: grep 8d1a895a-1ee6-48d2-80d2-8dca504aa42a content.txt
+      | 8d1a895a-1ee6-48d2-80d2-8dca504aa42a
+      | 
+      | ### Test case TEARDOWN
+      | 
+
+Tests passed
+```
+
+### Sample Exit Code Assertions
+
+
+
 ### Named targets
 
 
@@ -206,12 +301,6 @@ PASSED: Test environment: "ruby"
  - Literal
  
  - Variable
-
-### Sample Output Assertions
-
-### Sample Exit Code Assertions
-
-### Run Arbitrary Executable
 
 ### Embedded Python
 

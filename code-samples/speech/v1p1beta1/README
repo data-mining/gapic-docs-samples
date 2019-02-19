@@ -2,9 +2,11 @@ PASSED: Test environment: "php"
   PASSED: Test suite: "Speech-to-Text v1p1beta1 API"
     PASSED: Test case: "speech_transcribe_word_level_confidence_beta"
     PASSED: Test case: "speech_transcribe_diarization_beta"
+    PASSED: Test case: "speech_transcribe_multilanguage_beta"
 PASSED: Test environment: "python"
   PASSED: Test suite: "Speech-to-Text v1p1beta1 API"
     PASSED: Test case: "speech_transcribe_word_level_confidence_beta"
     PASSED: Test case: "speech_transcribe_diarization_beta"
+    PASSED: Test case: "speech_transcribe_multilanguage_beta"
 
 Tests passed

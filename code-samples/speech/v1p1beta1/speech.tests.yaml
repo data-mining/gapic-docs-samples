@@ -29,9 +29,22 @@ test:
         ## - literal: "Speaker tag: 1"
         - literal: "Speaker tag:"
         - literal: "Transcript:"
-        # Choose a work that is used multiple times and is a
+        # Choose a word that is used multiple times and is a
         # reasonable word to expect the API to transcribe correctly
         - literal: "Word: thank"
 
+    - name: speech_transcribe_multilanguage_beta
+      spec:
+      - call:
+          target: speech_transcribe_multilanguage_beta
+          params:
+            local_file_path:
+              literal: "speech/resources/en-US.wav"
+      - assert_contains:
+        - literal: "Result detected language: en-us"
+        - literal: "Highest accuracy result transcript:"
+        # Choose a word that is used multiple times and is a
+        # reasonable word to expect the API to transcribe correctly
+        - literal: "you "
 
         

@@ -173,6 +173,9 @@ PASSED: Test environment: "ruby"
 - uuid: temp_directory
 
 - shell:
+  - ls
+
+- shell:
   - mkdir "{}"
   - temp_directory
 
@@ -216,11 +219,13 @@ assert_contains:
 
 ```yaml
 assert_contains:
+- message: "Custom message which is printed if this assertion fails"
 - literal: "This string must be contained in the last output"
 - variable: my_uuid # This value must also be contained in the last output
 - literal: "Another string which must also be contained in the last output"
-- message: "Custom message which is printed if this assertion fails"
 ```
+
+> 🐞 `message:` must be the first item in the list or an error is raised.
 
 #### `assert_success` and `assert_not_success`
 
@@ -340,7 +345,7 @@ sets:
     path: create_dog.py
     
 - language: Python 3
-  bin: python
+  bin: python3
   __items__:
   - target: create_dog_program
     path: create_dog.py
@@ -373,7 +378,7 @@ PASSED: Test environment: "Python 3"
       | 
       | # Calling: python create_dog.py 
       | Hello from create_dog.py script!
-      | This script was called by: python2.7
+      | This script was called by: python3.7
       | 
       | ### Test case TEARDOWN
       | 
@@ -526,3 +531,5 @@ target: required # Name of the call target.
 ```yaml
 path: required # Path to the file to execute when this call target is run.
 ```
+
+For more information about how sample manifests are used, see [Named targets](#named-targets).

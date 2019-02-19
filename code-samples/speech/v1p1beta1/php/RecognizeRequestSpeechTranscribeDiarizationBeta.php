@@ -35,9 +35,11 @@ function sampleRecognize($languageCode, $localFilePath)
     // $languageCode = 'en-US';
     // $localFilePath = 'Path to local audio file, e.g. /path/audio.wav';
     $enableSpeakerDiarization = true;
+    $diarizationSpeakerCount = 2;
     $config = new RecognitionConfig();
     $config->setLanguageCode($languageCode);
     $config->setEnableSpeakerDiarization($enableSpeakerDiarization);
+    $config->setDiarizationSpeakerCount($diarizationSpeakerCount);
     $content = file_get_contents($localFilePath);
     $audio = new RecognitionAudio();
     $audio->setContent($content);
@@ -45,12 +47,26 @@ function sampleRecognize($languageCode, $localFilePath)
     try {
         $response = $speechClient->recognize($config, $audio);
         foreach ($response->getResults() as $result) {
-            $alternative = $result->getAlternatives()[0];
-            printf('Transcript: %s'.PHP_EOL, $alternative->getTranscript());
-            // Speaker tag is a distinct integer assigned to every speaker in the audio.
-            foreach ($alternative->getWords() as $word) {
+            // First recognition hypothesis.
+            // These alternatives are ordered in terms of accuracy, with the top (first) alternative being the most probable.
+            //
+            // firstAlternative is the most probable recognition result.
+            $firstAlternative = $result->getAlternatives()[0];
+            printf('Most probable transcript: %s'.PHP_EOL, $firstAlternative->getTranscript());
+            printf('Recognized words and assigned speaker tag:'.PHP_EOL);
+            foreach ($firstAlternative->getWords() as $word) {
                 printf('Word: %s'.PHP_EOL, $word->getWord());
+                // Speaker tag is a distinct integer assigned to every speaker in the audio.
                 printf('Speaker tag: %s'.PHP_EOL, $word->getSpeakerTag());
+            }
+            // Results of all alternatives (may be more than one)
+            printf('Results from all alternatives (may be more than one):'.PHP_EOL);
+            foreach ($result->getAlternatives() as $alternative) {
+                printf('Transcript: %s'.PHP_EOL, $alternative->getTranscript());
+                foreach ($alternative->getWords() as $altWord) {
+                    printf('Word: %s'.PHP_EOL, $altWord->getWord());
+                    printf('Speaker tag: %s'.PHP_EOL, $altWord->getSpeakerTag());
+                }
             }
         }
     } finally {

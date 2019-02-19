@@ -5,19 +5,23 @@ sets:
   bin: php
   path: speech/v1p1beta1/
   __items__:
-  - region_tag: speech_transcribe_diarization_beta
+  - target: speech_transcribe_multilanguage_beta
+    path: php/RecognizeRequestSpeechTranscribeMultilanguageBeta.php
+  - target: speech_transcribe_diarization_beta
     path: php/RecognizeRequestSpeechTranscribeDiarizationBeta.php
-  - region_tag: speech_transcribe_auto_punctuation_beta
+  - target: speech_transcribe_auto_punctuation_beta
     path: php/RecognizeRequestSpeechTranscribeAutoPunctuationBeta.php
-  - region_tag: speech_transcribe_word_level_confidence_beta
+  - target: speech_transcribe_word_level_confidence_beta
     path: php/RecognizeRequestSpeechTranscribeWordLevelConfidenceBeta.php
 - language: python
   bin: python
   path: speech/v1p1beta1/
   __items__:
-  - region_tag: speech_transcribe_word_level_confidence_beta
+  - target: speech_transcribe_multilanguage_beta
+    path: python/recognize_request_speech_transcribe_multilanguage_beta.py
+  - target: speech_transcribe_word_level_confidence_beta
     path: python/recognize_request_speech_transcribe_word_level_confidence_beta.py
-  - region_tag: speech_transcribe_diarization_beta
+  - target: speech_transcribe_diarization_beta
     path: python/recognize_request_speech_transcribe_diarization_beta.py
 - language: go
   bin: go run

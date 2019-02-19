@@ -15,7 +15,7 @@ for dependency_bin in python3 pip3; do
 	fi
 done
 
-if [ -z "$(pip3 show pyyamll)" ]; then
+if [ -z "$(pip3 show pyyaml)" ]; then
 	echo "Installing dependency: pyyaml"
 	pip3 install pyyaml
 fi

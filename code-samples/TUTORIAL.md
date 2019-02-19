@@ -291,7 +291,7 @@ We will name this sample `language_analyze_sentiment_v1beta2`
       standalone:
       - calling_forms: ".*"
         value_sets: [language_analyze_sentiment_v1beta2]
-        region_tag: language_analyze_sentiment_v1beta2
+        target: language_analyze_sentiment_v1beta2
         
     sample_value_sets:
     - id: language_analyze_sentiment_v1beta2
@@ -302,7 +302,7 @@ Each sample requires two sections in the YAML configuration:
 
  1. `samples:`  
     `standalone:`
-   - header defining each code sample's `region_tag:` identifier
+   - header defining each code sample's `target:` identifier
    - allows for selection of specific `calling_forms:` templates to render (covered in the [`AUTHORING_GUIDE.md`](AUTHORING_GUIDE.md)
  2. `sample_value_sets:`
    - defines the sample structure and data
@@ -364,7 +364,7 @@ if __name__ == '__main__':
 ```
 
 The snippet includes:
- - The `region_tag:` we defined `language_analyze_sentiment_v1beta2` which wraps the body of the main snippet (to embed in documentation)
+ - The `target:` we defined `language_analyze_sentiment_v1beta2` which wraps the body of the main snippet (to embed in documentation)
  - The `description:` we defined `"""Analyze sentiment of text"""` as a docstring for the function
  - Executable `main()` which invokes the snippet function when the file is run
 
@@ -890,7 +890,7 @@ test:
 
       # Call a sample by region tag ID
       # - call:
-      #     target: "my_region_tag"
+      #     target: "my_target"
       #     params:
       #       text_content:
       #         literal: "Content of the 'text_content' parameter"

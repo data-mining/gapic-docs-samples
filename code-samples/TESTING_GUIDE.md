@@ -336,13 +336,13 @@ sets:
 - language: Python 2
   bin: python
   __items__:
-  - region_tag: create_dog_program
+  - target: create_dog_program
     path: create_dog.py
     
 - language: Python 3
   bin: python
   __items__:
-  - region_tag: create_dog_program
+  - target: create_dog_program
     path: create_dog.py
 ```
 
@@ -394,14 +394,14 @@ sets:
 - language: ruby
   bin: ruby
   __items__:
-  - region_tag: create_dog
+  - target: create_dog
     path: create_dog.rb
 
 - language: bash
   bin: /bin/bash
   path: ./
   __items__:
-  - region_tag: create_dog
+  - target: create_dog
     path: create-dog.sh
 ```
 
@@ -493,13 +493,13 @@ sets:
   bin: python3
   path: samples/python/
   __items__:
-  - region_tag: my_sample
+  - target: my_sample
     path: the_sample_file.py
     
 - language: executable script
   path: samples/bash/
   __items__:
-  - region_tag: my_sample
+  - target: my_sample
     path: the_sample_file.sh
 ```
 
@@ -520,7 +520,7 @@ __items__
 ```
 
 ```yaml
-region_tag: required # Name of the call target. 
+target: required # Name of the call target. 
 ```
 
 ```yaml

@@ -5,29 +5,29 @@ sets:
   bin: php
   path: speech/v1/
   __items__:
-  - region_tag: speech_transcribe_async_gcs
+  - target: speech_transcribe_async_gcs
     path: php/LongRunningRecognizeLongRunningRequestSpeechTranscribeAsyncGcs.php
-  - region_tag: speech_transcribe_sync_gcs
+  - target: speech_transcribe_sync_gcs
     path: php/RecognizeRequestSpeechTranscribeSyncGcs.php
-  - region_tag: speech_transcribe_sync
+  - target: speech_transcribe_sync
     path: php/RecognizeRequestSpeechTranscribeSync.php
-  - region_tag: speech_transcribe_async_word_time_offsets_gcs
+  - target: speech_transcribe_async_word_time_offsets_gcs
     path: php/RecognizeRequestSpeechTranscribeAsyncWordTimeOffsetsGcs.php
-  - region_tag: speech_transcribe_async
+  - target: speech_transcribe_async
     path: php/LongRunningRecognizeLongRunningRequestSpeechTranscribeAsync.php
 - language: python
   bin: python
   path: speech/v1/
   __items__:
-  - region_tag: speech_transcribe_sync
+  - target: speech_transcribe_sync
     path: python/recognize_request_speech_transcribe_sync.py
-  - region_tag: speech_transcribe_async
+  - target: speech_transcribe_async
     path: python/long_running_recognize_long_running_promise_speech_transcribe_async.py
-  - region_tag: speech_transcribe_async_word_time_offsets_gcs
+  - target: speech_transcribe_async_word_time_offsets_gcs
     path: python/recognize_request_speech_transcribe_async_word_time_offsets_gcs.py
-  - region_tag: speech_transcribe_async_gcs
+  - target: speech_transcribe_async_gcs
     path: python/long_running_recognize_long_running_promise_speech_transcribe_async_gcs.py
-  - region_tag: speech_transcribe_sync_gcs
+  - target: speech_transcribe_sync_gcs
     path: python/recognize_request_speech_transcribe_sync_gcs.py
 - language: go
   bin: go run

@@ -54,7 +54,7 @@ test:
       - assert_failure:
         - message: "foobar call should have failed"
       - env:
-          get: HOME
+          name: HOME
           variable: homedir
       - log:
         - "homedir: {}"
@@ -71,7 +71,7 @@ test:
     - name: yaml
       spec:
       - env:
-          get: FOOLALA
+          name: FOOLALA
           variable: homedir
   - name: Failing call
     cases:

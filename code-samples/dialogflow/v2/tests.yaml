@@ -11,7 +11,7 @@ test:
 
       # Call a sample by region tag ID
       # - call:
-      #     target: "my_region_tag"
+      #     target: "my_target"
       #     params:
       #       text_content:
       #         literal: "Content of the 'text_content' parameter"

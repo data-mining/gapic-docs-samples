@@ -9,10 +9,10 @@ methods:
       standalone:
       - calling_forms: ".*"
         value_sets: [sample_one]
-        region_tag: sample_one
+        target: sample_one
       - calling_forms: ".*"
         value_sets: [sample_two]
-        region_tag: sample_two
+        target: sample_two
     sample_value_sets:
     - id: sample_one
       description: This is my amazing sample

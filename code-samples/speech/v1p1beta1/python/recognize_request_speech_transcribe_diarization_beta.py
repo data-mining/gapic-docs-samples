@@ -43,9 +43,11 @@ def sample_recognize(language_code, local_file_path):
     if isinstance(local_file_path, six.binary_type):
         local_file_path = local_file_path.decode('utf-8')
     enable_speaker_diarization = True
+    diarization_speaker_count = 2
     config = {
         'language_code': language_code,
-        'enable_speaker_diarization': enable_speaker_diarization
+        'enable_speaker_diarization': enable_speaker_diarization,
+        'diarization_speaker_count': diarization_speaker_count
     }
     with io.open(local_file_path, 'rb') as f:
         content = f.read()
@@ -53,12 +55,25 @@ def sample_recognize(language_code, local_file_path):
 
     response = client.recognize(config, audio)
     for result in response.results:
-        alternative = result.alternatives[0]
-        print('Transcript: {}'.format(alternative.transcript))
-        # Speaker tag is a distinct integer assigned to every speaker in the audio.
-        for word in alternative.words:
+        # First recognition hypothesis.
+        # These alternatives are ordered in terms of accuracy, with the top (first) alternative being the most probable.
+        #
+        # first_alternative is the most probable recognition result.
+        first_alternative = result.alternatives[0]
+        print('Most probable transcript: {}'.format(
+            first_alternative.transcript))
+        print('Recognized words and assigned speaker tag:')
+        for word in first_alternative.words:
             print('Word: {}'.format(word.word))
+            # Speaker tag is a distinct integer assigned to every speaker in the audio.
             print('Speaker tag: {}'.format(word.speaker_tag))
+        # Results of all alternatives (may be more than one)
+        print('Results from all alternatives (may be more than one):')
+        for alternative in result.alternatives:
+            print('Transcript: {}'.format(alternative.transcript))
+            for alt_word in alternative.words:
+                print('Word: {}'.format(alt_word.word))
+                print('Speaker tag: {}'.format(alt_word.speaker_tag))
 
     # [END speech_transcribe_diarization_beta_core]
 

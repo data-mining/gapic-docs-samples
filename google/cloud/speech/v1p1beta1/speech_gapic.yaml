@@ -126,12 +126,10 @@ interfaces:
       - calling_forms: ".*"
         value_sets: [speech_transcribe_diarization_beta]
         region_tag: speech_transcribe_diarization_beta
-      # - calling_forms: ".*"
-      #   value_sets: [speech_transcribe_auto_punctuation_beta]
-      #   region_tag: speech_transcribe_auto_punctuation_beta
-      # - calling_forms: ".*"
-      #   value_sets: [speech_transcribe_multichannel_beta]
-      #   region_tag: speech_transcribe_multichannel_beta
+      - calling_forms: ".*"
+        value_sets: [speech_transcribe_multilanguage_beta]
+        region_tag: speech_transcribe_multilanguage_beta
+
     sample_value_sets:
 
     - id: speech_transcribe_word_level_confidence_beta
@@ -179,6 +177,7 @@ interfaces:
         - audio.content="Path to local audio file, e.g. /path/audio.wav"
         - config.language_code="en-US"
         - config.enable_speaker_diarization=True
+        - config.diarization_speaker_count=2
         attributes:
         - parameter: config.language_code
           sample_argument_name: language_code
@@ -190,47 +189,92 @@ interfaces:
           variable: result
           collection: $resp.results
           body:
-          - define: alternative=result.alternatives[0]
-          - print:
-            - "Transcript: %s"
-            - alternative.transcript
           - comment:
-            - "Speaker tag is a distinct integer assigned to every speaker in the audio."
+              - |
+                  First recognition hypothesis.
+                  These alternatives are ordered in terms of accuracy, with the top (first) alternative being the most probable.
+          - comment:
+              - "%s is the most probable recognition result."
+              - first_alternative
+          - define: first_alternative=result.alternatives[0]
+          - print:
+            - "Most probable transcript: %s"
+            - first_alternative.transcript
+          - print:
+            - "Recognized words and assigned speaker tag:" 
           - loop:
-              collection: alternative.words
+              collection: first_alternative.words
               variable: word
               body:
               - print:
                 - "Word: %s"
                 - word.word
+              - comment:
+                - "Speaker tag is a distinct integer assigned to every speaker in the audio."
               - print:
                 - "Speaker tag: %s"
                 - word.speaker_tag
+          - comment:
+            - "Results of all alternatives (may be more than one)"
+          - print:
+            - "Results from all alternatives (may be more than one):"
+          - loop:
+              collection: result.alternatives
+              variable: alternative
+              body:
+              - print:
+                - "Transcript: %s"
+                - alternative.transcript
+              - loop:
+                  collection: alternative.words
+                  variable: alt_word
+                  body:
+                  - print:
+                    - "Word: %s"
+                    - alt_word.word
+                  - print:
+                    - "Speaker tag: %s"
+                    - alt_word.speaker_tag
 
+    - id: speech_transcribe_multilanguage_beta
+      description: |
+        Detecting language spoken automatically
 
-    # - id: speech_transcribe_auto_punctuation_beta
-    #   description: Transcribe local audio file with punctuation
-    #   parameters:
-    #     defaults: &local_file_sample_defaults
-    #     - audio.content="Path to local audio file, e.g. /path/audio.wav"
-    #     - config.sample_rate_hertz=16000
-    #     - config.language_code="en-US"
-    #     - config.encoding=LINEAR16
-    #     - config.enable_automatic_punctuation=True
-    #     attributes: &local_file_sample_attributes
-    #     - parameter: config.language_code
-    #       sample_argument_name: language_code
-    #     - parameter: audio.content
-    #       sample_argument_name: local_file_path
-    #       read_file: true
-    #   on_success: &transcription_sample_on_success
-    #   - loop:
-    #       variable: result
-    #       collection: $resp.results
-    #       body:
-    #       - print:
-    #         - "Transcript: %s"
-    #         - result.alternatives[0].transcript
+        Supports a list of up to 3 additional BCP-47 language tags of possible
+        alternative languages of the supplied audio.
+      parameters:
+        defaults:
+        - audio.content="Path to local audio file, e.g. /path/audio.wav"
+        - config.language_code="fr-FR"
+        - config.alternative_language_codes[0]="de-DE"
+        - config.alternative_language_codes[1]="it-IT"
+        - config.alternative_language_codes[2]="en-US"
+        attributes:
+        - parameter: audio.content
+          sample_argument_name: local_file_path
+          read_file: true
+        - parameter: config.language_code
+          sample_argument_name: language_code
+        - parameter: config.alternative_language_codes[0]
+          sample_argument_name: alt_language_one
+        - parameter: config.alternative_language_codes[1]
+          sample_argument_name: alt_language_two
+        - parameter: config.alternative_language_codes[2]
+          sample_argument_name: alt_language_three
+      on_success:
+      - comment:
+        - "Each recognition result corresponds to a portion of audio"
+      - loop:
+          variable: result
+          collection: $resp.results
+          body:
+          - print:
+            - "Result detected language: %s"
+            - result.language_code
+          - print:
+            - "Highest accuracy result transcript: %s"
+            - result.alternatives[0].transcript
+   
     flattening:
       groups:
       - parameters:

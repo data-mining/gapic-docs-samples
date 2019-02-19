@@ -87,6 +87,38 @@ interfaces:
     retry_codes_name: idempotent
     retry_params_name: default
     timeout_millis: 30000
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [language_analyze_syntax_sample]
+        region_tag: language_analyze_syntax_sample
+    sample_value_sets:
+    - id: language_analyze_syntax_sample
+      description: My first code sample
+s     parameters:
+        defaults:
+        #- document.type=PLAIN_TEXT
+        - document.content="This is my first code sample."
+        attributes:
+        - parameter: document.content
+          sample_argument_name: text_input
+      on_success:
+      - print:
+        - "Detected language of text: %s"
+        - $resp.language
+      - print:
+        - "Words and their part of speech:"
+      - loop:
+          collection: $resp.tokens
+          variable: token
+          body:
+          - print:
+            - "The word: %s"
+            - token.text.content
+          - print:
+            - "Part of speech tag %s and tense %s"
+            - token.part_of_speech.tag
+            - token.part_of_speech.tense
   - name: ClassifyText
     flattening:
       groups:

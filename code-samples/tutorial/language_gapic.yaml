@@ -50,7 +50,7 @@ interfaces:
       standalone:
       - calling_forms: ".*"
         value_sets: [language_analyze_sentiment_v1beta2]
-        region_tag: language_analyze_sentiment_v1beta2
+        target: language_analyze_sentiment_v1beta2
 
     sample_value_sets:
     - id: language_analyze_sentiment_v1beta2

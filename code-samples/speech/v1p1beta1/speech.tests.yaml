@@ -27,9 +27,18 @@ test:
         - literal: "Speaker tag: 0"
         - literal: "Speaker tag: 1"
         - literal: "Transcript:"
-        # 'thank' is used multiple times & is a reasonable word
-        # to expect the API to transcribe correctly
-        - literal: "Word: thank"
+        - literal: "Word:"
+
+    - name: speech_transcribe_multilanguage_beta
+      spec:
+      - call:
+          target: speech_transcribe_multilanguage_beta
+          params:
+            local_file_path:
+              literal: "speech/resources/en-US.wav"
+      - assert_contains:
+        - literal: "Result detected language: en"
+        - literal: "Highest accuracy result transcript:"
 
 
         

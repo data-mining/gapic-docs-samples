@@ -21,7 +21,7 @@ from typing import Iterable
 
 LANGUAGE_KEY = 'language'
 BINARY_KEY = 'bin'
-REGION_KEY = 'region_tag'
+REGION_KEY = 'target'
 
 
 class ManifestEnvironment(testenv.Base):
@@ -83,7 +83,7 @@ def test_environments(manifest_paths):
     if len(languages) == 0:
       languages = ['(nolang)']
     for language in languages:
-      description = 'Language, region_tags:{}'.format(language)
+      description = 'Language, targets:{}'.format(language)
       name = language
       env  = ManifestEnvironment(name, description, manifest,
                                      [language])

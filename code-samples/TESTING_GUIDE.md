@@ -345,7 +345,7 @@ sets:
     path: create_dog.py
     
 - language: Python 3
-  bin: python
+  bin: python3
   __items__:
   - target: create_dog_program
     path: create_dog.py
@@ -378,7 +378,7 @@ PASSED: Test environment: "Python 3"
       | 
       | # Calling: python create_dog.py 
       | Hello from create_dog.py script!
-      | This script was called by: python2.7
+      | This script was called by: python3.7
       | 
       | ### Test case TEARDOWN
       | 

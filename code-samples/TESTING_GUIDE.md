@@ -200,7 +200,7 @@ PASSED: Test environment: "ruby"
 
 ### Assertions
 
-> `assert_contains` and `assert_not_contains`
+#### `assert_contains` and `assert_not_contains`
 
 Asserts whether the output of the last executed command contains the given variable or literal string.
 
@@ -222,7 +222,7 @@ assert_contains:
 - message: "Custom message which is printed if this assertion fails"
 ```
 
-> `assert_success` and `assert_not_success`
+#### `assert_success` and `assert_not_success`
 
 Asserts whether the last command failed or succeeded. Command ran successfully if exit code is `0`. 
 
@@ -289,20 +289,107 @@ PASSED: Test environment: "ruby"
 Tests passed
 ```
 
-### Sample Exit Code Assertions
-
-
+### Embedded Python
 
 ### Named targets
 
+Test suites can be executed against multiple executables.
+
+This feature is generally used for compatibility testing.
+
+ - Execute code against multiple versions of a language, e.g. Python 2 and Python 3
+ - Execute scripts written in different languages to verify interface compatibility.
+ 
+```yaml
+- call:
+    target: create_dog_program
+```
+
+When this test is run, the `create_dog_program` target will be executed against all defined environments.
+
+Environments and targets are configured in [Sample Manifest Files](#sample-manifest-files). 
+
+#### Example: Python 2 and Python 3 compatibility
+
+```py
+# create_dog.py
+
+import sys
+import os
+
+executable_name = os.path.basename(sys.executable)
+
+print('Hello from create_dog.py script!')
+print('This script was called by: {}'.format(executable_name))
+```
+
+```yaml
+# targets.manifest.yaml
+
+version: 1
+sets:
+- language: Python 2
+  bin: python
+  __items__:
+  - region_tag: create_dog_program
+    path: create_dog.py
+- language: Python 3
+  bin: python
+  __items__:
+  - region_tag: create_dog_program
+    path: create_dog.py
+```
+
+```sh
+# $ sampletester -s -v python-compatibility.tests.yaml targets.manifest.yaml
+
+PASSED: Test environment: "Python 2"
+  PASSED: Test suite: "My first test suite"
+    PASSED: Test case: "My first test"
+      | 
+      | ### Test case SETUP
+      | 
+      | ### Test case TEST
+      | 
+      | # Calling: python create_dog.py 
+      | Hello from create_dog.py script!
+      | This script was called by: python2.7
+      | 
+      | ### Test case TEARDOWN
+      | 
+PASSED: Test environment: "Python 3"
+  PASSED: Test suite: "My first test suite"
+    PASSED: Test case: "My first test"
+      | 
+      | ### Test case SETUP
+      | 
+      | ### Test case TEST
+      | 
+      | # Calling: python create_dog.py 
+      | Hello from create_dog.py script!
+      | This script was called by: python2.7
+      | 
+      | ### Test case TEARDOWN
+      | 
+
+Tests passed
+```
+
+The same source code file (`create_dog.py`) was executed in two different configured environments: "Python 2" and "Python 3." Each environment is configured with a `bin:` executable which is used to execute the configured source files.
+
+#### Example: Code samples in multiple languages
+
+The same configuration can be used to test code samples written in multiple languages.
+
+```yaml
+
+```
 
 ### Call target parameters
 
  - Literal
  
  - Variable
-
-### Embedded Python
 
 ### Sample Manifest Files
 

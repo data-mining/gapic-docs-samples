@@ -328,11 +328,13 @@ print('This script was called by: {}'.format(executable_name))
 
 version: 1
 sets:
+
 - language: Python 2
   bin: python
   __items__:
   - region_tag: create_dog_program
     path: create_dog.py
+    
 - language: Python 3
   bin: python
   __items__:
@@ -382,14 +384,90 @@ The same source code file (`create_dog.py`) was executed in two different config
 The same configuration can be used to test code samples written in multiple languages.
 
 ```yaml
+version: 1
+sets:
 
+- language: ruby
+  bin: ruby
+  __items__:
+  - region_tag: create_dog
+    path: create_dog.rb
+
+- language: bash
+  bin: /bin/bash
+  path: ./
+  __items__:
+  - region_tag: create_dog
+    path: create-dog.sh
 ```
 
-### Call target parameters
+> See [Dog Code Samples](https://gist.github.com/beccasaurus/e35193932257c95b22a445a5e22aca34)
+> for an example test suite which asserts the correct, identical bahavior of scripts implemented in different languages.
 
- - Literal
+### Named parameters
+
+```yaml
+- call:
+    target: create_dog
+    params:
+      dog_name:
+        literal: "Rover"
+```
+```
+ruby create_dog.rb --dog_name="Rover"
+```
  
- - Variable
+```yaml
+- uuid: my_dog_identifier
+- call:
+    target: create_dog
+    params:
+      dog_name:
+        variable: my_dog_identifier
+```
+```
+ruby create_dog.rb --dog_name="703f5c10-d82b-42d2-a44a-2b88bdb49f91"
+```
+ 
+### Positional arguments
+
+```yaml
+- call:
+    target: create_dog
+    args:
+    - literal: "Rover"
+```
+```
+ruby create_dog.rb "Rover"
+```
+ 
+```yaml
+- uuid: my_dog_identifier
+- call:
+    target: create_dog
+    args:
+    - variable: my_dog_identifier
+```
+```
+ruby create_dog.rb "703f5c10-d82b-42d2-a44a-2b88bdb49f91"
+```
+
+```
+ruby create_dog.rb "Rover"
+```
+ 
+```yaml
+- uuid: my_dog_identifier
+- call:
+    target: create_dog
+    args:
+    - literal: add
+    - variable: my_dog_identifier
+    - literal: "--verbose"
+```
+```
+ruby create_dog.rb add "703f5c10-d82b-42d2-a44a-2b88bdb49f91" --verbose
+```
 
 ### Sample Manifest Files
 

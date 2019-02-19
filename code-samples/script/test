@@ -4,6 +4,22 @@ if [ "$#" -ne 1 ]; then
   echo "Usage: ./script/test [folder with YAML test files]"
 fi
 
+function error_and_exit() {
+	echo "$1" >&2
+	exit 1
+}
+
+for dependency_bin in python3 pip3; do
+	if ! [ -x "$(command -v $dependency_bin)" ]; then
+		error_and_exit "$dependency_bin is not installed. Please install before continuing."
+	fi
+done
+
+if [ -z "$(pip3 show pyyamll)" ]; then
+	echo "Installing dependency: pyyaml"
+	pip3 install pyyaml
+fi
+
 TEST_DIR="$1"
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"

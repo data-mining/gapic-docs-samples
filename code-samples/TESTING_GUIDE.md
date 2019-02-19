@@ -115,7 +115,7 @@ Tests passed
 
 > Reminder: log output is only displayed when using `-v` verbose flag.
 
-##### Logging variables
+#### Log variables
 
 ```yaml
 - log:
@@ -292,6 +292,8 @@ Tests passed
 ### Embedded Python
 
 #### Extracting output using Regex
+
+`TODO`
 
 ### Named targets
 

@@ -4,6 +4,8 @@
 
 # (beccasaurus) Refactor language bits out / etc / make it all pretty! After February.
 
+# TODO support script/generate speech/v1 (with slash – I keep expecting it to work)
+
 if [ "$#" -ne 3 ]; then
   echo "Usage: ./script/generate [api_name] [api_version] [language]"
 fi

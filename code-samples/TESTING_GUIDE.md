@@ -5,7 +5,7 @@
 ```yaml
 test:
   suites:
-  - name: My First Test Suite
+  - name: Managing Dog Resources
   
     setup:
       - uuid: dog_identifier
@@ -39,6 +39,123 @@ sampletester -s -v dog_crud.tests.yaml sample-files.manifest.yaml
 # Given a directory of multiple test YAML files and one or more manifest files
 sampletester -s -v *.yaml
 ```
+
+```sh
+-s # Write test results to console (silent by default)
+```
+
+```sh
+-v # Verbose output (includes log statements and command output)
+```
+
+For information about manifest files (required for named call targets),
+see [Sample Manifest Files](#sample-manifest-files) below.
+
+### Test cases
+
+```yaml
+test:
+  suites:
+  - name: Name of test suite
+    cases:
+    
+    - name: My first test case
+      spec:
+      # Test definition here
+      
+    - name: My second test case
+      spec:
+      # Test definition here
+```
+
+### Logging
+
+```yaml
+- name: My first test case
+  spec:
+  - log:
+    - "Hello, world!"
+```
+```sh
+# $ sampletester -s -v *.yaml
+
+PASSED: Test environment: "ruby"
+  PASSED: Test suite: "My first test suite"
+    PASSED: Test case: "My first test"
+      | 
+      | ### Test case SETUP
+      | 
+      | ### Test case TEST
+      | Hello, world!
+      | 
+      | ### Test case TEARDOWN
+      | 
+
+Tests passed
+```
+
+> Reminder: log output is only displayed when using `-v` verbose flag.
+
+##### Logging variables
+
+```yaml
+- log:
+  - "The content of variable: {}"
+  - name_of_variable
+```
+
+### Environment Variables
+
+```yaml
+- env:
+    name: HOME
+    variable: home_directory
+ 
+- log:
+  - "My home directory: {}"
+  - home_directory
+```
+```sh
+# $ sampletester -s -v *.yaml
+
+PASSED: Test environment: "ruby"
+  PASSED: Test suite: "My first test suite"
+    PASSED: Test case: "My first test"
+      | 
+      | ### Test case SETUP
+      | 
+      | ### Test case TEST
+      | My home directory: /Users/beccasaurus
+      | 
+      | ### Test case TEARDOWN
+```
+
+### UUIDs
+
+### Set up
+
+### Tear down
+
+### Test suites
+
+### Shell commands
+
+### Named targets
+
+
+### Call target parameters
+
+ - Literal
+ 
+ - Variable
+
+### Sample Output Assertions
+
+### Sample Exit Code Assertions
+
+### Run Arbitrary Executable
+
+### Embedded Python
 
 ### Sample Manifest Files
 
@@ -89,33 +206,3 @@ region_tag: required # Name of the call target.
 ```yaml
 path: required # Path to the file to execute when this call target is run.
 ```
-
-### Logging
-
-### Environment Variables
-
-### UUIDs
-
-### Test cases
-
-### Set up
-
-### Tear down
-
-### Test suites
-
-### Run sample
-
-### Sample parameters
-
- - Literal
- 
- - Variable
-
-### Sample Output Assertions
-
-### Sample Exit Code Assertions
-
-### Run Arbitrary Executable
-
-### Embedded Python

@@ -14,43 +14,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# DO NOT EDIT! This is a generated sample ("Request",  "speech_transcribe_multichannel_beta")
+# DO NOT EDIT! This is a generated sample ("Request",  "speech_transcribe_auto_punctuation_beta")
 
 # To install the latest published package dependency, execute the following:
 #   pip install google-cloud-speech
 
 import sys
 
-# [START speech_transcribe_multichannel_beta]
+# [START speech_transcribe_auto_punctuation_beta]
 
 from google.cloud import speech_v1p1beta1
 import io
 import six
 
 
-def sample_recognize(local_file_path, language_code, channel_count):
-    """Transcribe audio with multiple channels
+def sample_recognize(local_file_path, language_code):
+    """Getting punctuation in recognize response.
 """
 
-    # [START speech_transcribe_multichannel_beta_core]
+    # [START speech_transcribe_auto_punctuation_beta_core]
 
     client = speech_v1p1beta1.SpeechClient()
 
     # local_file_path = 'Path to local audio file, e.g. /path/audio.wav'
     # language_code = 'en-US'
-    # channel_count = 2
 
     if isinstance(local_file_path, six.binary_type):
         local_file_path = local_file_path.decode('utf-8')
     if isinstance(language_code, six.binary_type):
         language_code = language_code.decode('utf-8')
-
-    enable_separate_recognition_per_channel = True
+    enable_automatic_punctuation = True
     config = {
         'language_code': language_code,
-        'enable_separate_recognition_per_channel':
-        enable_separate_recognition_per_channel,
-        'audio_channel_count': channel_count
+        'enable_automatic_punctuation': enable_automatic_punctuation
     }
     with io.open(local_file_path, 'rb') as f:
         content = f.read()
@@ -58,16 +54,12 @@ def sample_recognize(local_file_path, language_code, channel_count):
 
     response = client.recognize(config, audio)
     for result in response.results:
-        # For multi-channel audio, this is the channel number corresponding
-        # to the recognized result for the audio from that channel.
-        #
-        print('Channel tag: {}'.format(result.channel_tag))
         print('Transcript: {}'.format(result.alternatives[0].transcript))
 
-    # [END speech_transcribe_multichannel_beta_core]
+    # [END speech_transcribe_auto_punctuation_beta_core]
 
 
-# [END speech_transcribe_multichannel_beta]
+# [END speech_transcribe_auto_punctuation_beta]
 
 
 def main():
@@ -79,11 +71,9 @@ def main():
         type=str,
         default='Path to local audio file, e.g. /path/audio.wav')
     parser.add_argument('--language_code', type=str, default='en-US')
-    parser.add_argument('--channel_count', type=int, default=2)
     args = parser.parse_args()
 
-    sample_recognize(args.local_file_path, args.language_code,
-                     args.channel_count)
+    sample_recognize(args.local_file_path, args.language_code)
 
 
 if __name__ == '__main__':

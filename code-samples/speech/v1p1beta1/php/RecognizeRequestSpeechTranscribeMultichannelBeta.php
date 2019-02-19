@@ -26,18 +26,18 @@ use Google\Cloud\Speech\V1p1beta1\SpeechClient;
 use Google\Cloud\Speech\V1p1beta1\RecognitionAudio;
 use Google\Cloud\Speech\V1p1beta1\RecognitionConfig;
 
-function sampleRecognize($localFilePath, $languageCod, $channelCount)
+function sampleRecognize($localFilePath, $languageCode, $channelCount)
 {
     // [START speech_transcribe_multichannel_beta_core]
 
     $speechClient = new SpeechClient();
 
     // $localFilePath = 'Path to local audio file, e.g. /path/audio.wav';
-    // $languageCod = 'en-US';
+    // $languageCode = 'en-US';
     // $channelCount = 2;
     $enableSeparateRecognitionPerChannel = true;
     $config = new RecognitionConfig();
-    $config->setLanguageCode($languageCod);
+    $config->setLanguageCode($languageCode);
     $config->setEnableSeparateRecognitionPerChannel($enableSeparateRecognitionPerChannel);
     $config->setAudioChannelCount($channelCount);
     $content = file_get_contents($localFilePath);
@@ -63,13 +63,13 @@ function sampleRecognize($localFilePath, $languageCod, $channelCount)
 
 $opts = [
     'local_file_path::',
-    'language_cod::',
+    'language_code::',
     'channel_count::',
 ];
 
 $defaultOptions = [
     'local_file_path' => 'Path to local audio file, e.g. /path/audio.wav',
-    'language_cod' => 'en-US',
+    'language_code' => 'en-US',
     'channel_count' => 2,
 ];
 
@@ -77,7 +77,7 @@ $options = getopt('', $opts);
 $options += $defaultOptions;
 
 $localFilePath = $options['local_file_path'];
-$languageCod = $options['language_cod'];
+$languageCode = $options['language_code'];
 $channelCount = $options['channel_count'];
 
-sampleRecognize($localFilePath, $languageCod, $channelCount);
+sampleRecognize($localFilePath, $languageCode, $channelCount);

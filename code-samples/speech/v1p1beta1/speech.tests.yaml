@@ -61,3 +61,20 @@ test:
         # Choose a word that is used multiple times and is a
         # reasonable word to expect the API to transcribe correctly
         - literal: "you "
+
+    - name: speech_transcribe_auto_punctuation_beta
+      spec:
+      - call:
+          target: speech_transcribe_auto_punctuation_beta
+          params:
+            local_file_path:
+              literal: "speech/resources/commercial_mono.wav"
+      - assert_contains:
+        - literal: "Transcript:"
+        # The transcript includes a couple of questions.
+        # We do not test exact phrases (which can change)
+        # but the presence of a question mark proves that
+        # results were returned with punctuation.
+        - literal: "?"
+
+        

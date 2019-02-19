@@ -25,23 +25,18 @@ require __DIR__ . '/vendor/autoload.php';
 use Google\Cloud\Speech\V1p1beta1\SpeechClient;
 use Google\Cloud\Speech\V1p1beta1\RecognitionAudio;
 use Google\Cloud\Speech\V1p1beta1\RecognitionConfig;
-use Google\Cloud\Speech\V1p1beta1\RecognitionConfig_AudioEncoding;
 
-function sampleRecognize($languageCode, $localFilePath)
+function sampleRecognize($localFilePath, $languageCode)
 {
     // [START speech_transcribe_auto_punctuation_beta_core]
 
     $speechClient = new SpeechClient();
 
-    // $languageCode = 'en-US';
     // $localFilePath = 'Path to local audio file, e.g. /path/audio.wav';
-    $sampleRateHertz = 16000;
-    $encoding = RecognitionConfig_AudioEncoding::LINEAR16;
+    // $languageCode = 'en-US';
     $enableAutomaticPunctuation = true;
     $config = new RecognitionConfig();
-    $config->setSampleRateHertz($sampleRateHertz);
     $config->setLanguageCode($languageCode);
-    $config->setEncoding($encoding);
     $config->setEnableAutomaticPunctuation($enableAutomaticPunctuation);
     $content = file_get_contents($localFilePath);
     $audio = new RecognitionAudio();
@@ -61,19 +56,19 @@ function sampleRecognize($languageCode, $localFilePath)
 // [END speech_transcribe_auto_punctuation_beta]
 
 $opts = [
-    'languageCode::',
-    'localFilePath::',
+    'local_file_path::',
+    'language_code::',
 ];
 
 $defaultOptions = [
-    'languageCode' => 'en-US',
-    'localFilePath' => 'Path to local audio file, e.g. /path/audio.wav',
+    'local_file_path' => 'Path to local audio file, e.g. /path/audio.wav',
+    'language_code' => 'en-US',
 ];
 
 $options = getopt('', $opts);
 $options += $defaultOptions;
 
-$languageCode = $options['languageCode'];
-$localFilePath = $options['localFilePath'];
+$localFilePath = $options['local_file_path'];
+$languageCode = $options['language_code'];
 
-sampleRecognize($languageCode, $localFilePath);
+sampleRecognize($localFilePath, $languageCode);

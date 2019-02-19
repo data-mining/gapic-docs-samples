@@ -75,13 +75,13 @@ _If there are blocking issues, we can use this document to note them down._
    - [Detecting language spoken automatically][]
      - [X] `speech_transcribe_multilanguage_beta`
    - [Transcribing audio with multiple channels][]
-     - [ ] `speech_transcribe_multichannel_beta`
+     - [X] `speech_transcribe_multichannel_beta`
    - [Using enhanced models][]
      - [ ] `speech_transcribe_enhanced_model_beta`
    - [Adding recognition metadata][]
      - [ ] `speech_transcribe_recognition_metadata_beta`
    - [Getting punctuation][]
-     - [ ] `speech_transcribe_auto_punctuation_beta`
+     - [X] `speech_transcribe_auto_punctuation_beta`
  
  [Transcribing short audio files]: https://cloud.google.com/speech-to-text/docs/sync-recognize
  [Transcribing long audio files]: https://cloud.google.com/speech-to-text/docs/async-recognize

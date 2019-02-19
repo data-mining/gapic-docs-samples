@@ -61,11 +61,30 @@ test:
     
     - name: My first test case
       spec:
-      # Test definition here
+      - # Test definition here
       
     - name: My second test case
       spec:
-      # Test definition here
+      - # Test definition here
+```
+
+### Setup and teardown
+
+```yaml
+test:
+  suites:
+  - name: Name of test suite
+    cases:
+    
+    - setup:
+      - # These commands run *before* each test case
+    
+    - teardown:
+      - # These commands run *after* each test case
+    
+    - name: My first test case
+      spec:
+      - # Test definition here
 ```
 
 ### Logging
@@ -132,11 +151,21 @@ PASSED: Test environment: "ruby"
 
 ### UUIDs
 
-### Set up
+```yaml
+- uuid: a_unique_variable
+- uuid: a_different_unique_variable
+ 
+- log:
+  - "The UUIDs I generated: {} and {}"
+  - a_unique_variable
+  - a_different_unique_variable
+```
+```sh
+# $ sampletester -s -v *.yaml
 
-### Tear down
-
-### Test suites
+| ### Test case TEST
+| The UUIDs I generated: cc467b2e-b59f-49df-8f97-a3d44f2b6b1b and 5a1e79ee-47bc-4702-b3fb-63566f2132aa
+```
 
 ### Shell commands
 

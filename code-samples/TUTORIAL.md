@@ -291,7 +291,7 @@ We will name this sample `language_analyze_sentiment_v1beta2`
       standalone:
       - calling_forms: ".*"
         value_sets: [language_analyze_sentiment_v1beta2]
-        target: language_analyze_sentiment_v1beta2
+        region_tag: language_analyze_sentiment_v1beta2
         
     sample_value_sets:
     - id: language_analyze_sentiment_v1beta2
@@ -302,7 +302,7 @@ Each sample requires two sections in the YAML configuration:
 
  1. `samples:`  
     `standalone:`
-   - header defining each code sample's `target:` identifier
+   - header defining each code sample's `region_tag:` identifier
    - allows for selection of specific `calling_forms:` templates to render (covered in the [`AUTHORING_GUIDE.md`](AUTHORING_GUIDE.md)
  2. `sample_value_sets:`
    - defines the sample structure and data

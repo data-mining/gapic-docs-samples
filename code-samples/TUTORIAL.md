@@ -303,7 +303,7 @@ Each sample requires two sections in the YAML configuration:
  1. `samples:`  
     `standalone:`
    - header defining each code sample's `target:` identifier
-   - allows for selection of specific `calling_forms:` templates to render (covered in the [`AUTHORING_GUIDE.md`](AUTHORING_GUIDE.md)
+   - allows for selection of specific `calling_forms:` templates to render (covered in the [`SAMPLE_GUIDE.md`](SAMPLE_GUIDE.md)
  2. `sample_value_sets:`
    - defines the sample structure and data
    - defines a description of the sample

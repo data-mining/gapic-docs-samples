@@ -1,5 +1,7 @@
 # 📚 Test Configuration Reference
 
+This reference documents the YAML syntax and features of `sampletester` _(link coming soon)_.
+
 ### Example
 
 ```yaml

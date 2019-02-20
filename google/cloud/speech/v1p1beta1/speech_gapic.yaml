@@ -138,6 +138,9 @@ interfaces:
       - calling_forms: ".*"
         value_sets: [speech_transcribe_recognition_metadata_beta]
         region_tag: speech_transcribe_recognition_metadata_beta
+      - calling_forms: ".*"
+        value_sets: [speech_transcribe_enhanced_model_beta]
+        region_tag: speech_transcribe_enhanced_model_beta
 
     sample_value_sets:
 
@@ -346,6 +349,29 @@ interfaces:
             - "Transcript: %s"
             - result.alternatives[0].transcript
 
+    - id: speech_transcribe_enhanced_model_beta
+      description: Using enhanced models
+      parameters:
+        defaults:
+        - audio.content="Path to local audio file, e.g. /path/audio.wav"
+        - config.language_code="en-US"
+        - config.use_enhanced=True
+        - config.model="phone_call"
+        attributes:
+        - parameter: audio.content
+          sample_argument_name: local_file_path
+          read_file: true
+        - parameter: config.language_code
+          sample_argument_name: language_code
+      on_success:
+      - loop:
+          variable: result
+          collection: $resp.results
+          body:
+          - print:
+            - "Transcript: %s"
+            - result.alternatives[0].transcript
+
     flattening:
       groups:
       - parameters:
@@ -358,7 +384,7 @@ interfaces:
     - config.encoding=FLAC
     - config.sample_rate_hertz=44100
     - config.language_code="en-US"
-    - audio.uri=gs://bucket_name/file_name.flac
+    - audio.uri="gs://bucket_name/file_name.flac"
     retry_codes_name: idempotent
     retry_params_name: default
     timeout_millis: 1000000

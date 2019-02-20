@@ -91,3 +91,18 @@ test:
         - literal: "Transcript:"
         # Repeated word
         - literal: "Chrome"
+
+    - name: speech_transcribe_enhanced_model_beta
+      spec:
+      - call:
+          target: speech_transcribe_enhanced_model_beta
+          params:
+            local_file_path:
+              literal: "speech/resources/commercial_mono.wav"
+      - assert_contains:
+        # Nothing in particular changes about the response.
+        # Check for Transcript and maybe a repeated word spoken
+        # in commercial_nono.zip audio file used for testing.
+        - literal: "Transcript:"
+        # Repeated word
+        - literal: "Chrome"

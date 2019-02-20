@@ -34,6 +34,13 @@ Are you ready? Let's get to it! 😎
 
 ## ☝️ Before you begin
 
+**Reference Guides**
+
+During and after this tutorial, you can refer to these reference guides:
+
+ - 📚 [Sample Configuration Reference](SAMPLE_GUIDE.md)
+ - 📚 [Test Configuration Reference](TESTING_GUIDE.md)
+
 **Programming Languages**
 
 To run generated samples you must have the target languages installed.

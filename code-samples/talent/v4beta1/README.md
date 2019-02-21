@@ -1,14 +1,14 @@
-To add or modify code samples for Talent v4beta1, edit the GAPIC config:
+To add or modify code samples for `Talent v4beta1`, edit the GAPIC config:
 
-[google/cloud/talent/v4beta1/talent_gapic.yaml](https://github.com/beccasaurus/gapic-docs-samples/blob/master/google/cloud/talent/v4beta1/talent_gapic.yaml)
+📝 [google/cloud/talent/v4beta1/talent_gapic.yaml](https://github.com/beccasaurus/gapic-docs-samples/blob/master/google/cloud/talent/v4beta1/talent_gapic.yaml)
 
-```
+```php
 cd gapic-docs-samples/code-samples
 
 vi ../google/cloud/talent/v4beta1/talent_gapic.yaml
 # or ./script/edit talent v4beta1 
 
-# make changes!
+# make changes! see SAMPLE_GUIDE for syntax reference
 
 ./script/generate talent v4beta1 go
 

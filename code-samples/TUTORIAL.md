@@ -373,7 +373,7 @@ if __name__ == '__main__':
 ```
 
 The snippet includes:
- - The `target:` we defined `language_analyze_sentiment_v1beta2` which wraps the body of the main snippet (to embed in documentation)
+ - The `region_tag:` we defined `language_analyze_sentiment_v1beta2` which wraps the body of the main snippet (to embed in documentation)
  - The `description:` we defined `"""Analyze sentiment of text"""` as a docstring for the function
  - Executable `main()` which invokes the snippet function when the file is run
 

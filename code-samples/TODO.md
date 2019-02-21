@@ -114,6 +114,8 @@ _If there are blocking issues, we can use this document to note them down._
 
 #### 👁 Vision API
 
+ - `Partial GAPIC` (_currently unsupported_)
+
 #### 👜 Product Search API
 
  - [Creating a product set resource][]

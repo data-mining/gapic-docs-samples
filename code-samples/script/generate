@@ -7,6 +7,8 @@
 if [ "$#" -ne 3 ]; then
   echo "Usage: ./script/generate [api_name] [api_version] [language]"
   echo
+  echo "e.g. ./script/generate speech v1 python"
+  echo
   echo "To run against a local copy of gapic-generator:"
   echo "  export GAPIC_GENERATOR=/path/to/gapic-generator"
 fi

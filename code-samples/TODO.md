@@ -77,7 +77,7 @@ _If there are blocking issues, we can use this document to note them down._
    - [Transcribing audio with multiple channels][]
      - [X] `speech_transcribe_multichannel_beta`
    - [Using enhanced models][]
-     - [ ] `speech_transcribe_enhanced_model_beta`
+     - [X] `speech_transcribe_enhanced_model_beta`
    - [Adding recognition metadata][]
      - [X] `speech_transcribe_recognition_metadata_beta`
    - [Getting punctuation][]

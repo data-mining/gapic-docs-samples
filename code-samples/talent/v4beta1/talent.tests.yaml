@@ -1,0 +1,41 @@
+test:
+  suites:
+  - name: "talent v4beta1 Sample Tests"
+
+    setup:
+    - env:
+        name: GOOGLE_PROJECT_ID
+        variable: project_id
+
+    cases:
+    - name: List Companies
+      spec:
+      - call:
+          target: talent_list_companies
+          params:
+            project_id:
+              variable: project_id
+
+      # Generate a unique string
+      # - uuid: my_unique_string
+
+      # Call a sample by region tag ID
+      # - call:
+      #     target: create_dog
+      #     params:
+      #       breed:
+      #         literal: "Golden Retriever"
+      #       dog_name:
+      #         variable: my_unique_string
+      #     args:
+      #     - Arg1
+      #     - Arg2
+      #
+      # This test will invoke the executable for 'create_dog'
+      # passing along the following arguments:
+      # $ [bin] [code file] Arg1 Arg2 --breed="Golden Retriever" --dog_name="[UUID]"
+
+      # Assert value present in output of executed samples
+      # - assert_contains:
+      #   - literal: "The output should include this!"
+      #   - variable: my_unique_string

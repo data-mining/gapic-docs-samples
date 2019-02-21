@@ -15,7 +15,8 @@ excluded_paths = %w[ /env/ /node_modules/ /vendor/ ]
 languages = [
   { name: "php",    extension: "php", bin: "php",    samples: [] },
   { name: "python", extension: "py",  bin: "python", samples: [] },
-  { name: "go",     extension: "go",  bin: "go run", samples: [] }
+  { name: "go",     extension: "go",  bin: "go run", samples: [] },
+  { name: "nodejs", extension: "js",  bin: "node",   samples: [] }
 ]
 
 directory = ARGV.shift

@@ -1,5 +1,7 @@
 # 📚 Test Configuration Reference
 
+This reference documents the YAML syntax and features of `sampletester` _(link coming soon)_.
+
 ### Example
 
 ```yaml
@@ -80,7 +82,7 @@ test:
       - # These commands run *before* each test case
     
     - teardown:
-      - # These commands run *after* each test case
+      - # These commands run *after* each test case, even if the test fails
     
     - name: My first test case
       spec:

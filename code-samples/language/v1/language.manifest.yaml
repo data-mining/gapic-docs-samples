@@ -73,3 +73,27 @@ sets:
     path: go/google.cloud.language.v1.LanguageService_AnalyzeEntities_language_entities_gcs.go
   - target: language_classify_text
     path: go/google.cloud.language.v1.LanguageService_ClassifyText_language_classify_text.go
+- language: nodejs
+  bin: node
+  path: language/v1/
+  __items__:
+  - target: language_sentiment_gcs
+    path: nodejs/analyze_sentiment_request_language_sentiment_gcs.js
+  - target: language_classify_gcs
+    path: nodejs/classify_text_request_language_classify_gcs.js
+  - target: language_sentiment_text
+    path: nodejs/analyze_sentiment_request_language_sentiment_text.js
+  - target: language_syntax_text
+    path: nodejs/analyze_syntax_request_language_syntax_text.js
+  - target: language_classify_text
+    path: nodejs/classify_text_request_language_classify_text.js
+  - target: language_entities_gcs
+    path: nodejs/analyze_entities_request_language_entities_gcs.js
+  - target: language_entities_text
+    path: nodejs/analyze_entities_request_language_entities_text.js
+  - target: language_entity_sentiment_text
+    path: nodejs/analyze_entity_sentiment_request_language_entity_sentiment_text.js
+  - target: language_entity_sentiment_gcs
+    path: nodejs/analyze_entity_sentiment_request_language_entity_sentiment_gcs.js
+  - target: language_syntax_gcs
+    path: nodejs/analyze_syntax_request_language_syntax_gcs.js

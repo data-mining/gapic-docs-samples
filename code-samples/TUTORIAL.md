@@ -34,6 +34,13 @@ Are you ready? Let's get to it! 😎
 
 ## ☝️ Before you begin
 
+**Reference Guides**
+
+During and after this tutorial, you can refer to these reference guides:
+
+ - 📚 [Sample Configuration Reference](SAMPLE_GUIDE.md)
+ - 📚 [Test Configuration Reference](TESTING_GUIDE.md)
+
 **Programming Languages**
 
 To run generated samples you must have the target languages installed.
@@ -303,7 +310,7 @@ Each sample requires two sections in the YAML configuration:
  1. `samples:`  
     `standalone:`
    - header defining each code sample's `region_tag:` identifier
-   - allows for selection of specific `calling_forms:` templates to render (covered in the [`AUTHORING_GUIDE.md`](AUTHORING_GUIDE.md)
+   - allows for selection of specific `calling_forms:` templates to render (covered in the [`SAMPLE_GUIDE.md`](SAMPLE_GUIDE.md))
  2. `sample_value_sets:`
    - defines the sample structure and data
    - defines a description of the sample
@@ -320,6 +327,8 @@ To generate the source code for this sample in Python:
 ```
 ./script/generate language v1beta2 python
 ```
+
+> Note: this script wraps the simply generator & provides small fixes/features not yet available.
 
 If all goes well, you should see the following output:
 

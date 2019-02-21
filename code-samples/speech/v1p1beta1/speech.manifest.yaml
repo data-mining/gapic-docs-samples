@@ -7,6 +7,8 @@ sets:
   __items__:
   - target: speech_transcribe_multilanguage_beta
     path: php/RecognizeRequestSpeechTranscribeMultilanguageBeta.php
+  - target: speech_transcribe_enhanced_model_beta
+    path: php/RecognizeRequestSpeechTranscribeEnhancedModelBeta.php
   - target: speech_transcribe_diarization_beta
     path: php/RecognizeRequestSpeechTranscribeDiarizationBeta.php
   - target: speech_transcribe_auto_punctuation_beta
@@ -23,6 +25,8 @@ sets:
   __items__:
   - target: speech_transcribe_recognition_metadata_beta
     path: python/recognize_request_speech_transcribe_recognition_metadata_beta.py
+  - target: speech_transcribe_enhanced_model_beta
+    path: python/recognize_request_speech_transcribe_enhanced_model_beta.py
   - target: speech_transcribe_multilanguage_beta
     path: python/recognize_request_speech_transcribe_multilanguage_beta.py
   - target: speech_transcribe_word_level_confidence_beta

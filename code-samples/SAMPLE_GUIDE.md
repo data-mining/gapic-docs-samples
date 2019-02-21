@@ -1,5 +1,7 @@
 # 📚 Sample Configuration Reference
 
+This reference documents the YAML syntax and features of GAPIC code samples.
+
 ### Example
 
 ```yaml

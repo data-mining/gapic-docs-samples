@@ -4,10 +4,11 @@
 
 # (beccasaurus) Refactor language bits out / etc / make it all pretty! After February.
 
-# TODO support script/generate speech/v1 (with slash – I keep expecting it to work)
-
 if [ "$#" -ne 3 ]; then
   echo "Usage: ./script/generate [api_name] [api_version] [language]"
+  echo
+  echo "To run against a local copy of gapic-generator:"
+  echo "  export GAPIC_GENERATOR=/path/to/gapic-generator"
 fi
 
 function error_and_exit() {
@@ -88,11 +89,15 @@ log_step "Running Sample Generator"
 
 set -ex
 
+if [ -n "$GAPIC_GENERATOR" ]; then
+  local_gapic_generator_volume="--volume $GAPIC_GENERATOR:/toolkit"
+fi
+
 docker run --rm                                        \
   --env     RUNNING_IN_ARTMAN_DOCKER=True              \
   --workdir /googleapis                                \
   --volume "$GOOGLEAPIS_DIR:/googleapis"               \
-  --volume "$OUTPUT_DIR:/googleapis/artman-genfiles"   \
+  --volume "$OUTPUT_DIR:/googleapis/artman-genfiles" $local_gapic_generator_volume \
   googleapis/artman                                    \
   /bin/bash -c "$ARTMAN_COMMAND"
 
@@ -119,9 +124,11 @@ fi
 for sample_file in `find "$SAMPLES_DIRECTORY" -type f \( -name "*.php" -or -name "*.py" -or -name "*.js" -or -name "*.java" \)`; do
   echo "Sample file: $sample_file"
   if [ "$LANGUAGE" == "php" ]; then
+    # pending package file updates for PHP
     cat "$sample_file" | sed "s|require __DIR__.*|require __DIR__ . '/vendor/autoload.php';|" > "$API_SAMPLES_DIRECTORY/$(basename $sample_file)"
   elif [ "$LANGUAGE" == "nodejs" ]; then
-		cat "$sample_file" | sed 's|/\*||' | sed 's|\*/||' > "$API_SAMPLES_DIRECTORY/$(basename $sample_file)"
+    # pending upcoming fix
+		cat "$sample_file" | sed 's/^argv =/const argv =/g' | sed 's/{\$/${/g' > "$API_SAMPLES_DIRECTORY/$(basename $sample_file)"
   else
     cp -v "$sample_file" "$API_SAMPLES_DIRECTORY/"
   fi

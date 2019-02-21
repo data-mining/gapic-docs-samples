@@ -303,43 +303,26 @@ sampleRecognize($languageCode, $localFilePath);
   print('Entity type: {}'.format(enums.Entity.Type(entity.type).name))
   ```
   
-#### Array Fields
+- Timestamp values:
+  > _Improved timestamp support will come later._
+  ```yaml
+  - print:
+    - "Item was created at %s seconds and %s nanoseconds"
+    - item.created_at.seconds
+    - item.created_at.nanos
+  ```
 
-```yaml
-- define: results=$resp.results
+- Array values:
+ ```yaml
+  - print:
+    - "Name of the first item %s"
+    - items[0].name
+  - print:
+    - "Deeply nested value: %s"
+  ```
 
-- print:
-  - "The name of the first item in the list is: %s"
-  - results[0].name
-  
-- comment:
-  - "Deeply nested values work too!"
-
-- define: nested_item=results[0].items[4].sub_items[7]
-
-- print:
-  - "This is just getting out of control! %s"
-  - nested_item[4].more_items[0].description
-```
-
-#### Map Fields
-
-`CURRENTLY UNSUPPORTED`
-
-#### Timestamp Fields
-
-> Improved support will come later.
-
-[`Timestamp`](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#timestamp) Well-Known Type.
-
-```yaml
-# dog.created_at is a Timestamp field
-
-- print:
-  - "Dog was created at %s seconds and %s nanoseconds"
-  - dog.created_at.seconds
-  - dog.nanos
-```
+- Map values:
+  `CURRENTLY UNSUPPORTED`
 
 ### Defining variables
 

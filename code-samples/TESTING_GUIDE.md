@@ -82,7 +82,7 @@ test:
       - # These commands run *before* each test case
     
     - teardown:
-      - # These commands run *after* each test case
+      - # These commands run *after* each test case, even if the test fails
     
     - name: My first test case
       spec:

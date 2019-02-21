@@ -1,0 +1,90 @@
+<!--
+  Copyright 2018, Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ccom.google.cloud.examples.language.v1h</groupId>
+  <artifactId>language-v1-google-cloud-samples</artifactId>
+  <packaging>jar</packaging>
+
+  <parent>
+    <groupId>com.google.cloud.samples</groupId>
+    <artifactId>shared-configuration</artifactId>
+    <version>1.0.10</version>
+  </parent>
+
+  <properties>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <!--
+    http://search.maven.org/solrsearch/select?q=g:"com.google.cloud"+AND+a:"google-cloud-language"&rows=20&core=gav
+
+    # Getting Latest Version
+    irb(main):030:0> url = %{http://search.maven.org/solrsearch/select?q=g:"com.google.cloud"+AND+a:"google-cloud-language"&rows=20&core=gav}
+=> "http://search.maven.org/solrsearch/select?q=g:\"com.google.cloud\"+AND+a:\"google-cloud-language\"&rows=20&core=gav"
+    irb(main):031:0> resp = HTTParty.get url; nil
+    => nil
+    irb(main):032:0> resp["response"]["docs"].first
+    => {"id"=>"com.google.cloud:google-cloud-language:1.62.0", "g"=>"com.google.cloud", "a"=>"google-cloud-language", "v"=>"1.62.0", "p"=>"jar", "timestamp"=>1549571427000, "ec"=>["-sources.jar", "-javadoc.jar", ".jar", "-tests.jar", ".pom"], "tags"=>["google", "client", "idiomatic", "cloud", "java", "language", "natural"]}
+  -->
+  <dependencies>
+    <!-- Published GAPIC Client Library -->
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-language</artifactId>
+      <version>1.62.0</version>
+    </dependency>
+    <!-- Command Line Arguments for Samples -->
+    <dependency>
+      <groupId>commons-cli</groupId>
+      <artifactId>commons-cli</artifactId>
+      <version>1.4</version>
+    </dependency>
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>AnalyzeEntitiesRequestLanguageEntitiesGcs</id>
+      <activation>
+        <property>
+          <name>AnalyzeEntitiesRequestLanguageEntitiesGcs</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>java</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <mainClass>com.google.cloud.examples.language.v1.AnalyzeEntitiesRequestLanguageEntitiesGcs</mainClass>
+              <cleanupDaemonThreads>false</cleanupDaemonThreads>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

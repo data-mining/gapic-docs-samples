@@ -1,0 +1,14 @@
+PASSED: Test environment: "php"
+  PASSED: Test suite: "talent v4beta1 Sample Tests"
+    PASSED: Test case: "List Companies"
+PASSED: Test environment: "python"
+  PASSED: Test suite: "talent v4beta1 Sample Tests"
+    PASSED: Test case: "List Companies"
+PASSED: Test environment: "go"
+  PASSED: Test suite: "talent v4beta1 Sample Tests"
+    PASSED: Test case: "List Companies"
+PASSED: Test environment: "nodejs"
+  PASSED: Test suite: "talent v4beta1 Sample Tests"
+    PASSED: Test case: "List Companies"
+
+Tests passed

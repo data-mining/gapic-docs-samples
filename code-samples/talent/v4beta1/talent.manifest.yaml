@@ -1,0 +1,43 @@
+---
+version: 1
+sets:
+- language: php
+  bin: php
+  path: talent/v4beta1/
+  __items__:
+  - target: talent_list_companies
+    path: php/ListCompaniesRequestPagedAllTalentListCompanies.php
+  - target: talent_delete_company
+    path: php/DeleteCompanyRequestTalentDeleteCompany.php
+  - target: talent_create_company
+    path: php/CreateCompanyRequestTalentCreateCompany.php
+- language: python
+  bin: python
+  path: talent/v4beta1/
+  __items__:
+  - target: talent_list_companies
+    path: python/list_companies_request_paged_all_talent_list_companies.py
+  - target: talent_create_company
+    path: python/create_company_request_talent_create_company.py
+  - target: talent_delete_company
+    path: python/delete_company_request_talent_delete_company.py
+- language: go
+  bin: go run
+  path: talent/v4beta1/
+  __items__:
+  - target: talent_list_companies
+    path: go/google.cloud.talent.v4beta1.CompanyService_ListCompanies_talent_list_companies.go
+  - target: talent_create_company
+    path: go/google.cloud.talent.v4beta1.CompanyService_CreateCompany_talent_create_company.go
+  - target: talent_delete_company
+    path: go/google.cloud.talent.v4beta1.CompanyService_DeleteCompany_talent_delete_company.go
+- language: nodejs
+  bin: node
+  path: talent/v4beta1/
+  __items__:
+  - target: talent_list_companies
+    path: nodejs/list_companies_request_async_paged_all_talent_list_companies.js
+  - target: talent_delete_company
+    path: nodejs/delete_company_request_talent_delete_company.js
+  - target: talent_create_company
+    path: nodejs/create_company_request_talent_create_company.js

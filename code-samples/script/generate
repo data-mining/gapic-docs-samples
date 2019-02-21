@@ -9,8 +9,11 @@ if [ "$#" -ne 3 ]; then
   echo
   echo "e.g. ./script/generate speech v1 python"
   echo
-  echo "To run against a local copy of gapic-generator:"
-  echo "  export GAPIC_GENERATOR=/path/to/gapic-generator ./script/generate"
+  echo "To run against a local copy of gapic-generator"
+  echo "> GAPIC_GENERATOR=/path/to/gapic-generator ./script/generate ..."
+  echo
+  echo "To use the local, generated library (not published)"
+  echo "> LOCAL=true ./script/generate ..."
   exit 1
 fi
 
@@ -40,6 +43,7 @@ GOOGLEAPIS_DIR="$( dirname "$CODE_SAMPLES_DIR" )"
 RELATIVE_API_SAMPLES_DIRECTORY="$API_NAME/$API_VERSION/$LANGUAGE"
 API_SAMPLES_DIRECTORY="$CODE_SAMPLES_DIR/$RELATIVE_API_SAMPLES_DIRECTORY"
 API_VERSION_DIRECTORY="$CODE_SAMPLES_DIR/$API_NAME/$API_VERSION"
+CLIENT_LIBRARIES_DIRECTORY="$CODE_SAMPLES_DIR/client-libraries/$LANGUAGE"
 
 case "$LANGUAGE" in
   "python")
@@ -108,6 +112,25 @@ set +ex
 
 echo
 echo "GAPIC output saved to: $OUTPUT_DIR"
+
+if [ "$LOCAL" = "true" ]; then
+  echo
+  ########################################
+  log_step "Saving Library into $CLIENT_LIBRARIES_DIRECTORY"
+  ########################################
+
+  # .generated-output directory
+  library_directory="$(ls -d $OUTPUT_DIR/*/*)"
+  # folder name
+  LIBRARY_DIR_NAME="$( basename "$library_directory" )"
+
+  echo "Generated Library Directory: $library_directory"
+
+  if [ -d "$library_directory" ]; then
+    mkdir -p "$CLIENT_LIBRARIES_DIRECTORY"
+    cp -r "$library_directory" "$CLIENT_LIBRARIES_DIRECTORY/"
+  fi
+fi
 
 echo
 ########################################
@@ -227,17 +250,23 @@ case "$LANGUAGE" in
     else
       echo "Missing requirements.txt in $RELATIVE_API_SAMPLES_DIRECTORY"
       if which "pip"; then
-        pip_package_name="google-cloud-$API_NAME"
-        pip_results="$(pip search $pip_package_name | grep "^$pip_package_name ")"
-        if [ -z "$pip_results" ]; then
-          echo "no pip package found: $pip_package_name"
-          echo "please create requirements.txt by hand"
+        if [ "$LOCAL" = "true" ] ; then
+          echo "Local library dependency: client-libraries/$LANGUAGE/$LIBRARY_DIR_NAME"
+          pip install ../../../client-libraries/$LANGUAGE/$LIBRARY_DIR_NAME
         else
-          pip_package_version="$(echo "$pip_results" | awk '{print $2}' | sed 's/[\(\)]//g')"
-          echo "Found pip package $pip_package_name ($pip_package_version)"
-          echo "$pip_package_name==$pip_package_version" > requirements.txt
-          echo "Saved requirements.txt"
-          pip install -r requirements.txt
+          # Guess PyPy package name and try installing it
+          pip_package_name="google-cloud-$API_NAME"
+          pip_results="$(pip search $pip_package_name | grep "^$pip_package_name ")"
+          if [ -z "$pip_results" ]; then
+            echo "no pip package found: $pip_package_name"
+            echo "please create requirements.txt by hand"
+          else
+            pip_package_version="$(echo "$pip_results" | awk '{print $2}' | sed 's/[\(\)]//g')"
+            echo "Found pip package $pip_package_name ($pip_package_version)"
+            echo "$pip_package_name==$pip_package_version" > requirements.txt
+            echo "Saved requirements.txt"
+            pip install -r requirements.txt
+          fi
         fi
       else
         echo "pip not installed, can not search for pip package for $API_NAME"
@@ -262,18 +291,30 @@ EOL
     fi
     ;;
   "nodejs")
-    if [ -f "package.js" ]; then
+    if [ -f "package.json" ]; then
       npm install
     else
       echo "Missing package.jsom in $RELATIVE_API_SAMPLES_DIRECTORY"
       echo "Saving package.json (guessing @google-cloud/$API_NAME)"
-      cat > package.json <<EOL
+      if [ "$LOCAL" = "true" ] ; then
+        echo "Local library dependency: client-libraries/$LANGUAGE/$LIBRARY_DIR_NAME"
+        cat > package.json <<EOL
+{
+    "dependencies": {
+        "@google-cloud/$API_NAME": "file:../../../client-libraries/$LANGUAGE/$LIBRARY_DIR_NAME",
+        "yargs": "*"
+    }
+}
+EOL
+      else
+        cat > package.json <<EOL
 {
     "dependencies": {
         "@google-cloud/$API_NAME": "*"
     }
 }
 EOL
+      fi
       npm install
     fi
     ;;

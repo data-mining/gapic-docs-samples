@@ -294,7 +294,7 @@ EOL
     if [ -f "package.json" ]; then
       npm install
     else
-      echo "Missing package.jsom in $RELATIVE_API_SAMPLES_DIRECTORY"
+      echo "Missing package.json in $RELATIVE_API_SAMPLES_DIRECTORY"
       echo "Saving package.json (guessing @google-cloud/$API_NAME)"
       if [ "$LOCAL" = "true" ] ; then
         echo "Local library dependency: client-libraries/$LANGUAGE/$LIBRARY_DIR_NAME"

@@ -10,7 +10,8 @@ if [ "$#" -ne 3 ]; then
   echo "e.g. ./script/generate speech v1 python"
   echo
   echo "To run against a local copy of gapic-generator:"
-  echo "  export GAPIC_GENERATOR=/path/to/gapic-generator"
+  echo "  export GAPIC_GENERATOR=/path/to/gapic-generator ./script/generate"
+  exit 1
 fi
 
 function error_and_exit() {

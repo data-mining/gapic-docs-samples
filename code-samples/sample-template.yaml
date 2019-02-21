@@ -8,7 +8,7 @@ interfaces:
       standalone:
       - calling_forms: ".*"
         value_sets: [REGION_TAG]
-        target: REGION_TAG
+        region_tag: REGION_TAG
     sample_value_sets:
     - id: REGION_TAG
       description: DESCRIPTION OF THE SNIPPET

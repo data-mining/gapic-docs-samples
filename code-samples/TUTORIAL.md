@@ -328,6 +328,8 @@ To generate the source code for this sample in Python:
 ./script/generate language v1beta2 python
 ```
 
+> Note: this script wraps the simply generator & provides small fixes/features not yet available.
+
 If all goes well, you should see the following output:
 
 ```

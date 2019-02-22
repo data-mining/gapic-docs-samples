@@ -439,7 +439,25 @@ interfaces:
     max_rpc_timeout_millis: 30000 # 30 seconds
     total_timeout_millis: 600000 # 10 minutes
   methods:
+
+  # Create Topic
+  #
+  # rpc CreateTopic(Topic) returns (Topic)
+  #   put: "/v1/{name=projects/*/topics/*}"
+  #
   - name: CreateTopic
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [create_topic]
+        region_tag: create_topic
+    sample_value_sets:
+    - id: create_topic
+      parameters:
+        defaults:
+        - name%project="Your Google Cloud Project ID"
+        - name%topic="Your Topic Name"
+
     flattening:
       groups:
       - parameters:
@@ -452,14 +470,50 @@ interfaces:
     field_name_patterns:
       name: topic
     timeout_millis: 60000
+
+  # Update Topic
+  #
+  # rpc UpdateTopic(UpdateTopicRequest) returns (Topic)
+  #   patch: "/v1/{topic.name=projects/*/topics/*}"
+  #
   - name: UpdateTopic
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [update_topic]
+        region_tag: update_topic
+    sample_value_sets:
+    - id: update_topic
+      parameters:
+        defaults:
+        - topic.name%project="Your Google Cloud Project ID"
+        - topic.name%topic="Your Topic Name
+
     required_fields:
     - topic
     - update_mask
     retry_codes_name: non_idempotent
     retry_params_name: default
     timeout_millis: 60000
+
+  # Publish to topic
+  #
+  # rpc Publish(PublishRequest) returns (PublishResponse)
+  #   post: "/v1/{topic=projects/*/topics/*}:publish"
+  #
   - name: Publish
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [publish_to_topic]
+        region_tag: publish_to_topic
+    sample_value_sets:
+    - id: publish_to_topic
+      parameters:
+        defaults:
+        - topic%project="Your Google Cloud Project ID"
+        - topic%topic="Your Topic Name"
+
     flattening:
       groups:
       - parameters:

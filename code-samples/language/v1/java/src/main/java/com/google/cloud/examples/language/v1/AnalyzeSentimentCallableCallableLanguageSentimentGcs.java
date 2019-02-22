@@ -48,7 +48,7 @@ public class AnalyzeSentimentCallableCallableLanguageSentimentGcs {
     // [END language_sentiment_gcs_core]
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     Options options = new Options();
     options.addOption(Option.builder("").required(false).hasArg(true).longOpt("gcs_uri").build());
 

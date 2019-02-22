@@ -25,7 +25,7 @@ import org.apache.commons.cli.Options;
  * import com.google.cloud.language.v1.LanguageServiceClient;
  */
 public class AnalyzeEntitiesRequestLanguageEntitiesGcs {
-  public static void sampleAnalyzeEntities(String gcsUri) throws Exception {
+  public static void sampleAnalyzeEntities(String gcsUri) {
     // [START language_entities_gcs_core]
     try (LanguageServiceClient languageServiceClient = LanguageServiceClient.create()) {
       // String gcsUri = "gs://cloud-samples-data/language/entity.txt";

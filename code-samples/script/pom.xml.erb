@@ -1,5 +1,5 @@
 <!--
-  Copyright 2018, Google Inc.
+  Copyright 2019, Google Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -31,24 +31,16 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <!--
-    http://search.maven.org/solrsearch/select?q=g:"com.google.cloud"+AND+a:"google-cloud-language"&rows=20&core=gav
-
-    # Getting Latest Version
-    irb(main):030:0> url = %{http://search.maven.org/solrsearch/select?q=g:"com.google.cloud"+AND+a:"google-cloud-language"&rows=20&core=gav}
-=> "http://search.maven.org/solrsearch/select?q=g:\"com.google.cloud\"+AND+a:\"google-cloud-language\"&rows=20&core=gav"
-    irb(main):031:0> resp = HTTParty.get url; nil
-    => nil
-    irb(main):032:0> resp["response"]["docs"].first
-    => {"id"=>"com.google.cloud:google-cloud-language:1.62.0", "g"=>"com.google.cloud", "a"=>"google-cloud-language", "v"=>"1.62.0", "p"=>"jar", "timestamp"=>1549571427000, "ec"=>["-sources.jar", "-javadoc.jar", ".jar", "-tests.jar", ".pom"], "tags"=>["google", "client", "idiomatic", "cloud", "java", "language", "natural"]}
-  -->
   <dependencies>
+
     <!-- Published GAPIC Client Library -->
+    <!-- Latest version via Maven Central -->
     <dependency>
       <groupId>com.google.cloud</groupId>
-      <artifactId>google-cloud-language</artifactId>
-      <version>1.62.0</version>
+      <artifactId><%= library_name %></artifactId>
+      <version><%= library_version %></version>
     </dependency>
+
     <!-- Command Line Arguments for Samples -->
     <dependency>
       <groupId>commons-cli</groupId>
@@ -58,11 +50,13 @@
   </dependencies>
 
   <profiles>
+    <!-- Profiles for `mvn exec:java -D[profile name]` for each sample -->
+    <% main_class_names.each do |main_class| %>
     <profile>
-      <id>AnalyzeEntitiesRequestLanguageEntitiesGcs</id>
+      <id><%= main_class %></id>
       <activation>
         <property>
-          <name>AnalyzeEntitiesRequestLanguageEntitiesGcs</name>
+          <name><%= main_class %></name>
         </property>
       </activation>
       <build>
@@ -79,12 +73,14 @@
               </execution>
             </executions>
             <configuration>
-              <mainClass>com.google.cloud.examples.language.v1.AnalyzeEntitiesRequestLanguageEntitiesGcs</mainClass>
+              <mainClass>com.google.cloud.examples.<%= api_name %>.<%= api_version %>.<%= main_class %></mainClass>
               <cleanupDaemonThreads>false</cleanupDaemonThreads>
             </configuration>
           </plugin>
         </plugins>
       </build>
     </profile>
+    <% end %>
   </profiles>
+
 </project>

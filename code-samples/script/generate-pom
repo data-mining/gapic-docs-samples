@@ -1,0 +1,48 @@
+#! /usr/bin/env ruby
+
+def usage!
+  puts "Usage: $0 api_name api_version path/to/java/dir/containging/a/src/dir"
+  exit 1
+end
+
+usage! unless ARGV.length == 3
+
+API_NAME    = ARGV.shift
+API_VERSION = ARGV.shift
+SRC_DIR     = ARGV.shift
+
+usage! unless File.directory? SRC_DIR
+
+java_files   = Dir.glob File.join(SRC_DIR, "**", "*.java")
+class_names  = java_files.map { |path| File.basename path, ".java" }
+library_name = "google-cloud-#{API_NAME}"
+
+# TODO update to use Net::HTTP
+require "httparty"
+
+url           = %{http://search.maven.org/solrsearch/select?q=g:"com.google.cloud"+AND+a:"#{library_name}"&rows=20&core=gav}
+response      = HTTParty.get url
+packages      = response["response"]["docs"]
+first_package = packages.first
+
+if first_package && (first_package["a"] == library_name)
+  library_version = first_package["v"]
+else
+  STDERR.puts "Couldn't find package: #{library_name}"
+  exit
+end
+
+SCRIPT_DIR   = File.dirname __FILE__
+POM_TEMPLATE = File.join SCRIPT_DIR, "pom.xml.erb"
+
+template_variables = {
+  api_name:         API_NAME,
+  api_version:      API_VERSION,
+  main_class_names: class_names,
+  library_name:     library_name,
+  library_version:  library_version
+}
+
+require "erb"
+
+puts ERB.new(File.read POM_TEMPLATE).result_with_hash(template_variables)

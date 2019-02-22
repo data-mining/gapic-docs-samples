@@ -45,7 +45,7 @@ public class AnalyzeSyntaxRequestLanguageSyntaxText {
     // [END language_syntax_text_core]
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     Options options = new Options();
     options.addOption(
         Option.builder("").required(false).hasArg(true).longOpt("text_content").build());

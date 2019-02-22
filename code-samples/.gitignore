@@ -6,3 +6,6 @@ vendor
 # Ignore language/v1beta2 API samples and tests.
 # The Tutorial and Quickstart use this as a demo.
 language/v1beta2
+
+*.class
+*.jar

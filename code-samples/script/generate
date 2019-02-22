@@ -37,6 +37,7 @@ API_NAME="$1"
 API_VERSION="$2"
 LANGUAGE="$3"
 
+RELATIVE_SCRIPT_DIR="$( dirname "${BASH_SOURCE[0]}" )"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 CODE_SAMPLES_DIR="$( dirname "$SCRIPT_DIR" )"
 GOOGLEAPIS_DIR="$( dirname "$CODE_SAMPLES_DIR" )"
@@ -58,6 +59,9 @@ case "$LANGUAGE" in
   "go")
 		$SCRIPT_DIR/generate-go $API_NAME $API_VERSION
 		exit $?
+    ;;
+  "java")
+    LANGUAGE_EXTENSION=java
     ;;
 esac
 
@@ -132,11 +136,6 @@ if [ "$LOCAL" = "true" ]; then
   fi
 fi
 
-echo
-########################################
-log_step "Saving Samples to $RELATIVE_API_SAMPLES_DIRECTORY"
-########################################
-
 mkdir -pv "$API_SAMPLES_DIRECTORY"
 
 SAMPLES_DIRECTORY="$(find "$OUTPUT_DIR" -type d -name samples)"
@@ -147,34 +146,44 @@ if [ ! -d "$SAMPLES_DIRECTORY" ]; then
   exit 1
 fi
 
+echo
+########################################
+log_step "Saving Sample files to $SAMPLES_DIRECTORY"
+########################################
+
 for sample_file in `find "$SAMPLES_DIRECTORY" -type f \( -name "*.php" -or -name "*.py" -or -name "*.js" -or -name "*.java" \)`; do
   relative_to_samples="$( echo "$sample_file" | sed "s|$SAMPLES_DIRECTORY/||" )"
-  echo "Sample file: $relative_to_samples"
+  echo " - $relative_to_samples"
+
   if [ "$LANGUAGE" == "php" ]; then
     # pending package file updates for PHP
     cat "$sample_file" | sed "s|require __DIR__.*|require __DIR__ . '/vendor/autoload.php';|" > "$API_SAMPLES_DIRECTORY/$(basename $sample_file)"
+
   elif [ "$LANGUAGE" == "nodejs" ]; then
     # pending upcoming fix
     cat "$sample_file" | sed 's/^argv =/const argv =/g' | sed 's/{\$/${/g' > "$API_SAMPLES_DIRECTORY/$(basename $sample_file)"
+
   elif [ "$LANGUAGE" = "java" ]; then
     # pending upcoming fix
     target_path="$API_SAMPLES_DIRECTORY/$relative_to_samples"
     mkdir -p "$( dirname "$target_path" )"
     cat "$sample_file" | sed 's/main(String\[\] args)/main(String[] args) throws Exception/g' > "$target_path"
+
   else
     cp -v "$sample_file" "$API_SAMPLES_DIRECTORY/"
   fi
 done
 
 if [ "$LANGUAGE" = "java" ]; then
- $SCRIPT_DIR/generate-pom "$API_NAME" "$API_VERSION" "$API_SAMPLES_DIRECTORY" > "$API_SAMPLES_DIRECTORY/pom.xml"
+  $SCRIPT_DIR/generate-pom "$API_NAME" "$API_VERSION" "$API_SAMPLES_DIRECTORY" > "$API_SAMPLES_DIRECTORY/pom.xml"
+  echo "Saved Java Maven $API_SAMPLES_DIRECTORY/pom.xml"
 fi
 
 for paged_all_sample in `find "$API_SAMPLES_DIRECTORY" -type f \( -name "*PagedAll*.$LANGUAGE_EXTENSION" -or -name "*paged_all*.$LANGUAGE_EXTENSION" \)`; do
   paged_sample="$(echo "$paged_all_sample" | sed 's/PagedAll/Paged/' | sed 's/paged_all/paged/')"
   if [ -f "$paged_sample" ]; then
     echo "Removing unwanted calling form: $paged_sample"
-    rm $paged_sample
+    rm -v $paged_sample
   fi
 done
 
@@ -186,7 +195,27 @@ for lro_async_unwanted_sample in `find "$API_SAMPLES_DIRECTORY" -type f -name "*
   fi
 done
 
-$SCRIPT_DIR/generate-manifest $API_NAME/$API_VERSION > "$API_VERSION_DIRECTORY/$API_NAME.manifest.yaml"
+echo "Removing unwanted calling forms, if any"
+for request_calling_form in `find "$API_SAMPLES_DIRECTORY" -type f -name "*Request*.$LANGUAGE_EXTENSION"`; do
+  sample_prefix="$( echo "$request_calling_form" | sed 's/^\(.*\)Request.*/\1/' | xargs basename )"
+  find "$API_VERSION_DIRECTORY" -type f -name "${sample_prefix}CallableCallable*.$LANGUAGE_EXTENSION" -exec rm -v {} \;
+  find "$API_VERSION_DIRECTORY" -type f -name "${sample_prefix}Flattened*.$LANGUAGE_EXTENSION" -exec rm -v {} \;
+done
+
+echo
+########################################
+log_step "Saving Manifest File to $API_VERSION_DIRECTORY/$API_NAME.manifest.yaml"
+########################################
+
+manifest_content="$( $RELATIVE_SCRIPT_DIR/generate-manifest $API_NAME/$API_VERSION )"
+if [ $? -ne 0 ]; then
+  echo -e "$manifest_content"
+  echo "ERROR: Duplicate region tags generated"
+  exit 1
+else
+  echo -e "$manifest_content" > "$API_VERSION_DIRECTORY/$API_NAME.manifest.yaml"
+fi
+
 echo "Wrote sample manifest: $API_NAME/$API_VERSION/$API_NAME.manifest.yaml"
 
 TEST_FILES="$( ls $API_VERSION_DIRECTORY/*test*.yaml )"

@@ -1,0 +1,12 @@
+#! /bin/bash
+
+working_dir="$1"
+shift
+
+command="$1"
+shift
+
+# Remaining arguments are arguments to the command
+
+cd "$working_dir"
+$command "$@"

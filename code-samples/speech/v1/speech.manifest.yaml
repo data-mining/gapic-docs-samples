@@ -33,3 +33,7 @@ sets:
   bin: go run
   path: speech/v1/
   __items__: []
+- language: nodejs
+  bin: node
+  path: speech/v1/
+  __items__: []

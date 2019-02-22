@@ -124,6 +124,11 @@ interfaces:
         - config.enable_word_time_offsets=True
         attributes: *samples_gcs_attributes
       on_success:
+
+      - print:
+        - "Deeply nested: %s"
+        - $resp.results[0].alternatives[0].words[0].word
+
       - loop:
           variable: result
           collection: $resp.results

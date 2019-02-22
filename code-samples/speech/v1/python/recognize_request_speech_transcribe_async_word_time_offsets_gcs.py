@@ -54,6 +54,8 @@ def sample_recognize(language_code, gcs_uri):
     audio = {'uri': gcs_uri}
 
     response = client.recognize(config, audio)
+    print('Deeply nested: {}'.format(
+        response.results[0].alternatives[0].words[0].word))
     for result in response.results:
         alternative = result.alternatives[0]
         print('Transcript: {}'.format(alternative.transcript))

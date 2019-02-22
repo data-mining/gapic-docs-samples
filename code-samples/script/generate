@@ -75,7 +75,7 @@ fi
 ## Run generator via artman docker image
 ARTMAN_COMMAND="artman --local --config \"$RELATIVE_ARTMAN_FILE\" --generator-args=\"--dev_samples\" generate ${LANGUAGE}_gapic"
 
-OUTPUT_DIR="$CODE_SAMPLES_DIR/.generator-output/$(date +"%Y%m%d_%H%M%S")/$LANGUAGE"
+OUTPUT_DIR="$CODE_SAMPLES_DIR/.generator-output/$LANGUAGE-$API_NAME-$API_VERSION-$(date +"%H-%M%p-%Y-%m-%d")"
 mkdir -p "$OUTPUT_DIR"
 
 log_step() {
@@ -147,18 +147,24 @@ if [ ! -d "$SAMPLES_DIRECTORY" ]; then
   exit 1
 fi
 
-for sample_file in `find "$SAMPLES_DIRECTORY" -type f \( -name "*.php" -or -name "*.py" -or -name "*.js" -or -name "*.java" \)`; do
-  echo "Sample file: $sample_file"
-  if [ "$LANGUAGE" == "php" ]; then
-    # pending package file updates for PHP
-    cat "$sample_file" | sed "s|require __DIR__.*|require __DIR__ . '/vendor/autoload.php';|" > "$API_SAMPLES_DIRECTORY/$(basename $sample_file)"
-  elif [ "$LANGUAGE" == "nodejs" ]; then
-    # pending upcoming fix
-		cat "$sample_file" | sed 's/^argv =/const argv =/g' | sed 's/{\$/${/g' > "$API_SAMPLES_DIRECTORY/$(basename $sample_file)"
-  else
-    cp -v "$sample_file" "$API_SAMPLES_DIRECTORY/"
-  fi
-done
+if [ "$LANGUAGE" != "java" ]; then
+  for sample_file in `find "$SAMPLES_DIRECTORY" -type f \( -name "*.php" -or -name "*.py" -or -name "*.js" -or -name "*.java" \)`; do
+    echo "Sample file: $sample_file"
+    if [ "$LANGUAGE" == "php" ]; then
+      # pending package file updates for PHP
+      cat "$sample_file" | sed "s|require __DIR__.*|require __DIR__ . '/vendor/autoload.php';|" > "$API_SAMPLES_DIRECTORY/$(basename $sample_file)"
+    elif [ "$LANGUAGE" == "nodejs" ]; then
+      # pending upcoming fix
+      cat "$sample_file" | sed 's/^argv =/const argv =/g' | sed 's/{\$/${/g' > "$API_SAMPLES_DIRECTORY/$(basename $sample_file)"
+    else
+      cp -v "$sample_file" "$API_SAMPLES_DIRECTORY/"
+    fi
+  done
+fi
+
+if [ "$LANGUAGE" = "java" ]; then
+  cp -rv "$SAMPLES_DIRECTORY/src" "$API_SAMPLES_DIRECTORY"
+fi
 
 for paged_all_sample in `find "$API_SAMPLES_DIRECTORY" -type f \( -name "*PagedAll*.$LANGUAGE_EXTENSION" -or -name "*paged_all*.$LANGUAGE_EXTENSION" \)`; do
   paged_sample="$(echo "$paged_all_sample" | sed 's/PagedAll/Paged/' | sed 's/paged_all/paged/')"

@@ -103,6 +103,14 @@ parameters:
 
 ### Map fields
 
+> TODO(beccasaurus) test if Map inputs are currently supported.
+
+`TODO`
+
+### Resource Paths
+
+> _Documentation coming soon!_ 
+
 `TODO`
 
 ### Google Cloud Project ID
@@ -294,6 +302,27 @@ sampleRecognize($languageCode, $localFilePath);
   ```py
   print('Entity type: {}'.format(enums.Entity.Type(entity.type).name))
   ```
+  
+- Timestamp values:
+  > _Improved timestamp support will come later._
+  ```yaml
+  - print:
+    - "Item was created at %s seconds and %s nanoseconds"
+    - item.created_at.seconds
+    - item.created_at.nanos
+  ```
+
+- Array values:
+ ```yaml
+  - print:
+    - "Name of the first item %s"
+    - items[0].name
+  - print:
+    - "Deeply nested value: %s"
+  ```
+
+- Map values:
+  `CURRENTLY UNSUPPORTED`
 
 ### Defining variables
 

@@ -1,8 +1,6 @@
 // DO NOT EDIT! This is a generated sample ("Request",  "language_entity_sentiment_text")
 'use strict';
 
-HELLO I CHANGED A THING!
-
 // [START language_entity_sentiment_text]
 // [START language_entity_sentiment_text_core]
 

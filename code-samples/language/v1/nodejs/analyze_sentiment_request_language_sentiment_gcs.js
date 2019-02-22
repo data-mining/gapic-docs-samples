@@ -1,8 +1,6 @@
 // DO NOT EDIT! This is a generated sample ("Request",  "language_sentiment_gcs")
 'use strict';
 
-HELLO I CHANGED A THING!
-
 // [START language_sentiment_gcs]
 // [START language_sentiment_gcs_core]
 

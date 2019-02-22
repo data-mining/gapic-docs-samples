@@ -1,8 +1,6 @@
 // DO NOT EDIT! This is a generated sample ("Request",  "language_classify_gcs")
 'use strict';
 
-HELLO I CHANGED A THING!
-
 // [START language_classify_gcs]
 // [START language_classify_gcs_core]
 

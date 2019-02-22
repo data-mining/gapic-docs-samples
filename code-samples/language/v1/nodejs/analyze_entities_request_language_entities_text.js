@@ -1,8 +1,6 @@
 // DO NOT EDIT! This is a generated sample ("Request",  "language_entities_text")
 'use strict';
 
-HELLO I CHANGED A THING!
-
 // [START language_entities_text]
 // [START language_entities_text_core]
 

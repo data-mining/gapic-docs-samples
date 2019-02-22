@@ -1,8 +1,6 @@
 // DO NOT EDIT! This is a generated sample ("Request",  "language_syntax_gcs")
 'use strict';
 
-HELLO I CHANGED A THING!
-
 // [START language_syntax_gcs]
 // [START language_syntax_gcs_core]
 

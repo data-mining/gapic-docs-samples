@@ -1,8 +1,6 @@
 // DO NOT EDIT! This is a generated sample ("Request",  "language_syntax_text")
 'use strict';
 
-HELLO I CHANGED A THING!
-
 // [START language_syntax_text]
 // [START language_syntax_text_core]
 

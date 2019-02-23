@@ -48,6 +48,8 @@ To run generated samples you must have the target languages installed.
 This tutorial generates code samples in 🐍 [Python](https://www.python.org/)
 and 🐘 [PHP](http://php.net/). At least one of these languages is required.
 
+> As of 2/22 – Python, PHP, and Node.js are fully supported. Go is missing the ability to provide local file paths for byte fields. Java cannot currently be tested via `sampletester`. Both of these updates are in-progress.
+
 **Google Cloud Platform**
 
 This Tutorial will generate code samples for the [Natural Language API][Natural Language].

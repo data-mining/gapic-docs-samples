@@ -1,0 +1,10 @@
+#! /usr/bin/env ruby
+
+# Invoke mvn exec:java to kick off correct project main()
+working_directory  = ARGV.shift
+maven_profile_name = ARGV.shift
+command_arguments  = %{-Dexec.args="#{ARGV.join(" ")}"} if ARGV.any?
+
+Dir.chdir working_directory do
+  exec "mvn exec:java -q #{maven_profile_name} #{command_arguments}"
+end

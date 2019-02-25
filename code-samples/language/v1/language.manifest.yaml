@@ -97,3 +97,26 @@ sets:
     path: nodejs/analyze_entity_sentiment_request_language_entity_sentiment_gcs.js
   - target: language_syntax_gcs
     path: nodejs/analyze_syntax_request_language_syntax_gcs.js
+- language: java
+  bin: "./script/java-exec language/v1/java "
+  __items__:
+  - target: language_entity_sentiment_gcs
+    path: "-DAnalyzeEntitySentimentRequestLanguageEntitySentimentGcs"
+  - target: language_syntax_gcs
+    path: "-DAnalyzeSyntaxRequestLanguageSyntaxGcs"
+  - target: language_classify_text
+    path: "-DClassifyTextRequestLanguageClassifyText"
+  - target: language_classify_gcs
+    path: "-DClassifyTextRequestLanguageClassifyGcs"
+  - target: language_syntax_text
+    path: "-DAnalyzeSyntaxRequestLanguageSyntaxText"
+  - target: language_entity_sentiment_text
+    path: "-DAnalyzeEntitySentimentRequestLanguageEntitySentimentText"
+  - target: language_sentiment_text
+    path: "-DAnalyzeSentimentRequestLanguageSentimentText"
+  - target: language_entities_gcs
+    path: "-DAnalyzeEntitiesRequestLanguageEntitiesGcs"
+  - target: language_sentiment_gcs
+    path: "-DAnalyzeSentimentRequestLanguageSentimentGcs"
+  - target: language_entities_text
+    path: "-DAnalyzeEntitiesRequestLanguageEntitiesText"

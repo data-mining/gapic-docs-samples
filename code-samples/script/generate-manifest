@@ -14,9 +14,11 @@ excluded_paths = %w[ /env/ /node_modules/ /vendor/ ]
 
 directory = ARGV.shift
 
-chdir_exec = File.join File.dirname(__FILE__), "chdir-exec"
+# chdir_exec = File.join File.dirname(__FILE__), "chdir-exec"
+# java_bin = %{#{chdir_exec} #{File.join directory, "java"} mvn exec:java -q}
 
-java_bin = %{#{chdir_exec} #{File.join directory, "java"} mvn exec:java -q}
+java_exec = File.join File.dirname(__FILE__), "java-exec"
+java_bin  = "#{java_exec} #{File.join directory, "java"} "
 
 languages = [
   { name: "php",    extension: "php",  bin: "php",    samples: [], path: File.join(directory, "/") },

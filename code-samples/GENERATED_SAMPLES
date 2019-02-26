@@ -1,0 +1,64 @@
+Total for js:       43
+Total for php:       35
+Total for py:       34
+Total for go:       13
+Total for java:       22
+
+Total samples:       55
+
+[Samples]
+auto_complete_job_title
+basic_company
+basic_job
+basic_profile
+batch_delete_job
+commute_search
+create_company
+create_job
+create_profile
+custom_ranking_search
+delete_company
+delete_job
+delete_profile
+dialogflow_create_entity_type
+dialogflow_create_knowledge_base
+dialogflow_delete_entity_type
+dialogflow_list_entity_types
+dlp_inspect_image_file
+dlp_inspect_string
+get_company
+get_job
+get_profile
+histogram_search
+language_classify_gcs
+language_classify_text
+language_entities_gcs
+language_entities_text
+language_entity_sentiment_gcs
+language_entity_sentiment_text
+language_sentiment_gcs
+language_sentiment_text
+language_syntax_gcs
+language_syntax_text
+quickstart
+report_client_event
+report_event
+resume_parser
+search_profile
+speech_transcribe_async
+speech_transcribe_async_gcs
+speech_transcribe_async_word_time_offsets_gcs
+speech_transcribe_auto_punctuation_beta
+speech_transcribe_diarization_beta
+speech_transcribe_enhanced_model_beta
+speech_transcribe_multichannel_beta
+speech_transcribe_multilanguage_beta
+speech_transcribe_recognition_metadata_beta
+speech_transcribe_sync
+speech_transcribe_sync_gcs
+speech_transcribe_word_level_confidence_beta
+talent_create_company
+talent_delete_company
+talent_list_companies
+update_company
+update_company_with_field_mask

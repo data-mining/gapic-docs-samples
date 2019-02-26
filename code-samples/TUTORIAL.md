@@ -62,6 +62,8 @@ before starting this tutorial.
 
 ## 👩🏼‍💻 Setup
 
+> **`NOTE` `::`** _Currently this tuturial requires cloning this repository which contains helper scripts for generating samples. These scripts include some fixes for issues being fixed in the generator as well as other supplemental features. In the next week or two, this tutorial will be updated to NOT require cloning this repository but to instead install these supplemental scripts as a separate package. **Stay tuned!**_ 📺
+
 **Docker**
 
 This sample requires [Docker](https://www.docker.com/).

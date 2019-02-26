@@ -41,3 +41,24 @@ sets:
   bin: go run
   path: speech/v1p1beta1/
   __items__: []
+- language: nodejs
+  bin: node
+  path: speech/v1p1beta1/
+  __items__: []
+- language: java
+  bin: "./script/java-exec speech/v1p1beta1/java "
+  __items__:
+  - target: speech_transcribe_multichannel_beta
+    path: "-DRecognizeRequestSpeechTranscribeMultichannelBeta"
+  - target: speech_transcribe_enhanced_model_beta
+    path: "-DRecognizeRequestSpeechTranscribeEnhancedModelBeta"
+  - target: speech_transcribe_multilanguage_beta
+    path: "-DRecognizeRequestSpeechTranscribeMultilanguageBeta"
+  - target: speech_transcribe_auto_punctuation_beta
+    path: "-DRecognizeRequestSpeechTranscribeAutoPunctuationBeta"
+  - target: speech_transcribe_word_level_confidence_beta
+    path: "-DRecognizeRequestSpeechTranscribeWordLevelConfidenceBeta"
+  - target: speech_transcribe_diarization_beta
+    path: "-DRecognizeRequestSpeechTranscribeDiarizationBeta"
+  - target: speech_transcribe_recognition_metadata_beta
+    path: "-DRecognizeRequestSpeechTranscribeRecognitionMetadataBeta"

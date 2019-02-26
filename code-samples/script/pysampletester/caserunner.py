@@ -21,6 +21,7 @@ import copy
 from datetime import datetime
 import os
 
+
 class TestCase:
 
   def __init__(self, environment: testenv.Base,
@@ -87,8 +88,6 @@ class TestCase:
     }
 
     self.local_symbols = {}
-    self.local_symbols["last_return_code"] = 0
-    self.local_symbols["last_call_output"] = ""
     for symbol, info in self.builtins.items():
       self.local_symbols[symbol] = info[0]
 
@@ -187,8 +186,6 @@ class TestCase:
       new_output = out.decode("utf-8")
       self.last_return_code = return_code
       self.last_call_output = new_output
-      self.local_symbols["last_return_code"] = self.last_return_code
-      self.local_symbols["last_call_output"] = self.last_call_output
       self.output += new_output
       return return_code, new_output
 
@@ -352,14 +349,14 @@ class TestCase:
     return [parts[0]] + self.lookup_values(parts[1:]), {}
 
   def params_for_set(self, parts):
-    key_name = 'name'
-    key_variable = 'variable'
+    key_what = 'what'
+    key_variable = 'var'
     if len(parts) < 2:
       log_raise(
           logging.critical, ValueError,
           'need both "{}" and "{}"'
-          .format(key_name, key_variable))
-    return parts[key_variable], parts[key_name]
+          .format(key_what, key_variable))
+    return parts[key_variable], parts[key_what]
 
   def params_for_call(self, parts):
     key_cmd = "target"

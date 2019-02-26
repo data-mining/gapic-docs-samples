@@ -48,6 +48,7 @@ function sampleRecognize($languageCode, $gcsUri)
 
     try {
         $response = $speechClient->recognize($config, $audio);
+        printf('Deeply nested: %s'.PHP_EOL, $response->getResults()[0]->getAlternatives()[0]->getWords()[0]->getWord());
         foreach ($response->getResults() as $result) {
             $alternative = $result->getAlternatives()[0];
             printf('Transcript: %s'.PHP_EOL, $alternative->getTranscript());

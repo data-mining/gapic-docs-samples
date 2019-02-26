@@ -19,11 +19,11 @@ sets:
   path: "examples/testdata/googleapis/artman-genfiles/python/language-v1/samples/google/cloud/language_v1/gapic/"
   __items__:
   - path: "analyze_sentiment/analyze_sentiment_request_language_sentiment_text.py"
-    target: "language_analyze_sentiment_text"
+    region_tag: "language_analyze_sentiment_text"
 - language: go
   # notice: no "bin:" because artifacts are already executable
   path: "examples/testdata/googleapis/artman-genfiles/go/language-v1/samples/google/cloud/language_v1/gapic/"
   __items__:
   - path: "analyze_sentiment/analyze_sentiment.go"
-    target: "language_analyze_sentiment_text"
+    region_tag: "language_analyze_sentiment_text"
     

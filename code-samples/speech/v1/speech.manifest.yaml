@@ -37,3 +37,16 @@ sets:
   bin: node
   path: speech/v1/
   __items__: []
+- language: java
+  bin: "./script/java-exec speech/v1/java "
+  __items__:
+  - target: speech_transcribe_sync_gcs
+    path: "-DRecognizeRequestSpeechTranscribeSyncGcs"
+  - target: speech_transcribe_sync
+    path: "-DRecognizeRequestSpeechTranscribeSync"
+  - target: speech_transcribe_async
+    path: "-DLongRunningRecognizeOperationCallableLongRunningCallableSpeechTranscribeAsync"
+  - target: speech_transcribe_async_gcs
+    path: "-DLongRunningRecognizeOperationCallableLongRunningCallableSpeechTranscribeAsyncGcs"
+  - target: speech_transcribe_async_word_time_offsets_gcs
+    path: "-DRecognizeRequestSpeechTranscribeAsyncWordTimeOffsetsGcs"

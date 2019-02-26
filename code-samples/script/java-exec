@@ -3,8 +3,24 @@
 # Invoke mvn exec:java to kick off correct project main()
 working_directory  = ARGV.shift
 maven_profile_name = ARGV.shift
-command_arguments  = %{-Dexec.arguments='#{ARGV.join(" ")}'} if ARGV.any?
+command_arguments  = []
+code_samples_dir   = File.join File.dirname(__FILE__), ".."
+
+ARGV.each do |argument|
+  # For any argument which points to a file relative to code-samples,
+  # update the path to be absolute instead so the sample can find it.
+  if argument.match /--(?<argument>\w+)=["]*(?<value>.*)["]*/
+    absolute_path = File.expand_path File.join(code_samples_dir, $~[:value])
+    if File.file? absolute_path
+      command_arguments << %{--#{$~[:argument]}=#{absolute_path}}
+      next
+    end    
+  end
+  command_arguments << argument
+end
+
+maven_cli_arguments = %{-Dexec.arguments='#{command_arguments.join(" ")}' -- #{@log_str}} if command_arguments.any?
 
 Dir.chdir working_directory do
-  exec "mvn exec:java -q #{maven_profile_name} #{command_arguments}"
+  exec "mvn exec:java -q #{maven_profile_name} #{maven_cli_arguments}"
 end

@@ -196,11 +196,34 @@ for lro_async_unwanted_sample in `find "$API_SAMPLES_DIRECTORY" -type f -name "*
 done
 
 echo "Removing unwanted calling forms, if any"
+
 for request_calling_form in `find "$API_SAMPLES_DIRECTORY" -type f -name "*Request*.$LANGUAGE_EXTENSION"`; do
   sample_prefix="$( echo "$request_calling_form" | sed 's/^\(.*\)Request.*/\1/' | xargs basename )"
   find "$API_VERSION_DIRECTORY" -type f -name "${sample_prefix}CallableCallable*.$LANGUAGE_EXTENSION" -exec rm -v {} \;
   find "$API_VERSION_DIRECTORY" -type f -name "${sample_prefix}Flattened*.$LANGUAGE_EXTENSION" -exec rm -v {} \;
 done
+
+for lro_request_calling_form in `find "$API_SAMPLES_DIRECTORY" -type f -name "*OperationCallable*.$LANGUAGE_EXTENSION"`; do
+  sample_prefix="$( echo "$lro_request_calling_form" | sed 's/^\(.*\)OperationCallable.*/\1/' | xargs basename )"
+  find "$API_VERSION_DIRECTORY" -type f -name "${sample_prefix}CallableCallable*.$LANGUAGE_EXTENSION" -exec rm -v {} \;
+  find "$API_VERSION_DIRECTORY" -type f -name "${sample_prefix}AsyncLongRunningFlattened*.$LANGUAGE_EXTENSION" -exec rm -v {} \;
+done
+
+echo
+########################################
+log_step "Java fixes"
+########################################
+
+# IO import
+
+# Metadata missing
+grep -rl "import com.google.cloud.speech.v1.LongRunningRecognizeResponse" "$API_VERSION_DIRECTORY" | xargs -n1 \
+  sed -i ".bak" $'s/\(import com.google.cloud.speech.v1.LongRunningRecognizeResponse;\)/import com.google.cloud.speech.v1.LongRunningRecognizeResponse;\\\nimport com.google.cloud.speech.v1.LongRunningRecognizeMetadata;/g'
+
+grep -rl "import java.nio." "$API_VERSION_DIRECTORY" | xargs -n1 \
+  sed -i ".bak" "s/import java.nio./import java.nio.file./g"
+
+find "$API_VERSION_DIRECTORY" -type f -name "*.bak" -exec rm -v {} \;
 
 echo
 ########################################

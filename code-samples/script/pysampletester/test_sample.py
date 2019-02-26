@@ -18,13 +18,12 @@
 # Run all tests with:
 #  python3 -m unittest discover -s . -p '*_test.py' -v
 #
-# Run examples by executing the `examples/**/run.sh` files (you can set the
-# FLAGS flag to make this less verbose)
+# Run examples by executing the `examples/**/run.sh` files; you can pass flags by setting
+# FLAGS.
 #
 # You can run a quick verification that everything works (tests and all passing
-# examples) by invoking the following (you can set the FLAGS flag to make this
-# less verbose):
-#  eval $(find examples/ -name 'run.sh' -printf 'echo +++++ Running: %p && %p && ') echo -e "===\n\nChecks: OK" || echo -e "===\n\nChecks: ERROR (status: $?) above"
+# examples) by invoking the following (you can pass flags by setting FLAGS):
+#  python3 -m unittest discover -s . -p '*_test.py' -v && eval $(find examples/ -name 'run.sh' -printf 'echo +++++ Running: %p && %p && ') echo -e "+++++\n\nChecks: OK" || echo -e "+++++\n\nChecks: ERROR (status: $?) above"
 #
 # To find all TODOs:
 #  grep -r TODO | grep -v '~' | grep -v /lib/
@@ -62,14 +61,13 @@ def main():
   logging.info("argv: {}".format(sys.argv))
 
   try:
-    convention_files, test_files, user_paths = get_files(args.files)
-    convention_files = convention_files or [convention.default]
+    test_files, user_paths = get_files(args.files)
 
     # TODO(vchudnov): Catch exceptions and print
     registry = environment_registry.new(args.convention, user_paths)
 
-    test_suites = testplan.suites_from(test_files)
-    manager = testplan.Manager(registry, test_suites)
+    test_suites = testplan.suites_from(test_files, args.suites, args.cases)
+    manager = testplan.Manager(registry, test_suites, args.envs)
   except Exception as e:
     logging.error("fatal error: {}".format(repr(e)))
     print("\nERROR: could not run tests because {}\n".format(e))
@@ -81,8 +79,11 @@ def main():
 
   success = manager.accept(runner.Visitor())
 
-  if args.summary:
-    print(manager.accept(summary.SummaryVisitor(args.verbose)))
+  verbosity = VERBOSITY_LEVELS[args.verbosity]
+  quiet = verbosity == summary.Detail.NONE
+  print(manager.accept(summary.SummaryVisitor(verbosity,
+                                              not args.suppress_failures)))
+  if not quiet or (not success and not args.suppress_failures):
     print()
     if success:
       print("Tests passed")
@@ -93,7 +94,7 @@ def main():
     try:
       with smart_open(args.xunit) as xunit_output:
         xunit_output.write(manager.accept(xunit.Visitor()))
-      if args.summary:
+      if not quiet:
         print('xUnit output written to "{}"'.format(args.xunit))
     except Exception as e:
       print("could not write xunit output to {}: {}".format(args.xunit, e))
@@ -105,14 +106,17 @@ def main():
 
 
 LOG_LEVELS = {"none": None, "info": logging.INFO, "debug": logging.DEBUG}
+DEFAULT_LOG_LEVEL = "none"
 
+VERBOSITY_LEVELS = {"quiet": summary.Detail.NONE, "summary": summary.Detail.BRIEF, "detailed": summary.Detail.FULL}
+DEFAULT_VERBOSITY_LEVEL = "summary"
 
 def parse_cli():
   epilog = """CONFIGS consists of any number of the following, in any order:
 
   TEST.yaml files: these are the test plans to execute against the CONVENTION
 
-  arbitrary files/paths, depending on CONVENTION. For `lang_region` (the
+  arbitrary files/paths, depending on CONVENTION. For `tag` (the
     default), these should be paths to `MANIFEST.manifest.yaml` files.
   """
 
@@ -124,29 +128,54 @@ def parse_cli():
   parser.add_argument(
       "-c",
       "--convention",
-      help="name of convention to use in resolving artifact names in specific languages",
-      default=convention.default
+      metavar="CONVENTION:ARG,ARG,...",
+      help=('name of the convention to use in resolving artifact names in ' +
+            'specific languages, and a comma-separated list of arguments to ' +
+            'that convention (default: "{}")'.format(convention.DEFAULT)),
+      default=convention.DEFAULT
   )
 
   parser.add_argument(
       "--xunit", metavar="FILE", help="xunit output file (use `-` for stdout)")
 
   parser.add_argument(
-      "-s",
-      "--summary",
-      help="show test status summary on stdout",
-      action="store_true")
+      "-v", "--verbosity",
+      help=('how much output to show for passing tests (default: "{}")'
+            .format(DEFAULT_VERBOSITY_LEVEL)),
+      choices=list(VERBOSITY_LEVELS.keys()),
+      default="summary"
+      )
 
   parser.add_argument(
-      "-v", "--verbose", help="if -s, be verbose", action="store_true")
+      "-f", "--suppress_failures",
+      help="suppress showing output for failing cases",
+      action='store_true')
 
   parser.add_argument(
       "-l",
       "--logging",
-      metavar="LEVEL",
-      help="show logs at the specified level",
+      help=('show logs at the specified level (default: "{}")'
+            .format(DEFAULT_LOG_LEVEL)),
       choices=list(LOG_LEVELS.keys()),
       default="none")
+
+  parser.add_argument(
+      "--envs",
+      metavar="TESTENV_FILTER",
+      help="regex filtering test environments to execute"
+  )
+
+  parser.add_argument(
+      "--suites",
+      metavar="SUITE_FILTER",
+      help="regex filtering test suites to execute"
+  )
+
+  parser.add_argument(
+      "--cases",
+      metavar="CASE_FILTER",
+      help="regex filtering test cases to execute"
+  )
 
 
   parser.add_argument("files", metavar="CONFIGS", nargs=argparse.REMAINDER)
@@ -155,7 +184,6 @@ def parse_cli():
 
 # cf https://docs.python.org/3/library/argparse.html
 def get_files(files):
-  convention_files = []
   test_files = []
   user_paths = []
   for filename in files:
@@ -176,7 +204,7 @@ def get_files(files):
       msg = 'unknown file type: "{}"'.format(filename)
       logging.critical(msg)
       raise ValueError(msg)
-  return convention_files, test_files, user_paths
+  return test_files, user_paths
 
 
 # from https://stackoverflow.com/a/17603000

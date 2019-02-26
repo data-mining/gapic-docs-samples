@@ -1,0 +1,16 @@
+#! /bin/bash
+
+ALL_SAMPLES="$( git grep "\[START" | sed "s/\([^.]*\):.*START \(.*\)\]$/EXT_AND_TAG \1 \2/g" | sed "s/.*EXT_AND_TAG//g" | grep -v "_core" | grep "py \|php \|java \|js \|go " | sort )"
+
+# Totals per language
+for language_ext in js php py go java; do
+  echo "Total for $language_ext: $( echo -e "$ALL_SAMPLES" | grep "$language_ext " | wc -l )"
+done
+
+# Total samples
+echo
+echo "Total samples: $( echo -e "$ALL_SAMPLES" | awk '{print $2}' | sort | uniq | wc -l )"
+echo
+
+echo "[Samples]"
+echo -e "$ALL_SAMPLES" | awk '{print $2}' | sort | uniq

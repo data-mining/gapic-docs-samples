@@ -1,0 +1,24 @@
+---
+version: 1
+sets:
+- language: php
+  bin: php
+  path: functions/v1beta2/
+  __items__: []
+- language: python
+  bin: python
+  path: functions/v1beta2/
+  __items__: []
+- language: go
+  bin: go run
+  path: functions/v1beta2/
+  __items__: []
+- language: nodejs
+  bin: node
+  path: functions/v1beta2/
+  __items__:
+  - target: list_functions_sample
+    path: nodejs/list_functions_request_async_paged_all_list_functions_sample.js
+- language: java
+  bin: "./script/java-exec functions/v1beta2/java "
+  __items__: []

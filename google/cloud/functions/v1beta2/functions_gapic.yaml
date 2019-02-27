@@ -48,9 +48,29 @@ interfaces:
     required_fields:
     - location
 
+    sample_value_sets:
+    - id: list_functions_sample
+      description: List the functions that belong to your project
+      parameters:
+        defaults:
+        - location%project="Your Google Cloud Project ID"
+        - location%location="us-central1"
+        attributes:
+        - parameter: location%project
+          sample_argument_name: project_id
+        - parameter: location%location
+          sample_argument_name: location_name
+      on_success:
+      - define: function=$resp
+      - print:
+        - "Function name: %s"
+        - function.name
 
-
-    # samples
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [list_functions_sample]
+        region_tag: list_functions_sample
 
     flattening:
       groups:

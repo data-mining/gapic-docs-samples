@@ -42,14 +42,20 @@ interfaces:
     rpc_timeout_multiplier: 1
     max_rpc_timeout_millis: 20000
     total_timeout_millis: 600000
+
   methods:
   - name: ListFunctions
+    required_fields:
+    - location
+
+
+
+    # samples
+
     flattening:
       groups:
       - parameters:
         - location
-    required_fields:
-    - location
     page_streaming:
       request:
         page_size_field: page_size

@@ -17,7 +17,9 @@ Please only cross of each individual language after confirming that the tests pa
 
 _If there are blocking issues, we can use this document to note them down._
 
-#### 📜 Natural Language API ([`DONE`](https://github.com/beccasaurus/gapic-docs-samples/tree/master/code-samples/language/v1))
+#### 📜 Natural Language API
+
+> _100% done and tested in 5 languages: Java, Go, Node.js, PHP, Python_ – [`v1`](https://github.com/beccasaurus/gapic-docs-samples/tree/master/code-samples/language/v1)
 
  - [Analyzing Syntax][]
    - [X] `language_syntax_text` 
@@ -41,7 +43,9 @@ _If there are blocking issues, we can use this document to note them down._
 [Analyzing Entity Sentiment]: https://cloud.google.com/natural-language/docs/analyzing-entity-sentiment
 [Classifying Content]: https://cloud.google.com/natural-language/docs/classifying-text
 
-#### 👂 Speech-to-Text API ([`IN PROGRESS`](https://github.com/beccasaurus/gapic-docs-samples/tree/master/code-samples/speech/v1))
+#### 👂 Speech-to-Text API
+
+> _100% done and tested in 3 languages: Java, PHP, Python_ – [`v1`](https://github.com/beccasaurus/gapic-docs-samples/tree/master/code-samples/speech/v1) and [`v1p1beta1`](https://github.com/beccasaurus/gapic-docs-samples/tree/master/code-samples/speech/v1p1beta1)
 
  - [Transcribing short audio files][]
    - [X] `speech_transcribe_sync`

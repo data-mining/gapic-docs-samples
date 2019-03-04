@@ -50,7 +50,8 @@ To run generated samples you must have the target languages installed.
 This tutorial generates code samples in 🐍 [Python](https://www.python.org/)
 and 🐘 [PHP](http://php.net/). At least one of these languages is required.
 
-> As of 2/22 – Python, PHP, and Node.js are fully supported. Go is missing the ability to provide local file paths for byte fields. Java cannot currently be tested via `sampletester`. Both of these updates are in-progress.
+> As of 2/22 – Java, Python, PHP, and Node.js are fully supported.  
+> Go is missing the ability to provide local file paths for byte fields.  
 
 **Google Cloud Platform**
 
@@ -64,7 +65,10 @@ before starting this tutorial.
 
 ## 👩🏼‍💻 Setup
 
-> **`NOTE` `::`** _Currently this tuturial requires cloning this repository which contains helper scripts for generating samples. These scripts include some fixes for issues being fixed in the generator as well as other supplemental features. In the next week or two, this tutorial will be updated to NOT require cloning this repository but to instead install these supplemental scripts as a separate package. **Stay tuned!**_ 📺
+> **`NOTE` `::`** _Currently this tuturial requires cloning this repository which contains helper scripts for generating samples. These scripts include some fixes for issues being fixed in the generator as well as other supplemental features._
+>
+> _During March 2019 tooling is being released which will no longer require using scripts here in this repository.  
+> **Stay tuned!**_ 📺 
 
 **Docker**
 
@@ -188,7 +192,7 @@ service LanguageService {
 }
 ```
 
-> **Note:** you can also find the RPC reference online for most APIs.
+> **Note:** you can also find the RPC reference online for most APIs.  
 > [click here][Natural Language v1beta2] to see the online reference for `google.cloud.language.v1beta2`
 
 Code sample configurations are based on these API definitions.

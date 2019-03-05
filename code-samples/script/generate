@@ -209,6 +209,11 @@ for lro_request_calling_form in `find "$API_SAMPLES_DIRECTORY" -type f -name "*O
   find "$API_VERSION_DIRECTORY" -type f -name "${sample_prefix}AsyncLongRunningFlattened*.$LANGUAGE_EXTENSION" -exec rm -v {} \;
 done
 
+for long_running_promise_calling_form in `find "$API_SAMPLES_DIRECTORY" -type f -name "*long_running_promise*.$LANGUAGE_EXTENSION"`; do
+  sample_prefix="$( echo "$long_running_promise_calling_form" | sed 's/^\(.*\)long_running_promise.*/\1/' | xargs basename )"
+  find "$API_VERSION_DIRECTORY" -type f -name "${sample_prefix}long_running_event_emitter*.$LANGUAGE_EXTENSION" -exec rm -v {} \;
+done
+
 echo
 ########################################
 log_step "Java fixes"

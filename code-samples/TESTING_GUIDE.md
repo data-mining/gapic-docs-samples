@@ -502,13 +502,13 @@ sets:
   bin: python3
   path: samples/python/
   __items__:
-  - target: my_sample
+  - region_tag: my_sample
     path: the_sample_file.py
     
 - language: executable script
   path: samples/bash/
   __items__:
-  - target: my_sample
+  - region_tag: my_sample
     path: the_sample_file.sh
 ```
 
@@ -529,7 +529,7 @@ __items__
 ```
 
 ```yaml
-target: required # Name of the call target. 
+region_tag: required # Name of the call target. 
 ```
 
 ```yaml

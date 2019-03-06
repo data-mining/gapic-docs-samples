@@ -18,40 +18,48 @@
 #   pip install google-cloud-language
 
 # [START language_sentiment_text]
+# Imports the Google Cloud Natural Language library
 from google.cloud import language
 from google.cloud.language import enums
 from google.cloud.language import types
 
-def analyze_sentiment_text(text_content='I am so happy and joyful'):
-    """Analyze sentiment of text
+def analyze_text_sentiment(
+    text_to_analyze='Hello world, I have a very happy and joyful sentiment.'):
+    """Analyzes the sentiment of provided text.t
     Args:
-        text: Text to analyze, e.g. 'Hello, world!'
+        text_to_analyze (string): The text to perform sentiment analysis on
     """
 
+    # Instantiate a client
     client = language.LanguageServiceClient()
 
+    # Construct request
     document = types.Document(
-        content=text_content,
+        content=text_to_analyze,
         type=enums.Document.Type.PLAIN_TEXT)
 
+    # Run request
     response = client.analyze_sentiment(document)
 
+    # Inspect the results.
     sentiment = response.document_sentiment
-    print('Score: {}'.format(sentiment.score))
+    print('Sentiment score: {}'.format(sentiment.score))
     print('Magnitude: {}'.format(sentiment.magnitude))
 # [END language_sentiment_text]
+
+# Code below processes command-line arguments to execute this code sample.
 
 def main():
     import argparse
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--text_content',
+        '--text_to_analyze',
         type=str,
-        default='Hello, world!')
+        default='Hello world, I have a very happy and joyful sentiment.')
     args = parser.parse_args()
 
-    analyze_sentiment(args.text_content)
+    analyze_text_sentiment(args.text_to_analyze)
 
 if __name__ == '__main__':
     main()

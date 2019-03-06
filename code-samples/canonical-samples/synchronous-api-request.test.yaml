@@ -7,7 +7,7 @@ test:
       - call:
           target: language_sentiment_text
           params:
-            text_content:
+            text_to_analyze:
               literal: "I am very happy"
       - assert_contains:
         - literal: "Sentiment score: 0."

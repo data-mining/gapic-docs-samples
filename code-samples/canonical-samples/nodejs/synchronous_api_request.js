@@ -20,29 +20,33 @@
 const language = require('@google-cloud/language');
 
 /**
- *  Analyzes the sentiment of provided test.
+ *  Analyzes the sentiment of provided text.
  *
  * @param textToAnalyze {string} The text to perform sentiment analysis on.
  */
 async function analyzeTextSentiment(
   textToAnalyze = 'Hello world, I have a very happy and joyful sentiment.'
 ) {
-  // Instantiates a client
+  // Instantiate a client
   const client = new language.LanguageServiceClient();
 
   // Construct request
   const document = {
-    type: 'PLAIN_TEXT',
     content: textToAnalyze,
+    type: 'PLAIN_TEXT',
   };
 
   // Run request
   const [response] = await client.analyzeSentiment({document: document});
+  
+  // Inspect the response.
   const sentiment = response.documentSentiment;
   console.log(`Sentiment score: ${sentiment.score}`);
   console.log(`Magnitude: ${sentiment.magnitude}`);
 }
 // [END language_sentiment_text]
+
+// Code below processes command-line arguments to execute this code sample.
 
 const argv = require(`yargs`)
   .default('text_to_analyze', 'Hello world, I have a very happy and joyful sentiment.')

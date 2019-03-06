@@ -12,18 +12,18 @@ The samples here are intended to represent the _current standard_ of the hand-wr
 |----------|-------------|------------------------|------------|-------------|----------------|
 | 🐹 **Go** | | | | | |
 | ☕️ **Java** | | | | | |
-| 🚀 **Node.js** | | | | | |
+| 🚀 **Node.js** | **✗** | | | | |
 | 🐘 **PHP** | | | | | |
-| 🐍 **Python** | | | | | |
+| 🐍 **Python** | **✗** | | | | |
 
 #### Synchronous API Request
 
 For this sample, we use a simple Natural Language API call for `AnalyzeSentiment`
 
  - [ ] 🐹 Go
- - [ ] 🚀 Node.js
+ - [X] 🚀 Node.js
  - [ ] 🐘 PHP
- - [ ] 🐍 Python
+ - [X] 🐍 Python
 
 #### Long-Running Operation
 

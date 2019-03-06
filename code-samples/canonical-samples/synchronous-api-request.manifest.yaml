@@ -1,0 +1,16 @@
+version: 1
+sets:
+
+  # - language: Python
+  #   bin: python3
+  #   path: canonical-samples/python/
+  #   __items__:
+  #   - target: language_sentiment_text
+  #     path: synchronous-request/language_sentiment_text.py
+
+- language: Node.js
+  bin: node
+  path: nodejs/
+  __items__:
+  - region_tag: language_sentiment_text
+    path: synchronous_api_request.js

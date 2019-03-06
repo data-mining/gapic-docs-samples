@@ -2,7 +2,6 @@ test:
   suites:
   - name: Canonical Samples
     cases:
-
     - name: Synchronous Request
       spec:
       - call:
@@ -11,7 +10,4 @@ test:
             text_content:
               literal: "I am very happy"
       - assert_contains:
-        - literal: "Score: 0."
-
-
-
+        - literal: "Sentiment score: 0."

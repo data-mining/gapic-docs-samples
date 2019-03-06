@@ -25,7 +25,7 @@ from google.cloud.language import types
 
 def analyze_text_sentiment(
     text_to_analyze='Hello world, I have a very happy and joyful sentiment.'):
-    """Analyzes the sentiment of provided text.t
+    """Analyzes the sentiment of provided text.
     Args:
         text_to_analyze (string): The text to perform sentiment analysis on
     """

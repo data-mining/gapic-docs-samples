@@ -1,4 +1,4 @@
-## 📎  Canonical Code Samples
+## 🏆 Canonical Code Samples
 
 This directory contains code samples in all languages which demonstrate various types of samples.
 
@@ -6,7 +6,15 @@ The samples here are intended to represent the _ideal_ output of the sample gene
 
 The samples here are intended to represent the _current standard_ of the hand-written samples.
 
-> **Note:** This does not _yet_ contain canonical tests for samples.
+ ###  Canonical Sample Examples
+
+| Language | Synchronous | Long-running operation | File input | File output | Resource Paths | 
+|----------|-------------|------------------------|------------|-------------|----------------|
+| 🐹 **Go** | | | | | |
+| ☕️ **Java** | | | | | |
+| 🚀 **Node.js** | | | | | |
+| 🐘 **PHP** | | | | | |
+| 🐍 **Python** | | | | | |
 
 #### Synchronous API Request
 

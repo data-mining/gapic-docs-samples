@@ -1,13 +1,4 @@
-## 🦇 Project TODOs
-
-There are a few types of work which need to happen to ship these samples:
-
-1. **Migrate** existing hand-written samples and tests to YAML definitions
-2. Update **templates** of generated samples and tests to match canonical samples
-
-----
-
-### 🖋 Sample Authoring
+### 🖋 Sample Authoring TODOs
 
 Here we can track the individual samples which we have authored in YAML!
 
@@ -261,21 +252,3 @@ _If there are blocking issues, we can use this document to note them down._
  - [ ] `job_search_histogram_search`
  - [ ] `job_search_commute_search`
  - [ ] `job_search_custom_ranking_search`
- 
- ----
- 
- ### 🏆 Canonical Sample Examples
-
-> TODO: _update this section with latest canonical examples_
-
-For every language, we need a list of snippets and tests to use as **target output**.
-
-These snippets should demonstrate synchronous calls, long-running operations, file inputs, and other _"features"_ provided by the sample generator.
-
-| Language | Synchronous | Long-running operation | File input | File output | Resource Paths | 
-|----------|-------------|------------------------|------------|-------------|----------------|
-| 🐹 **Go** | | | | | |
-| ☕️ **Java** | | | | | |
-| 🚀 **Node.js** | | | | | |
-| 🐘 **PHP** | | | | | |
-| 🐍 **Python** | | | | | |

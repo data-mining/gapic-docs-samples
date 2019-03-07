@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-# To install the latest published package dependency, execute the following:
-#   npm install --save @google-cloud/language
+// To install the latest published package dependency, execute the following:
+//   npm install --save @google-cloud/language
 
 'use strict';
 

@@ -1,0 +1,14 @@
+PASSED: Test environment: "Node.js"
+  PASSED: Test suite: "Canonical Samples"
+    PASSED: Test case: "Synchronous Request"
+PASSED: Test environment: "Python"
+  PASSED: Test suite: "Canonical Samples"
+    PASSED: Test case: "Synchronous Request"
+PASSED: Test environment: "Ruby"
+  PASSED: Test suite: "Canonical Samples"
+    PASSED: Test case: "Synchronous Request"
+PASSED: Test environment: "C#"
+  PASSED: Test suite: "Canonical Samples"
+    PASSED: Test case: "Synchronous Request"
+
+Tests passed

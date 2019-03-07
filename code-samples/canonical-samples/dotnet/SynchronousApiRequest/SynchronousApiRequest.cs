@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+// To install the latest published package dependency, execute the following:
+//   Install-Package Google.Cloud.Language.V1
+
 // Library to process command-line arguments to execute this code sample
 using CommandLine;
 

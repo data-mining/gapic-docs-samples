@@ -8,56 +8,33 @@ The samples here are intended to represent the _current standard_ of the hand-wr
 
  ###  Canonical Sample Examples
 
-| Language | Synchronous | Long-running operation | File input | File output | Resource Paths | 
-|----------|-------------|------------------------|------------|-------------|----------------|
-| #️⃣ **C#** | | **✗**  | | | |
-| 🐹 **Go** | | | | | |
-| ☕️ **Java** | | | | | |
-| 🚀 **Node.js** | **✗** | | | | |
-| 🐘 **PHP** | | | | | |
-| 🐍 **Python** | **✗** | | | | |
-| 💎 **Ruby** | **✗** | | | | |
+| Language | Synchronous | Long-running operation | File input | File output | Resource paths | Paged response | 
+|----------|-------------|------------------------|------------|-------------|----------------|----------------|
+| #️⃣ **C#** | [**✗**][sync_cs] | | | | | |
+| 🐹 **Go** | | | | | | |
+| ☕️ **Java** | | | | | | |
+| 🚀 **Node.js** | [**✗**][sync_js] | | | | | |
+| 🐘 **PHP** | | | | | | |
+| 🐍 **Python** | [**✗**][sync_py] | | | | | |
+| 💎 **Ruby** | [**✗**][sync_rb] | | | | | |
 
 #### Synchronous API Request
 
 For this sample, we use a simple Natural Language API call for `AnalyzeSentiment`
 
- - [X] #️⃣ C#
- - [ ] 🐹 Go
- - [X] 🚀 Node.js
- - [ ] 🐘 PHP
- - [X] 🐍 Python
- - [X] 💎 Ruby
-
 #### Long-Running Operation
 
 For this sample, we use Cloud Speech `LongRunningRecognize` with a GCS path to audio file
 
- - [ ] #️⃣ C#
- - [ ] 🐹 Go
- - [ ] 🚀 Node.js
- - [ ] 🐘 PHP
- - [ ] 🐍 Python
- - [ ] 💎 Ruby
-
 #### Local File Input Parameter
 
 For this sample, we use Cloud Speech `Recognize` with a local file path to audio file
-
- - [ ] #️⃣ C#
- - [ ] 🐹 Go
- - [ ] 🚀 Node.js
- - [ ] 🐘 PHP
- - [ ] 🐍 Python
- - [ ] 💎 Ruby
  
 #### Project ID Resource Paths
 
 For this sample, we use Dialogflow `CreateEntityType` which uses resource paths
 
- - [ ] #️⃣ C#
- - [ ] 🐹 Go
- - [ ] 🚀 Node.js
- - [ ] 🐘 PHP
- - [ ] 🐍 Python
- - [ ] 💎 Ruby
+[sync_cs]: dotnet/SynchronousApiRequest/SynchronousApiRequest.cs
+[sync_js]: nodejs/synchronous_api_request.js
+[sync_py]: python/synchronous_api_request.py
+[sync_rb]: ruby/synchronous_api_request.rb

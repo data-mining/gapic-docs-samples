@@ -8,7 +8,7 @@ The samples here are intended to represent the _current standard_ of the hand-wr
 
  ###  Canonical Sample Examples
 
-| Language | Synchronous | Long-running operation | File input | File output | Resource Paths | Paged response | 
+| Language | Synchronous | Long-running operation | File input | File output | Resource paths | Paged response | 
 |----------|-------------|------------------------|------------|-------------|----------------|----------------|
 | #️⃣ **C#** | [**✗**][sync_cs] | | | | | |
 | 🐹 **Go** | | | | | | |

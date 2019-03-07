@@ -2,12 +2,20 @@ test:
   suites:
   - name: Canonical Samples
     cases:
-    - name: Synchronous Request
+
+    - name: Synchronous Request (no arguments)
+      spec:
+      - call:
+          target: language_sentiment_text
+      - assert_contains:
+        - literal: "Sentiment score: 0."
+
+    - name: Synchronous Request (custom parameters)
       spec:
       - call:
           target: language_sentiment_text
           params:
             text_to_analyze:
-              literal: "I am very happy"
+              literal: "I am very sad. I am upset. I am sad."
       - assert_contains:
-        - literal: "Sentiment score: 0."
+        - literal: "Sentiment score: -0."

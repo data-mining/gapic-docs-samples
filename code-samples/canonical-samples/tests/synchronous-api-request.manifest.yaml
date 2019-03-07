@@ -1,6 +1,13 @@
 version: 1
 sets:
 
+- language: Node.js
+  bin: node
+  path: nodejs/
+  __items__:
+  - region_tag: language_sentiment_text
+    path: synchronous_api_request.js
+
 - language: Python
   bin: python
   path: python/
@@ -8,9 +15,9 @@ sets:
   - region_tag: language_sentiment_text
     path: synchronous_api_request.py
 
-- language: Node.js
-  bin: node
-  path: nodejs/
+- language: Ruby
+  bin: ruby
+  path: ruby/
   __items__:
   - region_tag: language_sentiment_text
-    path: synchronous_api_request.js
+    path: synchronous_api_request.rb

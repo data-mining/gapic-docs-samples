@@ -21,3 +21,9 @@ sets:
   __items__:
   - region_tag: language_sentiment_text
     path: synchronous_api_request.rb
+
+- language: C#
+  bin: ../script/chdir-exec dotnet/SynchronousApiRequest/
+  __items__:
+  - region_tag: language_sentiment_text
+    path: dotnet run

@@ -10,7 +10,7 @@ The samples here are intended to represent the _current standard_ of the hand-wr
 
 | Language | Synchronous | Long-running operation | File input | File output | Resource Paths | 
 |----------|-------------|------------------------|------------|-------------|----------------|
-| #️⃣ **C#** | | | | | |
+| #️⃣ **C#** | | **✗**  | | | |
 | 🐹 **Go** | | | | | |
 | ☕️ **Java** | | | | | |
 | 🚀 **Node.js** | **✗** | | | | |
@@ -22,7 +22,7 @@ The samples here are intended to represent the _current standard_ of the hand-wr
 
 For this sample, we use a simple Natural Language API call for `AnalyzeSentiment`
 
- - [ ] #️⃣ C#
+ - [X] #️⃣ C#
  - [ ] 🐹 Go
  - [X] 🚀 Node.js
  - [ ] 🐘 PHP

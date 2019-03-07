@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # To install the latest published package dependency, execute the following:
-#   pip install google-cloud-language
+#   gem install google-cloud-language
 
 # [START language_sentiment_text]
 # Imports the Google Cloud Natural Language library

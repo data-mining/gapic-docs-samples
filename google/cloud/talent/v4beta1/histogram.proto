@@ -1,4 +1,4 @@
-// Copyright 2018 Google LLC.
+// Copyright 2019 Google LLC.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ option java_outer_classname = "HistogramProto";
 option java_package = "com.google.cloud.talent.v4beta1";
 option objc_class_prefix = "CTS";
 
-
 // Input Only.
 //
 // The histogram request.
@@ -34,8 +33,11 @@ message HistogramQuery {
   // An expression specifies a histogram request against matching resources
   // (for example, jobs, profiles) for searches.
   //
-  // See [SearchJobsRequest.histogram_queries][google.cloud.talent.v4beta1.SearchJobsRequest.histogram_queries] and
-  // [SearchProfilesRequest.histogram_queries][google.cloud.talent.v4beta1.SearchProfilesRequest.histogram_queries] for details about syntax.
+  // See
+  // [SearchJobsRequest.histogram_queries][google.cloud.talent.v4beta1.SearchJobsRequest.histogram_queries]
+  // and
+  // [SearchProfilesRequest.histogram_queries][google.cloud.talent.v4beta1.SearchProfilesRequest.histogram_queries]
+  // for details about syntax.
   string histogram_query = 1;
 }
 

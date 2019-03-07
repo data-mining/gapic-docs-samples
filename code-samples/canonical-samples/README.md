@@ -8,15 +8,15 @@ The samples here are intended to represent the _current standard_ of the hand-wr
 
  ###  Canonical Sample Examples
 
-| Language | Synchronous | Long-running operation | File input | File output | Resource Paths | 
-|----------|-------------|------------------------|------------|-------------|----------------|
-| #️⃣ **C#** | [**✗**][sync_cs] | | | | |
-| 🐹 **Go** | | | | | |
-| ☕️ **Java** | | | | | |
-| 🚀 **Node.js** | [**✗**][sync_js] | | | | |
-| 🐘 **PHP** | | | | | |
-| 🐍 **Python** | [**✗**][sync_py] | | | | |
-| 💎 **Ruby** | [**✗**][sync_rb] | | | | |
+| Language | Synchronous | Long-running operation | File input | File output | Resource Paths | Paged response | 
+|----------|-------------|------------------------|------------|-------------|----------------|----------------|
+| #️⃣ **C#** | [**✗**][sync_cs] | | | | | |
+| 🐹 **Go** | | | | | | |
+| ☕️ **Java** | | | | | | |
+| 🚀 **Node.js** | [**✗**][sync_js] | | | | | |
+| 🐘 **PHP** | | | | | | |
+| 🐍 **Python** | [**✗**][sync_py] | | | | | |
+| 💎 **Ruby** | [**✗**][sync_rb] | | | | | |
 
 #### Synchronous API Request
 

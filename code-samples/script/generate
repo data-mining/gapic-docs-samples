@@ -151,6 +151,8 @@ echo
 log_step "Saving Sample files to $SAMPLES_DIRECTORY"
 ########################################
 
+# TODO(beccasaurus) confirm that all of the tweaks below are now fixed & I can remove this find/replace ickiness!
+
 for sample_file in `find "$SAMPLES_DIRECTORY" -type f \( -name "*.php" -or -name "*.py" -or -name "*.js" -or -name "*.java" \)`; do
   relative_to_samples="$( echo "$sample_file" | sed "s|$SAMPLES_DIRECTORY/||" )"
   echo " - $relative_to_samples"
@@ -179,6 +181,11 @@ if [ "$LANGUAGE" = "java" ]; then
   echo "Saved Java Maven $API_SAMPLES_DIRECTORY/pom.xml"
 fi
 
+echo
+########################################
+log_step "Removing unwanted calling forms"
+########################################
+
 for paged_all_sample in `find "$API_SAMPLES_DIRECTORY" -type f \( -name "*PagedAll*.$LANGUAGE_EXTENSION" -or -name "*paged_all*.$LANGUAGE_EXTENSION" \)`; do
   paged_sample="$(echo "$paged_all_sample" | sed 's/PagedAll/Paged/' | sed 's/paged_all/paged/')"
   if [ -f "$paged_sample" ]; then
@@ -194,8 +201,6 @@ for lro_async_unwanted_sample in `find "$API_SAMPLES_DIRECTORY" -type f -name "*
     rm $lro_async_unwanted_sample
   fi
 done
-
-echo "Removing unwanted calling forms, if any"
 
 for request_calling_form in `find "$API_SAMPLES_DIRECTORY" -type f -name "*Request*.$LANGUAGE_EXTENSION"`; do
   sample_prefix="$( echo "$request_calling_form" | sed 's/^\(.*\)Request.*/\1/' | xargs basename )"

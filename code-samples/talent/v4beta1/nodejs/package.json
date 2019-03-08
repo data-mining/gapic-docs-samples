@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "@google-cloud/talent": "file:../../../client-libraries/nodejs/jobs-v4beta1",
+        "@google-cloud/talent": "file:../../../client-libraries/nodejs/talent-v4beta1",
         "yargs": "*"
     }
 }

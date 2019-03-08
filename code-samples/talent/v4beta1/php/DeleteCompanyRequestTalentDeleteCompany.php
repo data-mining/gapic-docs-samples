@@ -24,19 +24,18 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Google\Cloud\Talent\V4beta1\CompanyServiceClient;
 
-function sampleDeleteCompany($projectIdChanged, $companyIdChanged)
+function sampleDeleteCompany($projectId, $companyId)
 {
     // [START talent_delete_company_core]
 
     $companyServiceClient = new CompanyServiceClient();
 
-    // $projectIdChanged = 'Your Google Cloud Project ID CHANGED';
-    // $companyIdChanged = 'ID of the company to delete';
-    $formattedName = $companyServiceClient->companyName($projectIdChanged, $companyIdChanged);
+    // $projectId = 'Your Google Cloud Project ID';
+    // $companyId = 'ID of the company to delete';
+    $formattedName = $companyServiceClient->companyName($projectId, $companyId);
 
     try {
-        $companyServiceClient->deleteCompany($formattedName); // What is going on?
-        printf('Hello???'.PHP_EOL);
+        $companyServiceClient->deleteCompany($formattedName);
         printf('Deleted company'.PHP_EOL);
     } finally {
         $companyServiceClient->close();
@@ -47,19 +46,19 @@ function sampleDeleteCompany($projectIdChanged, $companyIdChanged)
 // [END talent_delete_company]
 
 $opts = [
-    'project_id_changed::',
-    'company_id_changed::',
+    'project_id::',
+    'company_id::',
 ];
 
 $defaultOptions = [
-    'project_id_changed' => 'Your Google Cloud Project ID CHANGED',
-    'company_id_changed' => 'ID of the company to delete',
+    'project_id' => 'Your Google Cloud Project ID',
+    'company_id' => 'ID of the company to delete',
 ];
 
 $options = getopt('', $opts);
 $options += $defaultOptions;
 
-$projectIdChanged = $options['project_id_changed'];
-$companyIdChanged = $options['company_id_changed'];
+$projectId = $options['project_id'];
+$companyId = $options['company_id'];
 
-sampleDeleteCompany($projectIdChanged, $companyIdChanged);
+sampleDeleteCompany($projectId, $companyId);

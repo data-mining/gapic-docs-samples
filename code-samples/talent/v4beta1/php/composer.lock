@@ -235,16 +235,16 @@
         },
         {
             "name": "google/grpc-gcp",
-            "version": "0.1.3",
+            "version": "0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GoogleCloudPlatform/grpc-gcp-php.git",
-                "reference": "a253cbf03a33b146af50c441500bf9904bfb9ee0"
+                "reference": "e1ec44c0c39bd204868e2a2ed3cc87ed9006984e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GoogleCloudPlatform/grpc-gcp-php/zipball/a253cbf03a33b146af50c441500bf9904bfb9ee0",
-                "reference": "a253cbf03a33b146af50c441500bf9904bfb9ee0",
+                "url": "https://api.github.com/repos/GoogleCloudPlatform/grpc-gcp-php/zipball/e1ec44c0c39bd204868e2a2ed3cc87ed9006984e",
+                "reference": "e1ec44c0c39bd204868e2a2ed3cc87ed9006984e",
                 "shasum": ""
             },
             "require": {
@@ -270,20 +270,20 @@
                 "Apache-2.0"
             ],
             "description": "gRPC GCP library for channel management",
-            "time": "2018-12-13T04:04:24+00:00"
+            "time": "2019-02-14T02:21:15+00:00"
         },
         {
             "name": "google/protobuf",
-            "version": "v3.6.1.3",
+            "version": "v3.7.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/protocolbuffers/protobuf.git",
-                "reference": "66dc42d891a4fc8e9190c524fd67961688a37bbe"
+                "url": "https://github.com/protocolbuffers/protobuf-php.git",
+                "reference": "ee8f63b02861d88f6cc3955788e97f1912741992"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/protocolbuffers/protobuf/zipball/66dc42d891a4fc8e9190c524fd67961688a37bbe",
-                "reference": "66dc42d891a4fc8e9190c524fd67961688a37bbe",
+                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/ee8f63b02861d88f6cc3955788e97f1912741992",
+                "reference": "ee8f63b02861d88f6cc3955788e97f1912741992",
                 "shasum": ""
             },
             "require": {
@@ -298,8 +298,8 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Google\\Protobuf\\": "php/src/Google/Protobuf",
-                    "GPBMetadata\\Google\\Protobuf\\": "php/src/GPBMetadata/Google/Protobuf"
+                    "Google\\Protobuf\\": "src/Google/Protobuf",
+                    "GPBMetadata\\Google\\Protobuf\\": "src/GPBMetadata/Google/Protobuf"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -311,20 +311,20 @@
             "keywords": [
                 "proto"
             ],
-            "time": "2018-12-08T01:32:11+00:00"
+            "time": "2019-02-26T18:27:49+00:00"
         },
         {
             "name": "grpc/grpc",
-            "version": "1.15.0",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/grpc/grpc-php.git",
-                "reference": "1a7cd0dc95a68594b8a8cfbf75ff236383172e2f"
+                "reference": "0f1ffdde45bfb9257c5d9eab81695d0f042bea22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/grpc/grpc-php/zipball/1a7cd0dc95a68594b8a8cfbf75ff236383172e2f",
-                "reference": "1a7cd0dc95a68594b8a8cfbf75ff236383172e2f",
+                "url": "https://api.github.com/repos/grpc/grpc-php/zipball/0f1ffdde45bfb9257c5d9eab81695d0f042bea22",
+                "reference": "0f1ffdde45bfb9257c5d9eab81695d0f042bea22",
                 "shasum": ""
             },
             "require": {
@@ -352,7 +352,7 @@
             "keywords": [
                 "rpc"
             ],
-            "time": "2018-09-12T21:49:56+00:00"
+            "time": "2019-02-27T04:47:56+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

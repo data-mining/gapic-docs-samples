@@ -8,14 +8,14 @@ test:
         variable: project_id
     - uuid: company_test_identifier
 
-#    teardown:
-#    - call_may_fail:
-#        target: talent_delete_company
-#        params:
-#          project_id:
-#            variable: project_id
-#          company_id:
-#            variable: company_id
+    teardown:
+    - call_may_fail:
+        target: talent_delete_company
+        params:
+          project_id:
+            variable: project_id
+          company_id:
+            variable: company_id
 
     cases:
     - name: Create, List, Delete Companies
@@ -73,7 +73,7 @@ test:
             company_id:
               variable: company_id
       - assert_contains:
-        - literal: "Deleted company."
+        - literal: "Deleted company"
       
       # VERIFY Company not present
       - call:

@@ -1,0 +1,88 @@
+test:
+  suites:
+  - name: Managing Companies (talent v4beta1)
+
+    setup:
+    - env:
+        name: GOOGLE_PROJECT_ID
+        variable: project_id
+    - uuid: company_test_identifier
+
+#    teardown:
+#    - call_may_fail:
+#        target: talent_delete_company
+#        params:
+#          project_id:
+#            variable: project_id
+#          company_id:
+#            variable: company_id
+
+    cases:
+    - name: Create, List, Delete Companies
+      spec:
+      # VERIFY Company not present
+      - call:
+          target: talent_list_companies
+          params:
+            project_id:
+              variable: project_id
+      - assert_not_contains:
+        - literal: "Display name:"
+        - literal: "External ID:"
+        - variable: company_test_identifier
+
+      # Create company
+      - call:
+          target: talent_create_company
+          params:
+            project_id:
+              variable: project_id
+            display_name:
+              variable: company_test_identifier
+            external_id:
+              variable: company_test_identifier
+      - assert_contains:
+        - literal: "Created company:"
+        - literal: "Company name:"
+        - variable: company_test_identifier
+
+      # Extract Company ID from name (projects/xxx/companies/:ID)
+      - extract_matches: "/companies/(?P<company_id>[\\w-]+)"
+      - log:
+        - "Created Company ID: {}"
+        - company_id
+      
+      # VERIFY Company is present
+      - call:
+          target: talent_list_companies
+          params:
+            project_id:
+              variable: project_id
+      - assert_contains:
+        - literal: "Display name:"
+        - literal: "External ID:"
+        - variable: company_test_identifier
+        - variable: company_id
+      
+      # Delete company
+      - call:
+          target: talent_delete_company
+          params:
+            project_id:
+              variable: project_id
+            company_id:
+              variable: company_id
+      - assert_contains:
+        - literal: "Deleted company."
+      
+      # VERIFY Company not present
+      - call:
+          target: talent_list_companies
+          params:
+            project_id:
+              variable: project_id
+      - assert_not_contains:
+        - literal: "Display name:"
+        - literal: "External ID:"
+        - variable: company_test_identifier
+

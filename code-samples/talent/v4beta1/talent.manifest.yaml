@@ -41,3 +41,6 @@ sets:
     path: nodejs/delete_company_request_talent_delete_company.js
   - target: talent_create_company
     path: nodejs/create_company_request_talent_create_company.js
+- language: java
+  bin: "./script/java-exec talent/v4beta1/java "
+  __items__: []

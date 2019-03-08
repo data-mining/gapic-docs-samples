@@ -39,6 +39,7 @@ function sampleListCompanies($projectId)
         foreach ($pagedResponse->iterateAllElements() as $responseItem) {
             printf('Company: %s'.PHP_EOL, $responseItem->getName());
             printf('Display name: %s'.PHP_EOL, $responseItem->getDisplayName());
+            printf('External ID: %s'.PHP_EOL, $responseItem->getExternalId());
         }
     } finally {
         $companyServiceClient->close();

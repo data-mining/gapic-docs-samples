@@ -19,6 +19,7 @@ function sampleListCompanies(projectId) {
       for (const resource of resources) {
         console.log(`Company: ${resource.name}`);
         console.log(`Display name: ${resource.displayName}`);
+        console.log(`External ID: ${resource.externalId}`);
       }
     })
     .catch(err => {

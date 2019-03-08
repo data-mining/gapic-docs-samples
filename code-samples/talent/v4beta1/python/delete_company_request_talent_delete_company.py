@@ -17,7 +17,7 @@
 # DO NOT EDIT! This is a generated sample ("Request",  "talent_delete_company")
 
 # To install the latest published package dependency, execute the following:
-#   pip install google-cloud-jobs
+#   pip install google-cloud-talent
 
 import sys
 
@@ -27,23 +27,25 @@ from google.cloud import talent_v4beta1
 import six
 
 
-def sample_delete_company(project_id, company_id):
+def sample_delete_company(project_id_changed, company_id_changed):
     """Delete Company"""
 
     # [START talent_delete_company_core]
 
     client = talent_v4beta1.CompanyServiceClient()
 
-    # project_id = 'Your Google Cloud Project ID'
-    # company_id = 'ID of the company to delete'
+    # project_id_changed = 'Your Google Cloud Project ID CHANGED'
+    # company_id_changed = 'ID of the company to delete'
 
-    if isinstance(project_id, six.binary_type):
-        project_id = project_id.decode('utf-8')
-    if isinstance(company_id, six.binary_type):
-        company_id = company_id.decode('utf-8')
-    name = client.company_path(project_id, company_id)
+    if isinstance(project_id_changed, six.binary_type):
+        project_id_changed = project_id_changed.decode('utf-8')
+    if isinstance(company_id_changed, six.binary_type):
+        company_id_changed = company_id_changed.decode('utf-8')
+    name = client.company_path(project_id_changed, company_id_changed)
 
     client.delete_company(name)
+    # What is going on?
+    print('Hello???')
     print('Deleted company')
 
     # [END talent_delete_company_core]
@@ -57,12 +59,16 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--project_id', type=str, default='Your Google Cloud Project ID')
+        '--project_id_changed',
+        type=str,
+        default='Your Google Cloud Project ID CHANGED')
     parser.add_argument(
-        '--company_id', type=str, default='ID of the company to delete')
+        '--company_id_changed',
+        type=str,
+        default='ID of the company to delete')
     args = parser.parse_args()
 
-    sample_delete_company(args.project_id, args.company_id)
+    sample_delete_company(args.project_id_changed, args.company_id_changed)
 
 
 if __name__ == '__main__':

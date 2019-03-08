@@ -143,6 +143,8 @@ interfaces:
           sample_argument_name: project_id
         - parameter: company.display_name
           sample_argument_name: display_name
+        - parameter: company.external_id
+          sample_argument_name: external_id
       on_success:
       - print:
         - "Created company: %s"
@@ -198,14 +200,18 @@ interfaces:
       description: Delete Company
       parameters:
         defaults:
-        - name%project="Your Google Cloud Project ID"
+        - name%project="Your Google Cloud Project ID CHANGED"
         - name%company="ID of the company to delete"
         attributes:
         - parameter: name%project
-          sample_argument_name: project_id
+          sample_argument_name: project_id_changed
         - parameter: name%company
-          sample_argument_name: company_id
+          sample_argument_name: company_id_changed
       on_success:
+      - comment:
+        - "What is going on?"
+      - print:
+        - "Hello???"
       - print:
         - "Deleted company"
     flattening:
@@ -242,6 +248,9 @@ interfaces:
       - print:
         - "Display name: %s"
         - $resp.display_name
+      - print:
+        - "External ID: %s"
+        - $resp.external_id
     flattening:
       groups:
       - parameters:

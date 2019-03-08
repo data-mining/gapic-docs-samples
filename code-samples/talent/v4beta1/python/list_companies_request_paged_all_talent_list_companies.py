@@ -17,7 +17,7 @@
 # DO NOT EDIT! This is a generated sample ("RequestPagedAll",  "talent_list_companies")
 
 # To install the latest published package dependency, execute the following:
-#   pip install google-cloud-jobs
+#   pip install google-cloud-talent
 
 import sys
 
@@ -44,6 +44,7 @@ def sample_list_companies(project_id):
     for response_item in client.list_companies(parent):
         print('Company: {}'.format(response_item.name))
         print('Display name: {}'.format(response_item.display_name))
+        print('External ID: {}'.format(response_item.external_id))
 
     # [END talent_list_companies_core]
 

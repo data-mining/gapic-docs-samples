@@ -25,7 +25,7 @@ require __DIR__ . '/vendor/autoload.php';
 use Google\Cloud\Talent\V4beta1\CompanyServiceClient;
 use Google\Cloud\Talent\V4beta1\Company;
 
-function sampleCreateCompany($projectId, $displayName)
+function sampleCreateCompany($projectId, $displayName, $externalId)
 {
     // [START talent_create_company_core]
 
@@ -33,8 +33,8 @@ function sampleCreateCompany($projectId, $displayName)
 
     // $projectId = 'Your Google Cloud Project ID';
     // $displayName = 'My Company Name';
+    // $externalId = 'Identifier of this company in my system';
     $formattedParent = $companyServiceClient->projectName($projectId);
-    $externalId = 'Identifier of this company in my system';
     $company = new Company();
     $company->setDisplayName($displayName);
     $company->setExternalId($externalId);
@@ -54,11 +54,13 @@ function sampleCreateCompany($projectId, $displayName)
 $opts = [
     'project_id::',
     'display_name::',
+    'external_id::',
 ];
 
 $defaultOptions = [
     'project_id' => 'Your Google Cloud Project ID',
     'display_name' => 'My Company Name',
+    'external_id' => 'Identifier of this company in my system',
 ];
 
 $options = getopt('', $opts);
@@ -66,5 +68,6 @@ $options += $defaultOptions;
 
 $projectId = $options['project_id'];
 $displayName = $options['display_name'];
+$externalId = $options['external_id'];
 
-sampleCreateCompany($projectId, $displayName);
+sampleCreateCompany($projectId, $displayName, $externalId);

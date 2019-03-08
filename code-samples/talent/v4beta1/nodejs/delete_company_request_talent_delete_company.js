@@ -7,11 +7,11 @@
 
 const talent = require('@google-cloud/talent').v4beta1;
 
-function sampleDeleteCompany(projectId, companyId) {
+function sampleDeleteCompany(projectIdChanged, companyIdChanged) {
   const client = new talent.CompanyServiceClient();
-  // const projectId = 'Your Google Cloud Project ID';
-  // const companyId = 'ID of the company to delete';
-  const formattedName = client.companyPath(projectId, companyId);
+  // const projectIdChanged = 'Your Google Cloud Project ID CHANGED';
+  // const companyIdChanged = 'ID of the company to delete';
+  const formattedName = client.companyPath(projectIdChanged, companyIdChanged);
   client.deleteCompany({name: formattedName}).catch(err => {
     console.error(err);
   });
@@ -23,8 +23,8 @@ function sampleDeleteCompany(projectId, companyId) {
 // [END talent_delete_company]
 
 const argv = require(`yargs`)
-  .default('project_id', 'Your Google Cloud Project ID')
-  .default('company_id', 'ID of the company to delete')
+  .default('project_id_changed', 'Your Google Cloud Project ID CHANGED')
+  .default('company_id_changed', 'ID of the company to delete')
   .argv;
 
-sampleDeleteCompany(argv.project_id, argv.company_id);
+sampleDeleteCompany(argv.project_id_changed, argv.company_id_changed);

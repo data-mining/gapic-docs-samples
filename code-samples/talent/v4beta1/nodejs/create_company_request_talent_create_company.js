@@ -7,12 +7,12 @@
 
 const talent = require('@google-cloud/talent').v4beta1;
 
-function sampleCreateCompany(projectId, displayName) {
+function sampleCreateCompany(projectId, displayName, externalId) {
   const client = new talent.CompanyServiceClient();
   // const projectId = 'Your Google Cloud Project ID';
   // const displayName = 'My Company Name';
+  // const externalId = 'Identifier of this company in my system';
   const formattedParent = client.projectPath(projectId);
-  const externalId = 'Identifier of this company in my system';
   const company = {
     displayName: displayName,
     externalId: externalId,
@@ -40,6 +40,7 @@ function sampleCreateCompany(projectId, displayName) {
 const argv = require(`yargs`)
   .default('project_id', 'Your Google Cloud Project ID')
   .default('display_name', 'My Company Name')
+  .default('external_id', 'Identifier of this company in my system')
   .argv;
 
-sampleCreateCompany(argv.project_id, argv.display_name);
+sampleCreateCompany(argv.project_id, argv.display_name, argv.external_id);

@@ -17,7 +17,7 @@
 # DO NOT EDIT! This is a generated sample ("Request",  "talent_create_company")
 
 # To install the latest published package dependency, execute the following:
-#   pip install google-cloud-jobs
+#   pip install google-cloud-talent
 
 import sys
 
@@ -27,7 +27,7 @@ from google.cloud import talent_v4beta1
 import six
 
 
-def sample_create_company(project_id, display_name):
+def sample_create_company(project_id, display_name, external_id):
     """Create Company"""
 
     # [START talent_create_company_core]
@@ -36,13 +36,15 @@ def sample_create_company(project_id, display_name):
 
     # project_id = 'Your Google Cloud Project ID'
     # display_name = 'My Company Name'
+    # external_id = 'Identifier of this company in my system'
 
     if isinstance(project_id, six.binary_type):
         project_id = project_id.decode('utf-8')
     if isinstance(display_name, six.binary_type):
         display_name = display_name.decode('utf-8')
+    if isinstance(external_id, six.binary_type):
+        external_id = external_id.decode('utf-8')
     parent = client.project_path(project_id)
-    external_id = 'Identifier of this company in my system'
     company = {'display_name': display_name, 'external_id': external_id}
 
     response = client.create_company(parent, company)
@@ -62,9 +64,13 @@ def main():
     parser.add_argument(
         '--project_id', type=str, default='Your Google Cloud Project ID')
     parser.add_argument('--display_name', type=str, default='My Company Name')
+    parser.add_argument(
+        '--external_id',
+        type=str,
+        default='Identifier of this company in my system')
     args = parser.parse_args()
 
-    sample_create_company(args.project_id, args.display_name)
+    sample_create_company(args.project_id, args.display_name, args.external_id)
 
 
 if __name__ == '__main__':

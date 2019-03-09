@@ -532,6 +532,52 @@ interfaces:
     field_name_patterns:
       parent: project
     timeout_millis: 30000
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [talent_create_job]
+        region_tag: talent_create_job
+    sample_value_sets:
+    - id: talent_create_job
+      description: Create Job
+      parameters:
+        defaults:
+        - parent%project="Your Google Cloud Project ID"
+        
+        #- job.company_name="Company name, e.g. projects/your-project/companies/company-id"
+        - job.company_name%project="Your Google Cloud Project ID"
+        - job.company_name%company="Company ID"
+
+        - job.requisition_id="Job requisition ID, aka Posting ID. Unique per job."
+        - job.title="Software Engineer"
+        - job.description="This is a description of this <i>wonderful</i> job!"
+        - job.application_info.uris[0]="https://www.example.org/job-posting/123"
+        - job.addresses[0]="1600 Amphitheatre Parkway, Mountain View, CA 94043"
+        - job.addresses[1]="111 8th Avenue, New York, NY 10011"
+        - job.language_code="en-US"
+        attributes:
+        - parameter: parent%project
+          sample_argument_name: project_id
+        #- parameter: job.company_name
+        #  sample_argument_name: company_name
+        - parameter: job.requisition_id
+          sample_argument_name: requisition_id
+        - parameter: job.title
+          sample_argument_name: title
+        - parameter: job.description
+          sample_argument_name: description
+        - parameter: job.application_info.uris[0]
+          sample_argument_name: job_application_url
+        - parameter: job.addresses[0]
+          sample_argument_name: address_one
+        - parameter: job.addresses[1]
+          sample_argument_name: address_two
+        - parameter: job.language_code
+          sample_argument_name: language_code
+      on_success:
+      - print:
+        - "Created job: %s"
+        - $resp.name
   - name: GetJob
     flattening:
       groups:
@@ -545,6 +591,18 @@ interfaces:
     field_name_patterns:
       name: job
     timeout_millis: 30000
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [talent_get_job]
+        region_tag: talent_get_job
+    sample_value_sets:
+    - id: talent_get_job
+      description: Get Job
+      parameters:
+        defaults:
+        attributes:
+      on_success:
   - name: UpdateJob
     flattening:
       groups:
@@ -568,37 +626,51 @@ interfaces:
     field_name_patterns:
       name: job
     timeout_millis: 30000
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [talent_delete_job]
+        region_tag: talent_delete_job
+    sample_value_sets:
+    - id: talent_delete_job
+      description: Delete Job
+      parameters:
+        defaults:
+        - name%project="Your Google Cloud Project ID"
+        - name%jobs="Company ID"
+        attributes:
+        - parameter: name%project
+          sample_argument_name: project_id
+        - parameter: name%jobs
+          sample_argument_name: job_id
+      on_success:
+      - print:
+        - "Deleted job."
   - name: ListJobs
-      # samples:
-      #   standalone:
-      #   - calling_forms: ".*"
-      #     value_sets: [talent_list_jobs]
-      #     region_tag: talent_list_jobs
-      # sample_value_sets:
-      # - id: talent_list_jobs
-      #   description: List Jobs
-      #   parameters:
-      #     defaults:
-      #     - document.type=PLAIN_TEXT
-      #     - document.content="Your text to analyze, e.g. Hello, world!"
-      #     - parent%project="Your Google Cloud Project ID"
-      #     attributes:
-      #     - parameter: entity_type.display_name
-      #       sample_argument_name: display_name
-      #     - parameter: document.content
-      #       sample_argument_name: content
-      #   on_success:
-      #   - define: sentiment=$resp.document_sentiment
-      #   - print:
-      #     - "Foo: %s"
-      #     - sentiment.foo
-      #   - loop:
-      #       collection: $resp.some_items
-      #       variable: item
-      #       body:
-      #       - print:
-      #         - "Item name: %s"
-      #         - item.name
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [talent_list_jobs]
+        region_tag: talent_list_jobs
+    sample_value_sets:
+    - id: talent_list_jobs
+      description: List Jobs
+      parameters:
+        defaults:
+        - parent%project="Your Google Cloud Project ID"
+        - filter="companyName=projects/my-project/companies/company-id"
+        attributes:
+        - parameter: parent%project
+          sample_argument_name: project_id
+        - parameter: filter
+          sample_argument_name: filter
+      on_success:
+      - print:
+        - "Job name: %s"
+        - $resp.name
+      - print:
+        - "Job title: %s"
+        - $resp.title
     flattening:
       groups:
       - parameters:

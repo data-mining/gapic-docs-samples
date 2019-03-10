@@ -11,9 +11,9 @@ test:
       create: &create_company
         target: talent_create_company
         params:
-          project_id: { variable: project_id }
+          project_id:   { variable: project_id }
           display_name: { variable: company_test_identifier }
-          external_id: { variable: company_test_identifier }
+          external_id:  { variable: company_test_identifier }
       delete: &delete_company
         target: talent_delete_company
         params:
@@ -25,18 +25,18 @@ test:
         target: talent_list_jobs
         params:
           project_id: { variable: project_id }
-          filter: { variable: company_name_filter }
+          filter:     { variable: company_name_filter }
       create: &create_job
         target: talent_create_job
         params:
-          project_id: { variable: project_id }
-          company_name: { variable: company_name }
+          project_id:     { variable: project_id }
+          company_name:   { variable: company_name }
           requisition_id: { variable: job_test_identifier }
       delete: &delete_job
         target: talent_delete_job
         params:
           project_id: { variable: project_id }
-          job_id: { variable: job_id }
+          job_id:     { variable: job_id }
 
   suites:
 

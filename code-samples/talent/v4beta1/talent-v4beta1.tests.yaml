@@ -3,40 +3,43 @@ test:
 
   helpers:
 
+    parameters:
+      global: &params
+        project_id: { variable: project_id }
+
     company_helpers:
       list: &list_companies
         target: talent_list_companies
-        params:
-          project_id: { variable: project_id }
+        params: *params
       create: &create_company
         target: talent_create_company
         params:
-          project_id:   { variable: project_id }
+          << : *params
           display_name: { variable: company_test_identifier }
           external_id:  { variable: company_test_identifier }
       delete: &delete_company
         target: talent_delete_company
         params:
-          project_id: { variable: project_id }
+          << : *params
           company_id: { variable: company_id }
 
     job_helpers:
       list: &list_jobs
         target: talent_list_jobs
         params:
-          project_id: { variable: project_id }
-          filter:     { variable: company_name_filter }
+          << : *params
+          filter: { variable: company_name_filter }
       create: &create_job
         target: talent_create_job
         params:
-          project_id:     { variable: project_id }
+          << : *params
           company_name:   { variable: company_name }
           requisition_id: { variable: job_test_identifier }
       delete: &delete_job
         target: talent_delete_job
         params:
-          project_id: { variable: project_id }
-          job_id:     { variable: job_id }
+          << : *params
+          job_id: { variable: job_id }
 
   suites:
 

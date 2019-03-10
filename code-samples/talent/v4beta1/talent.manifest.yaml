@@ -19,6 +19,8 @@ sets:
   __items__:
   - region_tag: talent_list_companies
     path: nodejs/list_companies_request_async_paged_all_talent_list_companies.js
+  - region_tag: talent_get_company
+    path: nodejs/get_company_request_talent_get_company.js
   - region_tag: talent_delete_job
     path: nodejs/delete_job_request_talent_delete_job.js
   - region_tag: talent_delete_company

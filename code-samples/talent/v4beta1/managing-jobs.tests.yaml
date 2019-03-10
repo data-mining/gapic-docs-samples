@@ -19,30 +19,33 @@ test:
     - extract_matches: "/companies/(?P<company_id>[\\w-]+)"
     - uuid: job_test_identifier
 
-    # teardown:
-    # - call_may_fail:
-    #     target: talent_delete_company
-    #     params:
-    #       project_id:
-    #         variable: project_id
-    #       company_id:
-    #         variable: company_id
+    teardown:
+    - call_may_fail:
+        target: talent_delete_company
+        params:
+          project_id:
+            variable: project_id
+          company_id:
+            variable: company_id
 
-# TODO use &anchor under the call for all the same params, give it a shot!
+    helpers:
+    - call: &list_companies
+        target: talent_list_companies
+        params:
+          project_id:
+            variable: project_id
+    - assert_job_presence: &assert_job_list_output
+      - literal: "Job name:"
+      - literal: "Job title:"
+      - variable: company_test_identifier
+
 
     cases:
     - name: Create, List, Delete Job
       spec:
       # VERIFY Job not present
-      - call:
-          target: talent_list_jobs
-          params:
-            project_id:
-              variable: project_id
-      - assert_not_contains:
-        - literal: "Job name:"
-        - literal: "Job title:"
-        - variable: company_test_identifier
+      - call: *list_companies
+      - assert_not_contains: *assert_job_list_output
 
       # Create company
       - call:
@@ -89,11 +92,7 @@ test:
         - literal: "Deleted company"
       
       # VERIFY Company not present
-      - call:
-          target: talent_list_companies
-          params:
-            project_id:
-              variable: project_id
+      - call: *list_companies
       - assert_not_contains:
         - literal: "Display name:"
         - literal: "External ID:"

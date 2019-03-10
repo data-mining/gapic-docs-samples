@@ -219,21 +219,23 @@ for long_running_promise_calling_form in `find "$API_SAMPLES_DIRECTORY" -type f 
   find "$API_VERSION_DIRECTORY" -type f -name "${sample_prefix}long_running_event_emitter*.$LANGUAGE_EXTENSION" -exec rm -v {} \;
 done
 
-echo
-########################################
-log_step "Java fixes"
-########################################
+if [ "$language" = "java" ]; then
+  echo
+  ########################################
+  log_step "Java fixes"
+  ########################################
 
-# IO import
+  # IO import
 
-# Metadata missing
-grep -rl "import com.google.cloud.speech.v1.LongRunningRecognizeResponse" "$API_VERSION_DIRECTORY" | xargs -n1 \
-  sed -i ".bak" $'s/\(import com.google.cloud.speech.v1.LongRunningRecognizeResponse;\)/import com.google.cloud.speech.v1.LongRunningRecognizeResponse;\\\nimport com.google.cloud.speech.v1.LongRunningRecognizeMetadata;/g'
+  # Metadata missing
+  grep -rl "import com.google.cloud.speech.v1.LongRunningRecognizeResponse" "$API_VERSION_DIRECTORY" | xargs -n1 \
+    sed -i ".bak" $'s/\(import com.google.cloud.speech.v1.LongRunningRecognizeResponse;\)/import com.google.cloud.speech.v1.LongRunningRecognizeResponse;\\\nimport com.google.cloud.speech.v1.LongRunningRecognizeMetadata;/g'
 
-grep -rl "import java.nio." "$API_VERSION_DIRECTORY" | xargs -n1 \
-  sed -i ".bak" "s/import java.nio./import java.nio.file./g"
+  grep -rl "import java.nio." "$API_VERSION_DIRECTORY" | xargs -n1 \
+    sed -i ".bak" "s/import java.nio./import java.nio.file./g"
 
-find "$API_VERSION_DIRECTORY" -type f -name "*.bak" -exec rm -v {} \;
+  find "$API_VERSION_DIRECTORY" -type f -name "*.bak" -exec rm -v {} \;
+fi
 
 echo
 ########################################

@@ -36,7 +36,8 @@ Dir.chdir(directory) do
       target = File.read(sample_file).scan(/\[START ([^\]]+)\]/).flatten.first
       path   = sample_file
       path   = "-D#{ File.basename path, ".java" }" if language[:name] == "java"
-      language[:samples] << { "target" => target, "path" => path }
+      # language[:samples] << { "target" => target, "path" => path }
+      language[:samples] << { "region_tag" => target, "path" => path }
     end
   end
 end
@@ -59,8 +60,10 @@ languages.each do |language|
   samples = manifest["sets"].find { |set| set["language"] == language[:name] }["__items__"]
   duplicates = false
   samples.each do |sample|
-    target  = sample["target"]
-    targets = samples.find_all { |s| s["target"] == target }
+    #target  = sample["target"]
+    target  = sample["region_tag"]
+    #targets = samples.find_all { |s| s["target"] == target }
+    targets = samples.find_all { |s| s["region_tag"] == target }
     if targets.length > 1
       STDERR.puts %{# Warning: duplicate region tag [#{target}] (#{language[:name]}) (#{targets.length})
   => #{ targets.map { |t| t["path"] }.join ", " }

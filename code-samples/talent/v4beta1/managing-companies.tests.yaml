@@ -6,6 +6,8 @@ test:
     - params:
         project_id: &project_id
           variable: project_id
+        company_test_identifier: &company_test_identifier
+          variable: company_test_identifier
     - call: &list_companies
         target: talent_list_companies
         params:
@@ -14,10 +16,8 @@ test:
         target: talent_create_company
         params:
           project_id: *project_id
-          display_name:
-            variable: company_test_identifier
-          external_id:
-            variable: company_test_identifier
+          display_name: *company_test_identifier
+          external_id: *company_test_identifier
     - call: &delete_company
         target: talent_delete_company
         params:

@@ -1,100 +1,142 @@
+# Talent v4beta1
 test:
-  suites:
-  - name: Managing Companies (talent v4beta1)
 
-    helpers:
-    - params:
-        project_id: &project_id
-          variable: project_id
-        company_test_identifier: &company_test_identifier
-          variable: company_test_identifier
-    - call: &list_companies
+  helpers:
+    common_parameters:
+      project_id: &project_id
+        variable: project_id
+      company_test_identifier: &company_test_identifier
+        variable: company_test_identifier
+    
+    environment_variables:
+      project_id: &env_project_id
+        name: GOOGLE_PROJECT_ID
+        variable: project_id
+
+    company_helpers:
+      list: &list_companies
         target: talent_list_companies
         params:
           project_id: *project_id
-    - call: &create_company
+      create: &create_company
         target: talent_create_company
         params:
           project_id: *project_id
           display_name: *company_test_identifier
           external_id: *company_test_identifier
-    - call: &delete_company
+      delete: &delete_company
         target: talent_delete_company
         params:
           project_id: *project_id
           company_id:
             variable: company_id
+
+    job_helpers:
+      list: &list_jobs
+        target: talent_list_jobs
+        params:
+          project_id: *project_id
+          # Oh, fuck, I need to interpolate variables, which isn't supported...
+          # Let's shim around it by adding a variable to local table with `code:`
+          # (which I need to add support for...)
+          # ....
+          filter: companyName=projects/my-project/companies/company-id
+      create: &create_job
+        target: talent_create_job
+        params:
+          project_id: *project_id
+          # display_name: *company_test_identifier
+          # external_id: *company_test_identifier
+      delete: &delete_job
+        target: talent_delete_job
+        params:
+          project_id: *project_id
+          # company_id:
+          #   variable: company_id
+
+  suites:
+
+  - name: Managing Companies
+    helpers:  
     - assert_contains: &assert_company_present
       - variable: company_test_identifier
-
     setup:
-    - env:
-        name: GOOGLE_PROJECT_ID
-        variable: project_id
+    - env: *env_project_id
     - uuid: company_test_identifier
-
     teardown:
     - call_may_fail: *delete_company
-
     cases:
-
     - name: Create Company
       spec:
       - call: *list_companies
       - assert_not_contains: *assert_company_present
-
       - call: *create_company
       - extract_matches: "/companies/(?P<company_id>[\\w-]+)"
-
       - assert_contains:
         - literal: "Created company:"
         - literal: "Company name:"
         - variable: company_test_identifier
-      
       - call: *list_companies
       - assert_contains: *assert_company_present
-
     - name: List Companies
       spec:
       - call: *create_company
       - extract_matches: "/companies/(?P<company_id>[\\w-]+)"
-
       - call: *list_companies
-
       - assert_contains:
         - literal: "Company:"
         - literal: "Display name:"
         - literal: "External ID"
         - variable: company_test_identifier
         - variable: company_id
-
     - name: Delete Company
       spec:
       - call: *create_company
       - extract_matches: "/companies/(?P<company_id>[\\w-]+)"
-
       - call: *delete_company
-
       - assert_contains:
         - literal: "Deleted company"
-
       - call: *list_companies
       - assert_not_contains: *assert_company_present
-
     - name: Get Company
       spec:
       - call: *create_company
       - extract_matches: "/companies/(?P<company_id>[\\w-]+)"
-
       - call:
           target: talent_get_company
           params:
             project_id: *project_id
             company_id:
               variable: company_id
-          
       - assert_contains:
         - literal: "Company name:"
         - literal: "Display name:"
         - variable: company_test_identifier
         - variable: company_id
+
+  - name: Managing Jobs
+    helpers:
+      # ...
+    setup:
+    - env: *env_project_id
+    - uuid: company_test_identifier
+    - call: *create_company
+    - extract_matches: "/companies/(?P<company_id>[\\w-]+)"
+    teardown:
+    - call_may_fail: *delete_company
+    cases:
+    # - name: Create Company
+    #   spec:
+    # - name: List Companies
+    #   spec:
+    - name: List Jobs
+      spec:
+      - call: *create_job
+      #- extract_matches: "/companies/(?P<company_id>[\\w-]+)"
+      - call: *list_jobs
+      - assert_contains:
+        - literal: "??????"
+    # - name: Delete Company
+    #   spec:
+    # - name: Get Company
+    #   spec:

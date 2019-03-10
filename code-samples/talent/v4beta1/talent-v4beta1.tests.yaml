@@ -36,23 +36,22 @@ test:
         target: talent_list_jobs
         params:
           project_id: *project_id
-          # Oh, fuck, I need to interpolate variables, which isn't supported...
-          # Let's shim around it by adding a variable to local table with `code:`
-          # (which I need to add support for...)
-          # ....
-          filter: companyName=projects/my-project/companies/company-id
+          filter:
+            variable: company_name_filter
       create: &create_job
         target: talent_create_job
         params:
           project_id: *project_id
-          # display_name: *company_test_identifier
-          # external_id: *company_test_identifier
+          company_name:
+            variable: company_name
+          requisition_id:
+            variable: job_test_identifier
       delete: &delete_job
         target: talent_delete_job
         params:
           project_id: *project_id
-          # company_id:
-          #   variable: company_id
+          job_id:
+            variable: job_id
 
   suites:
 
@@ -120,9 +119,18 @@ test:
     setup:
     - env: *env_project_id
     - uuid: company_test_identifier
+    - uuid: job_test_identifier
     - call: *create_company
     - extract_matches: "/companies/(?P<company_id>[\\w-]+)"
+    - code: company_name = 'projects/{}/companies/{}'.format(project_id, company_id)
+    # FILE BUG: sample-tester is building a full command and invoking it with arguments as strings.
+    #           arguments should be passed separately and the subprocess library should handle it.
+    #           see below for an example of an issue, I need to format the parameter with
+    #           slashes before double quotes so that the CLI call is invoked with \" and
+    #           the internal quotes are escaped ~ icky. use popen3 or equivalent in Python.
+    - code: company_name_filter = 'companyName = \\"{}\\"'.format(company_name)
     teardown:
+    - call_may_fail: *delete_job
     - call_may_fail: *delete_company
     cases:
     # - name: Create Company
@@ -132,10 +140,13 @@ test:
     - name: List Jobs
       spec:
       - call: *create_job
-      #- extract_matches: "/companies/(?P<company_id>[\\w-]+)"
+      - extract_matches: "/jobs/(?P<job_id>[\\w-]+)"
       - call: *list_jobs
       - assert_contains:
-        - literal: "??????"
+        - literal: "Job name:"
+        - literal: "Job title: Software Engineer"
+        - variable: job_id
+
     # - name: Delete Company
     #   spec:
     # - name: Get Company

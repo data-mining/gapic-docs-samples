@@ -2,7 +2,6 @@
 test:
 
   helpers:
-
     parameters:
       global: &params
         project_id: { variable: project_id }

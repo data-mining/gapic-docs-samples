@@ -1,62 +1,47 @@
 test:
   suites:
-  - name: Managing Companies (talent v4beta1)
+  - name: Managing Jobs (talent v4beta1)
 
     setup:
     - env:
         name: GOOGLE_PROJECT_ID
         variable: project_id
     - uuid: company_test_identifier
-
-    teardown:
-    - call_may_fail:
-        target: talent_delete_company
+    - call:
+        target: talent_create_company
         params:
           project_id:
             variable: project_id
-          company_id:
-            variable: company_id
+          display_name:
+            variable: company_test_identifier
+          external_id:
+            variable: company_test_identifier
+    - extract_matches: "/companies/(?P<company_id>[\\w-]+)"
+    - uuid: job_test_identifier
 
-    helpers:
-    - call: &list_companies
-        target: talent_list_companies
-        params:
-          project_id:
-            variable: project_id
+    # teardown:
+    # - call_may_fail:
+    #     target: talent_delete_company
+    #     params:
+    #       project_id:
+    #         variable: project_id
+    #       company_id:
+    #         variable: company_id
+
+# TODO use &anchor under the call for all the same params, give it a shot!
 
     cases:
-    - name: Testing
+    - name: Create, List, Delete Job
       spec:
-
-      - log: &this_log
-        - "Hello from testing"
-
-      - log: *this_log
-
+      # VERIFY Job not present
       - call:
-          target: talent_create_company
-          params:
-            project_id:
-              variable: project_id
-            display_name:
-              variable: company_test_identifier
-            external_id:
-              variable: company_test_identifier
-      - extract_matches: "/companies/(?P<company_id>[\\w-]+)"
-
-      - call: *list_companies
-
-    - name: Create, List, Delete Company
-      spec:
-      # VERIFY Company not present
-      - call:
-          target: talent_list_companies
+          target: talent_list_jobs
           params:
             project_id:
               variable: project_id
       - assert_not_contains:
-        - literal: "Display name:"
-        - literal: "External ID:"
+        - literal: "Job name:"
+        - literal: "Job title:"
         - variable: company_test_identifier
 
       # Create company

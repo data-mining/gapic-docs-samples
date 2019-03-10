@@ -4,13 +4,7 @@ sets:
 - language: php
   bin: php
   path: talent/v4beta1/
-  __items__:
-  - region_tag: talent_list_companies
-    path: php/ListCompaniesRequestPagedAllTalentListCompanies.php
-  - region_tag: talent_delete_company
-    path: php/DeleteCompanyRequestTalentDeleteCompany.php
-  - region_tag: talent_create_company
-    path: php/CreateCompanyRequestTalentCreateCompany.php
+  __items__: []
 - language: python
   bin: python
   path: talent/v4beta1/
@@ -25,8 +19,16 @@ sets:
   __items__:
   - region_tag: talent_list_companies
     path: nodejs/list_companies_request_async_paged_all_talent_list_companies.js
+  - region_tag: talent_delete_job
+    path: nodejs/delete_job_request_talent_delete_job.js
   - region_tag: talent_delete_company
     path: nodejs/delete_company_request_talent_delete_company.js
+  - region_tag: talent_create_job
+    path: nodejs/create_job_request_talent_create_job.js
+  - region_tag: talent_get_job
+    path: nodejs/get_job_request_talent_get_job.js
+  - region_tag: talent_list_jobs
+    path: nodejs/list_jobs_request_async_paged_all_talent_list_jobs.js
   - region_tag: talent_create_company
     path: nodejs/create_company_request_talent_create_company.js
 - language: java

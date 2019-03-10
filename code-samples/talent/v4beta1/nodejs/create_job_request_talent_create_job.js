@@ -7,9 +7,10 @@
 
 const talent = require('@google-cloud/talent').v4beta1;
 
-function sampleCreateJob(projectId, requisitionId, title, description, jobApplicationUrl, addressOne, addressTwo, languageCode) {
+function sampleCreateJob(projectId, companyName, requisitionId, title, description, jobApplicationUrl, addressOne, addressTwo, languageCode) {
   const client = new talent.JobServiceClient();
   // const projectId = 'Your Google Cloud Project ID';
+  // const companyName = 'Company name, e.g. projects/your-project/companies/company-id';
   // const requisitionId = 'Job requisition ID, aka Posting ID. Unique per job.';
   // const title = 'Software Engineer';
   // const description = 'This is a description of this <i>wonderful</i> job!';
@@ -24,6 +25,7 @@ function sampleCreateJob(projectId, requisitionId, title, description, jobApplic
   };
   const addresses = [addressOne, addressTwo];
   const job = {
+    companyName: companyName,
     requisitionId: requisitionId,
     title: title,
     description: description,
@@ -52,6 +54,7 @@ function sampleCreateJob(projectId, requisitionId, title, description, jobApplic
 
 const argv = require(`yargs`)
   .default('project_id', 'Your Google Cloud Project ID')
+  .default('company_name', 'Company name, e.g. projects/your-project/companies/company-id')
   .default('requisition_id', 'Job requisition ID, aka Posting ID. Unique per job.')
   .default('title', 'Software Engineer')
   .default('description', 'This is a description of this <i>wonderful</i> job!')
@@ -61,4 +64,4 @@ const argv = require(`yargs`)
   .default('language_code', 'en-US')
   .argv;
 
-sampleCreateJob(argv.project_id, argv.requisition_id, argv.title, argv.description, argv.job_application_url, argv.address_one, argv.address_two, argv.language_code);
+sampleCreateJob(argv.project_id, argv.company_name, argv.requisition_id, argv.title, argv.description, argv.job_application_url, argv.address_one, argv.address_two, argv.language_code);

@@ -96,9 +96,11 @@ interfaces:
           variable: result
           collection: $resp.results
           body:
+          - comment: ["First alternative is the most probable result"]
+          - define: alternative=result.alternatives[0]
           - print:
             - "Transcript: %s"
-            - result.alternatives[0].transcript
+            - alternative.transcript
     - id: speech_transcribe_sync_gcs
       description: Transcribe audio file from Google Cloud Storage
       parameters:

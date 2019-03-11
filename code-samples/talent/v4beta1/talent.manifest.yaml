@@ -4,7 +4,23 @@ sets:
 - language: php
   bin: php
   path: talent/v4beta1/
-  __items__: []
+  __items__:
+  - region_tag: talent_get_job
+    path: php/GetJobRequestTalentGetJob.php
+  - region_tag: talent_list_companies
+    path: php/ListCompaniesRequestPagedAllTalentListCompanies.php
+  - region_tag: talent_list_jobs
+    path: php/ListJobsRequestPagedAllTalentListJobs.php
+  - region_tag: talent_create_job
+    path: php/CreateJobRequestTalentCreateJob.php
+  - region_tag: talent_get_company
+    path: php/GetCompanyRequestTalentGetCompany.php
+  - region_tag: talent_delete_company
+    path: php/DeleteCompanyRequestTalentDeleteCompany.php
+  - region_tag: talent_delete_job
+    path: php/DeleteJobRequestTalentDeleteJob.php
+  - region_tag: talent_create_company
+    path: php/CreateCompanyRequestTalentCreateCompany.php
 - language: python
   bin: python
   path: talent/v4beta1/

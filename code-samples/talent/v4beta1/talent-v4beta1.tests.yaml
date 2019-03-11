@@ -9,9 +9,7 @@ test:
     company_helpers:
       list: &list_companies
         target: talent_list_companies
-        #params: *params
-        params:
-          project_id: { variable: project_id }
+        params: *params
       create: &create_company
         target: talent_create_company
         params:

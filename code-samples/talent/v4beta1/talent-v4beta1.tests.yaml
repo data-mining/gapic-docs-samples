@@ -9,7 +9,9 @@ test:
     company_helpers:
       list: &list_companies
         target: talent_list_companies
-        params: *params
+        #params: *params
+        params:
+          project_id: { variable: project_id }
       create: &create_company
         target: talent_create_company
         params:
@@ -34,6 +36,11 @@ test:
           << : *params
           company_name:   { variable: company_name }
           requisition_id: { variable: job_test_identifier }
+      get: &get_job
+        target: talent_get_job
+        params:
+          << : *params
+          job_id: { variable: job_id }
       delete: &delete_job
         target: talent_delete_job
         params:
@@ -43,9 +50,6 @@ test:
   suites:
 
   - name: Managing Companies
-    helpers:  
-    - assert_contains: &assert_company_present
-      - variable: company_test_identifier
     setup:
     - env: { variable: project_id, name: GOOGLE_PROJECT_ID }
     - uuid: company_test_identifier
@@ -55,7 +59,7 @@ test:
     - name: Create Company
       spec:
       - call: *list_companies
-      - assert_not_contains: *assert_company_present
+      - assert_not_contains: [{ variable: company_test_identifier }]
       - call: *create_company
       - extract_matches: "/companies/(?P<company_id>[\\w-]+)"
       - assert_contains:
@@ -63,7 +67,8 @@ test:
         - literal: "Company name:"
         - variable: company_test_identifier
       - call: *list_companies
-      - assert_contains: *assert_company_present
+      - assert_contains: [{ variable: company_test_identifier }]
+    # TODO add with/out default values and add Get which prints out more of the details which Create accepts
     - name: List Companies
       spec:
       - call: *create_company
@@ -79,11 +84,13 @@ test:
       spec:
       - call: *create_company
       - extract_matches: "/companies/(?P<company_id>[\\w-]+)"
+      - call: *list_companies
+      - assert_contains: [{ variable: company_test_identifier }]
       - call: *delete_company
       - assert_contains:
         - literal: "Deleted company"
       - call: *list_companies
-      - assert_not_contains: *assert_company_present
+      - assert_not_contains: [{ variable: company_test_identifier }]
     - name: Get Company
       spec:
       - call: *create_company
@@ -100,6 +107,8 @@ test:
         - variable: company_id
 
   - name: Managing Jobs
+    # setup_global: *setup_global # <= if all setup* prefixed keys are processed as setup, then this becomes possible
+    # setup_company: *setup_company
     setup:
     - env: { variable: project_id, name: GOOGLE_PROJECT_ID }
     - uuid: company_test_identifier
@@ -112,10 +121,51 @@ test:
     - call_may_fail: *delete_job
     - call_may_fail: *delete_company
     cases:
-    # - name: Create Company
-    #   spec:
-    # - name: List Companies
-    #   spec:
+    - name: Create Job (default values)
+      spec:
+      - call: *list_jobs
+      - assert_not_contains: [{ variable: job_test_identifier }]
+      - call: *create_job
+      - extract_matches: "/jobs/(?P<job_id>[\\w-]+)"
+      - assert_contains: [{ literal: "Created job" }]
+      - call: *list_jobs
+      - assert_contains: [{ variable: job_test_identifier }]
+      - call: *get_job
+      - assert_contains:
+        - literal: "Title: Software Engineer"
+        - literal: "Description: This is a description of this <i>wonderful</i> job"
+        - literal: "Posting language: en-US"
+        - literal: "Address: 1600 Amphitheatre Parkway, Mountain View, CA 94043"
+        - literal: "Address: 111 8th Avenue, New York, NY 10011"
+        - literal: "Website: https://www.example.org/job-posting/123"
+    - name: Create Job (provided values)
+      spec:
+      - call: *list_jobs
+      - assert_not_contains: [{ variable: job_test_identifier }]
+      - call:
+          target: talent_create_job
+          params:
+            << : *params
+            company_name:        { variable: company_name }
+            requisition_id:      { variable: job_test_identifier }
+            title:               { literal:  "Custom job title" }
+            description:         { literal:  "Custom job description" }
+            job_application_url: { literal:  "http://example.org/custom/job" }
+            address_one:         { literal:  "Seattle, WA" }
+            address_two:         { literal:  "New York, NY" }
+            language_code:       { literal:  "en-GB" }
+      - extract_matches: "/jobs/(?P<job_id>[\\w-]+)"
+      - assert_contains: [{ literal: "Created job" }]
+      - call: *list_jobs
+      - assert_contains: [{ variable: job_test_identifier }]
+      - call: *get_job
+      - assert_contains:
+        - literal: "Title: Custom job title"
+        - literal: "Description: Custom job description"
+        - literal: "Posting language: en-GB"
+        - literal: "Address: Seattle, WA"
+        - literal: "Address: New York, NY"
+        - literal: "Website: http://example.org/custom/job"
     - name: List Jobs
       spec:
       - call: *create_job
@@ -125,8 +175,14 @@ test:
         - literal: "Job name:"
         - literal: "Job title: Software Engineer"
         - variable: job_id
-
-    # - name: Delete Company
-    #   spec:
-    # - name: Get Company
-    #   spec:
+    - name: Delete Job
+      spec:
+      - call: *create_job
+      - extract_matches: "/jobs/(?P<job_id>[\\w-]+)"
+      - call: *list_jobs
+      - assert_contains: [{ variable: job_test_identifier }]
+      - call: *delete_job
+      - assert_contains:
+        - literal: "Deleted job"
+      - call: *list_jobs
+      - assert_not_contains: [{ variable: job_test_identifier }]

@@ -630,8 +630,34 @@ interfaces:
       description: Get Job
       parameters:
         defaults:
+        - name%project="Your Google Cloud Project ID"
+        - name%jobs="Job ID"
         attributes:
+        - parameter: name%project
+          sample_argument_name: project_id
+        - parameter: name%jobs
+          sample_argument_name: job_id
       on_success:
+      - print: ["Job name: %s", $resp.name]
+      - print: ["Requisition ID: %s", $resp.requisition_id]
+      - print: ["Title: %s", $resp.title]
+      - print: ["Description: %s", $resp.description]
+      - print: ["Posting language: %s", $resp.language_code]
+      - loop:
+          collection: $resp.addresses
+          variable: address
+          body:
+          - print: ["Address: %s", address]
+      - loop:
+          collection: $resp.application_info.emails
+          variable: email
+          body:
+          - print: ["Email: %s", email]
+      - loop:
+          collection: $resp.application_info.uris
+          variable: website_uri
+          body:
+          - print: ["Website: %s", website_uri]
   - name: UpdateJob
     flattening:
       groups:
@@ -698,8 +724,14 @@ interfaces:
         - "Job name: %s"
         - $resp.name
       - print:
+        - "Job requisition ID: %s"
+        - $resp.requisition_id
+      - print:
         - "Job title: %s"
         - $resp.title
+      - print:
+        - "Job description: %s"
+        - $resp.description
     flattening:
       groups:
       - parameters:

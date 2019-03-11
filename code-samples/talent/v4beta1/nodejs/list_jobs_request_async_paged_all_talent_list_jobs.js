@@ -23,7 +23,9 @@ function sampleListJobs(projectId, filter) {
       const resources = responses[0];
       for (const resource of resources) {
         console.log(`Job name: ${resource.name}`);
+        console.log(`Job requisition ID: ${resource.requisitionId}`);
         console.log(`Job title: ${resource.title}`);
+        console.log(`Job description: ${resource.description}`);
       }
     })
     .catch(err => {

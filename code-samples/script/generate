@@ -204,6 +204,7 @@ done
 
 for request_calling_form in `find "$API_SAMPLES_DIRECTORY" -type f -name "*Request*.$LANGUAGE_EXTENSION"`; do
   sample_prefix="$( echo "$request_calling_form" | sed 's/^\(.*\)Request.*/\1/' | xargs basename )"
+  find "$API_VERSION_DIRECTORY" -type f -name "${sample_prefix}PagedCallableCallable*.$LANGUAGE_EXTENSION" -exec rm -v {} \;
   find "$API_VERSION_DIRECTORY" -type f -name "${sample_prefix}CallableCallable*.$LANGUAGE_EXTENSION" -exec rm -v {} \;
   find "$API_VERSION_DIRECTORY" -type f -name "${sample_prefix}Flattened*.$LANGUAGE_EXTENSION" -exec rm -v {} \;
 done

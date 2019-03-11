@@ -1,6 +1,8 @@
 # Talent v4beta1
 test:
 
+# TODO(beccasauus) s/talent_/job_search/g (because there are other talent APIs)
+
   helpers:
     parameters:
       global: &params
@@ -184,3 +186,27 @@ test:
         - literal: "Deleted job"
       - call: *list_jobs
       - assert_not_contains: [{ variable: job_test_identifier }]
+
+  - name: Completion Service
+    setup:
+    - env: { variable: project_id, name: GOOGLE_PROJECT_ID }
+    cases:
+    - name: Autocomplete Job Title
+      spec:
+      - call:
+          target: job_search_autocomplete_job_title
+          params:
+            << : *params
+            query: { literal: "Software E" }
+      - assert_contains:
+        - { literal: "Suggested title: Software Engineer" }
+      - call:
+          target: job_search_autocomplete_job_title
+          params:
+            << : *params
+            query: { literal: "Database A" }
+      - assert_contains:
+        - { literal: "Suggested title: Database Administrator" }
+
+      # Awaiting PHP enum value printing (currently  in latest rc protobuf release)
+      #- { literal: "Suggestion type: JOB_TITLE" }

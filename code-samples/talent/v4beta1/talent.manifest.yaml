@@ -9,6 +9,8 @@ sets:
     path: php/GetJobRequestTalentGetJob.php
   - region_tag: talent_list_companies
     path: php/ListCompaniesRequestPagedAllTalentListCompanies.php
+  - region_tag: job_search_autocomplete_job_title
+    path: php/CompleteQueryRequestJobSearchAutocompleteJobTitle.php
   - region_tag: talent_list_jobs
     path: php/ListJobsRequestPagedAllTalentListJobs.php
   - region_tag: talent_create_job
@@ -49,6 +51,8 @@ sets:
     path: nodejs/list_jobs_request_async_paged_all_talent_list_jobs.js
   - region_tag: talent_create_company
     path: nodejs/create_company_request_talent_create_company.js
+  - region_tag: job_search_autocomplete_job_title
+    path: nodejs/complete_query_request_job_search_autocomplete_job_title.js
 - language: java
   bin: "./script/java-exec talent/v4beta1/java "
   __items__: []

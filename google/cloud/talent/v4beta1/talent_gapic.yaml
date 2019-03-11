@@ -146,12 +146,8 @@ interfaces:
         - parameter: company.external_id
           sample_argument_name: external_id
       on_success:
-      - print:
-        - "Created company: %s"
-        - $resp.display_name
-      - print:
-        - "Company name: %s"
-        - $resp.name
+      - print: ["Created company: %s", $resp.display_name]
+      - print: ["Company name: %s", $resp.name]
     flattening:
       groups:
       - parameters:
@@ -197,12 +193,8 @@ interfaces:
         - parameter: name%company
           sample_argument_name: company_id
       on_success:
-      - print:
-        - "Company name: %s"
-        - $resp.name
-      - print:
-        - "Display name: %s"
-        - $resp.display_name
+      - print: ["Company name: %s", $resp.name]
+      - print: ["Display name: %s", $resp.display_name]
   - name: UpdateCompany
     flattening:
       groups:
@@ -232,8 +224,7 @@ interfaces:
         - parameter: name%company
           sample_argument_name: company_id
       on_success:
-      - print:
-        - "Deleted company"
+      - print: ["Deleted company"]
     flattening:
       groups:
       - parameters:
@@ -262,15 +253,9 @@ interfaces:
         - parameter: parent%project
           sample_argument_name: project_id
       on_success:
-      - print:
-        - "Company: %s"
-        - $resp.name
-      - print:
-        - "Display name: %s"
-        - $resp.display_name
-      - print:
-        - "External ID: %s"
-        - $resp.external_id
+      - print: ["Company: %s",      $resp.name]
+      - print: ["Display name: %s", $resp.display_name]
+      - print: ["External ID: %s",  $resp.external_id]
     flattening:
       groups:
       - parameters:
@@ -376,6 +361,38 @@ interfaces:
     field_name_patterns:
       name: project
     timeout_millis: 30000
+    samples:
+      standalone:
+      - calling_forms: ".*"
+        value_sets: [job_search_autocomplete_job_title]
+        region_tag: job_search_autocomplete_job_title
+    sample_value_sets:
+    - id: job_search_autocomplete_job_title
+      description: Complete job title given partial text (autocomplete)
+      parameters:
+        defaults:
+        - name%project="Your Google Cloud Project ID"
+        - query="[partially typed job title]"
+        - page_size=5
+        - language_codes[0]="en-US"
+        attributes:
+        - parameter: name%project
+          sample_argument_name: project_id
+        - parameter: query
+          sample_argument_name: query
+        - parameter: page_size
+          sample_argument_name: num_results
+        - parameter: language_codes[0]
+          sample_argument_name: language_code
+      on_success:
+      - loop:
+          collection: $resp.completion_results
+          variable: result
+          body:
+          - print:   ["Suggested title: %s", result.suggestion]
+          - comment: ["Suggestion type is JOB_TITLE or COMPANY_TITLE"]
+          - print:   ["Suggestion type: %s", result.type]
+
   # The fully qualified name of the API interface.
 - name: google.cloud.talent.v4beta1.EventService
   # Definition for retryable codes.
